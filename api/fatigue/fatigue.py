@@ -17,3 +17,4 @@ class Fatigue(Stress):
         super().__init__(min_stress, max_stress)
         self.mat_constant = mat_constant
         self.stress_model = stress_model
+        pass
