@@ -1,5 +1,5 @@
 from enum import Enum
-from fat_log import fatigue_logging
+from fatLog import error
 
 
 class Stress:
@@ -24,16 +24,18 @@ class Fatigue(Stress):
     def __init__(
         self,
         min_stress: float,
-        max_stress,
+        max_stress: float,
         mat_constant: float,
         stress_model: FatigueModel,
     ):
         super().__init__(min_stress, max_stress)
         self.mat_constant = mat_constant
+        if self.max_stress > self.mat_constant:
+            raise ValueError(error("Incorrect material constant"))
         try:
             self.stress_model = stress_model
         except KeyError:
-            fatigue_logging.error("Incorrect fatigue model selected")
+            error("Incorrect fatigue model selected")
         self.alt_stress = self.alternating_stress()
         self.mean_stress = self.mean_stress()
 
@@ -56,5 +58,4 @@ class Fatigue(Stress):
 
 
 if __name__ == "__main__":
-    test = Fatigue(-23, 45, 155, FatigueModel.GOODMAN)
-    test.get_fatigue_stress()
+    fatigue = Fatigue(-23, 34, 2, FatigueModel.GOODMAN)
