@@ -1,61 +1,77 @@
 from enum import Enum
+from typing import List
 from fatLog import error
 
 
-class Stress:
-    def __init__(self, min_stress: float, max_stress: float):
-        self.min_stress = min_stress
-        self.max_stress = max_stress
-
-    def alternating_stress(self) -> float:
-        return 0.5 * (self.max_stress - self.min_stress)
-
-    def mean_stress(self) -> float:
-        return 0.5 * (self.min_stress + self.max_stress)
-
-
-class FatigueModel(Enum):
+class FatigueTheory(Enum):
     GOODMAN = 1
     GERBER = 2
     SODERBERG = 3
 
 
-class Fatigue(Stress):
+class FatigueStress(object):
     def __init__(
         self,
-        min_stress: float,
-        max_stress: float,
+        min_stress: List[float],
+        max_stress: List[float],
         mat_constant: float,
-        stress_model: FatigueModel,
+        fatigue_model: FatigueTheory,
     ):
-        super().__init__(min_stress, max_stress)
+        self.min_stress = min_stress
+        self.max_stress = max_stress
         self.mat_constant = mat_constant
-        if self.max_stress > self.mat_constant:
-            raise ValueError(error("Incorrect material constant"))
-        try:
-            self.stress_model = stress_model
-        except KeyError:
-            error("Incorrect fatigue model selected")
-        self.alt_stress = self.alternating_stress()
-        self.mean_stress = self.mean_stress()
+        self.fatigue_model = fatigue_model
+        self.alternating_stress, self.mean_stress = self.get_stress_components()
 
-    def __goodman_stress(self) -> float:
-        return self.alt_stress / (1 - self.mean_stress / self.mat_constant)
+    def get_stress_components(self):
+        alt_stress = []
+        mean_stress = []
+        for s_min, s_max in zip(self.min_stress, self.max_stress):
+            if s_min > s_max or s_max > self.mat_constant:
+                raise ValueError(error("Incorrect input data"))
+            else:
+                alt_stress.append(0.5 * (s_max - s_min))
+                mean_stress.append(0.5 * (s_max + s_min))
+        return alt_stress, mean_stress
 
-    def __gerber_stress(self) -> float:
-        return self.alt_stress / (1 - (self.mean_stress / self.mat_constant) ** 2)
+    def __goodman_stress(self):
+        return tuple(
+            map(
+                lambda s_alt, s_mean: s_alt / (1 - s_mean / self.mat_constant),
+                self.alternating_stress,
+                self.mean_stress,
+            )
+        )
 
-    def __soderberg_stress(self) -> float:
-        return self.alt_stress / (1 - self.mean_stress / self.mat_constant)
+    def __gerber_stress(self):
+        return tuple(
+            map(
+                lambda s_alt, s_mean: s_alt / (1 - (s_mean / self.mat_constant) ** 2),
+                self.alternating_stress,
+                self.mean_stress,
+            )
+        )
 
-    def get_fatigue_stress(self) -> float:
-        models = {
-            FatigueModel.GOODMAN: self.__goodman_stress(),
-            FatigueModel.GERBER: self.__gerber_stress(),
-            FatigueModel.SODERBERG: self.__soderberg_stress(),
+    def __soderberg_stress(self):
+        return tuple(
+            map(
+                lambda s_alt, s_mean: s_alt / (1 - s_mean / self.mat_constant),
+                self.alternating_stress,
+                self.mean_stress,
+            )
+        )
+
+    def fatigue_stress(self):
+        fatigue_models = {
+            FatigueTheory.GOODMAN: self.__goodman_stress(),
+            FatigueTheory.GERBER: self.__gerber_stress(),
+            FatigueTheory.SODERBERG: self.__soderberg_stress(),
         }
-        return models[self.stress_model]
+        return fatigue_models[self.fatigue_model]
 
 
 if __name__ == "__main__":
-    fatigue = Fatigue(-23, 34, 2, FatigueModel.GOODMAN)
+    fatigue = FatigueStress([-23, -45, -65], [23, 45, 123], 155, FatigueTheory.GOODMAN)
+    print(fatigue.alternating_stress)
+    print(fatigue.mean_stress)
+    print(fatigue.fatigue_stress())
