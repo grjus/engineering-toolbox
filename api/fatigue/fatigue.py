@@ -68,10 +68,3 @@ class FatigueStress(object):
             FatigueTheory.SODERBERG: self.__soderberg_stress(),
         }
         return fatigue_models[self.fatigue_model]
-
-
-if __name__ == "__main__":
-    fatigue = FatigueStress([-23, -45, -65], [23, 45, 123], 155, FatigueTheory.GOODMAN)
-    print(fatigue.alternating_stress)
-    print(fatigue.mean_stress)
-    print(fatigue.fatigue_stress())

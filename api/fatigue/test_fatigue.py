@@ -5,6 +5,7 @@ import unittest
 class TestFatigue(unittest.TestCase):
     def setUp(self):
         self.mat_constant = 155
+        self.yield_str = 110
         self.case_1 = ((-25.23, -45.23, 34.22, 0.0), (23.0, 56.34, 56.45, 57.23))
         self.case_2 = ((-25.23, -45.23, 34.22, 0.0), (23.0, 56.34, 56.45, 160))
         self.case_3 = ((-25.23, -45.23, 64.5, 0.0), (23.0, 56.34, 56.45, 57.23))
@@ -31,6 +32,24 @@ class TestFatigue(unittest.TestCase):
             )
             result = list(map(lambda x: round(x, 2), fatigue.fatigue_stress()))
 
+    def test_soderberg_case1(self):
+        expected = [23.87, 53.49, 18.91, 38.68]
+        fatigue = FatigueStress(*self.case_1, self.yield_str, FatigueTheory.SODERBERG)
+        result = list(map(lambda x: round(x, 2), fatigue.fatigue_stress()))
+        self.assertEqual(result, expected)
+
+    def test_soderberg_case2(self):
+        with self.assertRaises(ValueError):
+            fatigue = FatigueStress(
+                *self.case_2, self.yield_str, FatigueTheory.SODERBERG
+            )
+
+    def test_soderberg_case3(self):
+        with self.assertRaises(ValueError):
+            fatigue = FatigueStress(
+                *self.case_3, self.yield_str, FatigueTheory.SODERBERG
+            )
+
     def test_gerber_case1(self):
         expected = [24.12, 50.85, 12.15, 29.62]
         fatigue = FatigueStress(*self.case_1, self.mat_constant, FatigueTheory.GERBER)
@@ -48,7 +67,6 @@ class TestFatigue(unittest.TestCase):
             fatigue = FatigueStress(
                 *self.case_3, self.mat_constant, FatigueTheory.GERBER
             )
-            result = list(map(lambda x: round(x, 2), fatigue.fatigue_stress()))
 
 
 if __name__ == "__main__":
