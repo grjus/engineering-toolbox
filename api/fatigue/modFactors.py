@@ -7,6 +7,8 @@ class ModificationFactors:
 
     SURFACE_FACTOR = {}
 
+    LOAD_FACTOR = {}
+
     @staticmethod
     def reliability_factor(prob: float) -> float:
         return 1 - norm.ppf(
@@ -18,6 +20,7 @@ class ModificationFactors:
         return ModificationFactors.SURFACE_FACTOR[surface_finish]
 
 
-if __name__ == "__main__":
-    mod = ModificationFactors.reliability_factor(95)
-    print(mod)
+def get_modification_factor(*args):
+    load_factor, surface_factor, rel_factor = args
+    if load_factor:
+        pass
