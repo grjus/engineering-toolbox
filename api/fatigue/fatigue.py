@@ -1,6 +1,6 @@
 from enum import Enum
 from typing import List
-from fatLog import error
+from fatigue.fatLog import error
 
 
 class FatigueTheory(Enum):
