@@ -43,5 +43,6 @@ class ModificationFactors:
             + e
         )
 
+    @staticmethod
     def load_factor(load_type: str):
         return ModificationFactors.LOAD_FACTOR[load_type]
