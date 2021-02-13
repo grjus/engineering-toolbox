@@ -35,14 +35,14 @@ class TestFatigue(unittest.TestCase):
         for diff in difference:
             self.assertTrue(diff > 99 and diff < 101)
 
-    def test_chart_plot(self):
-        baskin = BaskinModel(self.stress, 155, self.surface_factor)
-        cycles, stress = baskin.get_chart_data(True)
-        cycles_not, stress_not = baskin.get_chart_data(False)
-        from matplotlib import pyplot as plt
+    # def test_chart_plot(self):
+    #     baskin = BaskinModel(self.stress, 155, self.surface_factor)
+    #     cycles, stress = baskin.get_chart_data(True)
+    #     cycles_not, stress_not = baskin.get_chart_data(False)
+    #     from matplotlib import pyplot as plt
 
-        plt.plot(cycles, stress, "red", cycles_not, stress_not, "black")
-        plt.show()
+    #     plt.plot(cycles, stress, "red", cycles_not, stress_not, "black")
+    #     plt.show()
 
 
 if __name__ == "__main__":
