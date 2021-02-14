@@ -8,7 +8,7 @@ from fatigue.modFactors import ModificationFactors
 class FatigueWebWrapper:
     def __init__(self, payload):
         self.payload = payload.dict()
-        self.ult_strength = self.payload["ultimateStrength"]
+        # self.ult_strength = self.payload["ultimateStrength"]
         self.if_surf_factor, self.surf_factor_value = self.payload[
             "surfaceFactor"
         ].values()
