@@ -3,6 +3,9 @@ import numpy as np
 
 
 class BaskinModel(object):
+
+    NO_OF_CHART_POINTS = 200
+
     def __init__(
         self,
         faitgue_stress: List[float],
@@ -71,6 +74,8 @@ class BaskinModel(object):
     def get_chart_data(self, derated):
         self.get_baskin_params(derated)
         print(f"Modification factor {self.modification_factor}")
-        cycle_range = np.linspace(1000, 1_000_000, num=500, endpoint=True)
+        cycle_range = np.linspace(
+            1000, 1_000_000, num=self.NO_OF_CHART_POINTS, endpoint=True
+        )
         stress = [10 ** self.C_factor * item ** self.B_factor for item in cycle_range]
         return cycle_range, stress

@@ -16,12 +16,14 @@ class FatigueStress(object):
         max_stress: List[float],
         mat_constant: float,
         fatigue_model: FatigueTheory,
+        *args: List[float]
     ):
         self.min_stress = min_stress
         self.max_stress = max_stress
         self.mat_constant = mat_constant
         self.fatigue_model = fatigue_model
         self.alternating_stress, self.mean_stress = self.get_stress_components()
+        self.yield_strength = args[0]
 
     def get_stress_components(self):
         alt_stress = []
@@ -55,7 +57,7 @@ class FatigueStress(object):
     def __soderberg_stress(self):
         return tuple(
             map(
-                lambda s_alt, s_mean: s_alt / (1 - s_mean / self.mat_constant),
+                lambda s_alt, s_mean: s_alt / (1 - s_mean / self.yield_strength),
                 self.alternating_stress,
                 self.mean_stress,
             )

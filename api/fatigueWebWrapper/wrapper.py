@@ -2,8 +2,6 @@ from fatigue.fatigue import FatigueTheory, FatigueStress
 from fatigue.fatiguelife import BaskinModel
 from fatigue.modFactors import ModificationFactors
 
-# from ..fatiguelife import BaskinModel
-
 
 class FatigueWebWrapper:
     def __init__(self, payload, excel_data):
@@ -39,7 +37,7 @@ class FatigueWebWrapper:
                 float(self.rel_factor_value.split("%")[0])
             )
         if self.if_user_factor:
-            mod_factor = mod_factor * self.user_factor_value
+            mod_factor = mod_factor * float(self.user_factor_value)
         return mod_factor
 
     def fatigue(self):
@@ -50,6 +48,7 @@ class FatigueWebWrapper:
             self.stress_data["maxStress"],
             self.stress_data["ultimateStrength"],
             FatigueTheory[self.stress_data["fatigueTheory"]],
+            self.stress_data["yieldStrength"],
         )
         alt_stress = fatigue.alternating_stress
         mean_stress = fatigue.mean_stress
