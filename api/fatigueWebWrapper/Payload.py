@@ -2,6 +2,7 @@ from typing import List, Union
 from pydantic import BaseModel, validator
 from pydantic.networks import validate_email
 from fatigue.modFactors import ModificationFactors
+from fatigue.fatigue import FatigueTheory
 import re
 
 
@@ -57,6 +58,7 @@ class StressData(BaseModel):
     minStress: List[float] = []
     maxStress: List[float] = []
     requiredCycles: List[int] = None
+    fatigueTheory: str
 
     @validator("minStress")
     def validate_stress(cls, min_stress, values):
@@ -65,20 +67,28 @@ class StressData(BaseModel):
                 raise ValueError("Incorrect format of the input data")
         return min_stress
 
-    @validator("minStress")
-    def validate_stress_values(cls, min_stress, values):
-        print(values)
-        if "maxStress" in values:
-            print("HELLO")
-            for stress1, stress2 in zip(min_stress, values["maxStress"]):
-                print(stress1)
+    @validator("maxStress")
+    def validate_max_stress(cls, max_stress, values):
+        if "minStress" in values:
+            for stress1, stress2 in zip(values["minStress"], max_stress):
                 if stress1 >= stress2:
-                    raise ValueError("Minimum stress is greater than maximum one")
-        return min_stress
+                    raise ValueError(
+                        "Maximum stress should be higher than the minimum one"
+                    )
+                if "ultimateStrength" in values:
+                    if stress2 > values["ultimateStrength"]:
+                        raise ValueError(
+                            "Maximum stress should be less than ultimate strength"
+                        )
+        return max_stress
 
     @validator("requiredCycles")
     def validate_cycles(cls, req_cycles, values):
-        if "minStress" in values and len(values["minStress"]) != len(req_cycles):
+        if (
+            "minStress" in values
+            and len(values["minStress"]) != len(req_cycles)
+            or len(values["maxStress"]) != len(req_cycles)
+        ):
             raise ValueError("Incorrect format of the input data")
         return req_cycles
 
@@ -86,10 +96,6 @@ class StressData(BaseModel):
     def validate_ult_strength(cls, ult_strength, values):
         if ult_strength <= 0:
             raise ValueError("Ultimate strength should be greater than 0")
-        if "maxStress" in values:
-            for each in values["maxStress"]:
-                if each > ult_strength:
-                    raise ValueError("Ultimate strenght lower than maximum stress")
         return ult_strength
 
     @validator("yieldStrength")
@@ -98,6 +104,14 @@ class StressData(BaseModel):
             if yield_strength > values["ultimateStrength"]:
                 raise ValueError("Yield strength greater than ultimate strength")
         return yield_strength
+
+    @validator("fatigueTheory")
+    def validate_fatigue_theory(cls, theory):
+        valid_keys = FatigueTheory.__members__.keys()
+        if theory not in valid_keys:
+            raise ValueError(
+                f"Invalid model selected. Please use {','.join(valid_keys)}"
+            )
 
 
 class FatiguePayload(BaseModel):
