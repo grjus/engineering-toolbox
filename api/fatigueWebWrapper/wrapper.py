@@ -37,7 +37,7 @@ class FatigueWebWrapper:
                 float(self.rel_factor_value.split("%")[0])
             )
         if self.if_user_factor:
-            mod_factor = mod_factor * float(self.user_factor_value)
+            mod_factor = mod_factor * self.user_factor_value
         return mod_factor
 
     def fatigue(self):
@@ -80,15 +80,20 @@ class FatigueWebWrapper:
                 allowable_cycles,
                 damage,
             ):
-                data = [
-                    _min_stress,
-                    _max_stress,
-                    _alt_stress,
-                    _mean_stress,
-                    _fatigue_stress,
-                    _all_cycles,
-                    _damage,
-                ]
+                data = list(
+                    map(
+                        lambda x: round(x, 3),
+                        [
+                            _min_stress,
+                            _max_stress,
+                            _alt_stress,
+                            _mean_stress,
+                            _fatigue_stress,
+                            _all_cycles,
+                            _damage,
+                        ],
+                    )
+                )
                 excel_data.append(data)
             return excel_data
 

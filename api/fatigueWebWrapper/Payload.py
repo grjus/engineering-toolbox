@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List
 from pydantic import BaseModel, validator
 from pydantic.networks import validate_email
 from fatigue.modFactors import ModificationFactors
@@ -8,7 +8,11 @@ import re
 
 class ModificationFactor(BaseModel):
     isrequired: bool
-    value: Union[str, float]
+    value: str
+
+
+class UserModificationFactor(ModificationFactor):
+    value: float
 
 
 class SurfaceFactor(ModificationFactor):
@@ -43,11 +47,11 @@ class RelFactor(ModificationFactor):
         return rel_factor
 
 
-class UserFactor(ModificationFactor):
+class UserFactor(UserModificationFactor):
     @validator("value")
     def check_user_tag(cls, user_value, values):
         if values["isrequired"]:
-            if float(user_value) < 0.001 and float(user_value) > 10:
+            if user_value < 0.001 or user_value > 10:
                 raise ValueError("User value should be within 0.001 - 10 range")
         return user_value
 
