@@ -11,10 +11,9 @@ async def root():
     return {"message": "Hello World"}
 
 
-@app.post("/api/calculations/fatigue")
-async def calculate_fatigue(payload: FatiguePayload):
-    mod_factor = FatigueWebWrapper(payload).get_mod_factor()
-    print(f"Modification factor {mod_factor}")
+@app.post("/api/calculations/fatigue/")
+async def calculate_fatigue(payload: FatiguePayload, excel: bool = True):
+    return FatigueWebWrapper(payload, excel).fatigue()
 
 
 if __name__ == "__main__":

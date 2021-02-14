@@ -112,6 +112,7 @@ class StressData(BaseModel):
             raise ValueError(
                 f"Invalid model selected. Please use {','.join(valid_keys)}"
             )
+        return theory
 
 
 class FatiguePayload(BaseModel):
