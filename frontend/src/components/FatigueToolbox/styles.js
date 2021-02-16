@@ -1,4 +1,8 @@
-import { createMuiTheme } from '@material-ui/core/';
+// WARNING REMOVE BEFORE PRODUCTION
+// Used to silcense strict mode
+// <<findDOMNode is deprecated in StrictMode. findDOMNode was
+// passed an instance of Transition which is inside StrictMode">>
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core/';
 import { theme as globalTheme } from '../../style';
 
 const theme = {

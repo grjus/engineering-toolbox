@@ -1,5 +1,4 @@
 import styled, { createGlobalStyle } from 'styled-components';
-import { createMuiTheme } from '@material-ui/core';
 
 export const theme = {
   mainLayoutColor: '#E3E2DF',
@@ -9,15 +8,6 @@ export const theme = {
   logoColorHover: '#AC3B61',
 
 };
-
-export const materialUiTheme = createMuiTheme({
-  typography: {
-    fontFamily: [
-      'Times New Roman',
-      'sans-serif',
-    ].join(','),
-  },
-});
 
 const GlobalStyle = createGlobalStyle`
   body {

@@ -5,12 +5,14 @@ import { CustomDropDown } from './style';
 
 const DropDown = ({ handleChange, value, dropDownItems }) => (
   <Select
+    labelId="demo-customized-select-label"
+    id="demo-customized-select"
     value={value}
     onChange={handleChange}
     input={<CustomDropDown />}
   >
     {dropDownItems.map((item) => (
-      <MenuItem value={item.value}>{item.name}</MenuItem>
+      <MenuItem key={item.value} value={item.value}>{item.name}</MenuItem>
     ))}
   </Select>
 );
@@ -19,8 +21,8 @@ DropDown.propTypes = {
   handleChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   dropDownItems: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
   })).isRequired,
 };
 

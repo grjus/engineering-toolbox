@@ -1,6 +1,6 @@
 import React, { useState, createContext } from 'react';
 import PropTypes from 'prop-types';
-import { unitSystem } from './constants';
+// import { unitSystem } from './constants';
 
 const FatigueContext = createContext();
 const FatigueContextDispatch = createContext();
@@ -8,7 +8,7 @@ const FatigueContextDispatch = createContext();
 const FatigueStateProvider = ({ children }) => {
   const [fatigueState, setFatigueState] = useState({
     activeStep: 0,
-    unitSystem: unitSystem[0].value,
+    unitSystem: 'MPa',
   });
 
   return (

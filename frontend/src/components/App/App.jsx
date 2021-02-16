@@ -19,9 +19,7 @@ function App() {
       <TopBar />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <FatigueStateProvider>
-          <Route exact path="/fatigue" component={FatigueToolbox} />
-        </FatigueStateProvider>
+        <Route exact path="/fatigue" render={() => <FatigueStateProvider><FatigueToolbox /></FatigueStateProvider>} />
         <Route exact path="/neuber" component={NeuberToolbox} />
         <Route exact path="/composites" component={CompositeToolbox} />
         <Route exact path="/contact" component={Contact} />
