@@ -1,27 +1,40 @@
 import React, { useState } from 'react';
-import propTypes from 'prop-types';
+// Import application components
 
-const FatigueToolbox = ({ location }) => {
-  const [counter, setCounter] = useState(0);
-  const { state } = location;
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import StepContent from '@material-ui/core/StepContent';
+import Typography from '@material-ui/core/Typography';
+import { MuiThemeProvider } from '@material-ui/core';
+import FatigueStructure from './config';
+import { Container } from '../../style';
+import { StepperTheme } from './styles';
 
-  console.log(state);
+export default function FatigueToolbox() {
+  const [activeStep] = useState(2);
 
-  const handleIncreaseCounter = () => {
-    setCounter((prev) => prev + 1);
-  };
+  // const handleNextStep = () => {
+  //   setActiveStep((prev) => prev + 1);
+  // };
 
   return (
-    <>
-      <div>Fatigue Toolbox</div>
-      {counter}
-      <button type="button" onClick={handleIncreaseCounter}>Increase</button>
-    </>
+    <Container>
+
+      <MuiThemeProvider theme={StepperTheme}>
+        <Stepper activeStep={activeStep} orientation="vertical">
+          {FatigueStructure.map((items) => (
+            <Step key={items.key}>
+              <StepLabel>{items.name}</StepLabel>
+              <StepContent>
+                <Typography component="div">
+                  {items.component}
+                </Typography>
+              </StepContent>
+            </Step>
+          ))}
+        </Stepper>
+      </MuiThemeProvider>
+    </Container>
   );
-};
-
-FatigueToolbox.propTypes = {
-  location: propTypes.string.isRequired,
-};
-
-export default FatigueToolbox;
+}

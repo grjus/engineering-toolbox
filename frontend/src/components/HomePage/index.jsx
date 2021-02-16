@@ -1,7 +1,8 @@
 import React from 'react';
+import { Container } from '../../style';
 
 const HomePage = () => (
-  <div>HomePage</div>
+  <Container>HomePage</Container>
 );
 
 export default HomePage;
