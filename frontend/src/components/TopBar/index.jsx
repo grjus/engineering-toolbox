@@ -6,6 +6,7 @@ const TopBar = () => (
     <Logo href="">Engineering Toolbox</Logo>
     <Anchor>Contact</Anchor>
     <Anchor>About</Anchor>
+    <Anchor>Theory manual</Anchor>
   </Bar>
 );
 
