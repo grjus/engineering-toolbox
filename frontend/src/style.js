@@ -36,7 +36,7 @@ export const Container = styled.div`
 background-color:whitesmoke;
 width:80%;
 position:relative;
-top:20px;
+top:40px;
 bottom:0;
 left:0;
 right:0;

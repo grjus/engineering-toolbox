@@ -12,7 +12,7 @@ import { Container } from '../../style';
 import { StepperTheme } from './styles';
 
 export default function FatigueToolbox() {
-  const [activeStep] = useState(2);
+  const [activeStep] = useState(0);
 
   // const handleNextStep = () => {
   //   setActiveStep((prev) => prev + 1);
