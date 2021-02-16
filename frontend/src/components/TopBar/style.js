@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 export const Bar = styled.div`
 display:flex;
@@ -21,7 +22,7 @@ transition:color 0.3s ease-in-out;
 
 `;
 
-export const Anchor = styled.a`
+export const Anchor = styled(NavLink)`
 text-decoration:none;
 color:rgba(0,0,0,0.8);
 letter-spacing:0.5px;
