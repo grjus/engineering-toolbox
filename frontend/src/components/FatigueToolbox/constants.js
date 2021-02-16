@@ -9,3 +9,22 @@ export const unitSystem = [
   },
 
 ];
+
+export const modFac = [
+  {
+    value: 'isSrufaceFactor',
+    label: 'Surface factor',
+  },
+  {
+    value: 'isLoadFactor',
+    label: 'Load factor',
+  },
+  {
+    value: 'isRelFactor',
+    label: 'Reliability  factor',
+  },
+  {
+    value: 'ifCustomFactor',
+    label: 'User defined factor',
+  },
+];

@@ -31,7 +31,7 @@ bottom:0;
 left:0;
 right:0;
 margin:auto;
-border-radius:45px;
+border-radius:150px;
 `;
 
 export default GlobalStyle;
