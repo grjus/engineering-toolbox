@@ -1,36 +1,46 @@
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Card from '../ToolboxComponents/Card';
 import DropDown from '../ToolboxComponents/Dropdown';
 import { FormContent, Title } from '../ToolboxComponents/Card/style';
 import { unitSystem } from './constants';
-import { FatigueContext, FatigueContextDispatch } from './context';
+import { TextBox } from '../ToolboxComponents/TextBox';
+// import { FatigueContext } from './context';
 
 function MaterialData() {
-  const fatigueState = useContext(FatigueContext);
-  const fatigueStateDispatch = useContext(FatigueContextDispatch);
+  // const fatigueState = useContext(FatigueContext);
+  // const fatigueStateDispatch = useContext(FatigueContextDispatch);
 
-  const { handleSubmit, errors, register } = useForm({
+  const { control, watch, register } = useForm({
     defaultValues: {
-      unitSystem: fatigueState.unitSystem,
+      unitSystem: 'MPa',
+      ultimateStrength: 150,
     },
   });
+
+  const unitSystemWatch = watch('unitSystem');
+
+  useEffect(() => {
+    console.log(unitSystemWatch);
+  }, [unitSystemWatch]);
+
   return (
     <Card>
       <Title>
         Select stress unit system
       </Title>
       <FormContent>
-        <DropDown
-          dropDownItems={unitSystem}
-          value={fatigueState.unitSystem}
-          handleChange={(event) => fatigueStateDispatch({
-            ...fatigueState, unitSystem: event.target.value,
-          })}
-        />
+        <DropDown control={control} name="unitSystem" dropDownItems={unitSystem} />
       </FormContent>
       <Title>Specify material ultimate strength</Title>
-      <FormContent />
+      <FormContent>
+        <TextBox name="ultimateStrength" inputRef={register} label={`Ultimate strength, ${unitSystemWatch}`} />
+      </FormContent>
+      <Title>Define material modification factors</Title>
+      <FormContent flex>
+        <p>asdadsasdad</p>
+        <p>ddfff</p>
+      </FormContent>
     </Card>
   );
 }

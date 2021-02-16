@@ -23,7 +23,7 @@ export const CustomDropDown = withStyles((theme) => ({
     '&:focus': {
       borderRadius: 4,
       borderColor: `${globalTheme.logoColor}`,
-      boxShadow: `0 0 0 0.1rem ${globalTheme.topBarColor}`,
+      boxShadow: `0 0 0 0.05rem ${globalTheme.logoColor}`,
     },
   },
 }))(InputBase);

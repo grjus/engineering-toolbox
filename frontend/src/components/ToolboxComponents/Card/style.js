@@ -14,6 +14,10 @@ padding:0 5px 0 5px;
 `;
 
 export const FormContent = styled.div`
-
 padding:5px 0px 0px 10px;
+display:block;
+${({ flex }) => flex && `
+display:flex;
+justify-content:space-between;
+`}
 `;
