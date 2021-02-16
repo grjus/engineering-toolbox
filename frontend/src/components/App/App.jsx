@@ -10,6 +10,7 @@ import HomePage from '../HomePage';
 import PageNotFound from '../PageNotFound';
 import About from '../About';
 import TheoryManual from '../ThoeryManual';
+import { FatigueStateProvider } from '../FatigueToolbox/context';
 
 function App() {
   return (
@@ -18,7 +19,9 @@ function App() {
       <TopBar />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/fatigue" component={FatigueToolbox} />
+        <FatigueStateProvider>
+          <Route exact path="/fatigue" component={FatigueToolbox} />
+        </FatigueStateProvider>
         <Route exact path="/neuber" component={NeuberToolbox} />
         <Route exact path="/composites" component={CompositeToolbox} />
         <Route exact path="/contact" component={Contact} />
