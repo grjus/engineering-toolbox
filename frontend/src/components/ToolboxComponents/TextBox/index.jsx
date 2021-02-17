@@ -22,5 +22,9 @@ TextBox.propTypes = {
   name: PropTypes.string.isRequired,
   inputRef: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
-  error: PropTypes.string.isRequired,
+  error: PropTypes.instanceOf(Object),
+};
+
+TextBox.defaultProps = {
+  error: undefined,
 };

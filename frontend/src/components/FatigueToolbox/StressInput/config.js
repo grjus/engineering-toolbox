@@ -38,7 +38,7 @@ export const handleExcelOptions = () => {
     allowDeleteColumn: false,
     allowRenameColumn: false,
     tableOverflow: true,
-    tableHeight: '250px',
+    tableHeight: '200px',
     show: true,
 
     onload(instance) {

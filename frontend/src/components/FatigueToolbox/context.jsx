@@ -11,7 +11,7 @@ const FatigueContextDispatch = createContext();
 
 const FatigueStateProvider = ({ children }) => {
   const [fatigueState, setFatigueState] = useState({
-    activeStep: 2,
+    activeStep: 0,
     unitSystem: unitSystem[0].value,
     ultimateStrength: 150,
     isSrufaceFactor: false,

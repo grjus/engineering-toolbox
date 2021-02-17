@@ -3,13 +3,6 @@ import jexcel from 'jexcel';
 import './jexcel.css';
 import PropTypes from 'prop-types';
 
-// export default function DataTable({ children, options, setSpreadSheet }) {
-//   return (
-//     <JExcelTemplate setSpreadSheet={setSpreadSheet} options={options}>
-//       {children}
-//     </JExcelTemplate>
-//   );
-// }
 export default function DataTable({ options, handleSheet }) {
   const sheetRefTemp = useRef(null);
 
@@ -19,7 +12,7 @@ export default function DataTable({ options, handleSheet }) {
     }
   }, [options, handleSheet, sheetRefTemp]);
 
-  return <div ref={sheetRefTemp} />;
+  return <div ref={sheetRefTemp} style={{ height: '0px' }} />;
 }
 
 DataTable.propTypes = {

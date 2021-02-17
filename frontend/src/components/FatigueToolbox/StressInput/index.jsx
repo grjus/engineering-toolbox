@@ -47,7 +47,7 @@ function StressInput() {
         ...data,
       };
       fatigueStateDispatch((prev) => ({
-        ...prev, ...stressInputData,
+        ...prev, ...stressInputData, activeStep: 2,
       }));
     } else {
       fatigueStateDispatch((prev) => ({
@@ -69,13 +69,12 @@ function StressInput() {
         <DataTable options={handleExcelOptions()} handleSheet={setDataTable} />
         <ErrorMessage>{fatigueState.excelError}</ErrorMessage>
       </FormContent>
-
       <Title>Select fatigue theory</Title>
-      <FormContent>
+      <FormContent style={{ paddingTop: '0px' }}>
         <DropDown name="fatigueTheory" control={control} dropDownItems={fatigueTheoryItems} />
       </FormContent>
 
-      <FormContent style={{ marginTop: '20px' }}>
+      <FormContent style={{ marginTop: '10px' }}>
         {fatigueTheory === 'SODERBERG' ? (
           <TextBox
             name="yieldStrength"
