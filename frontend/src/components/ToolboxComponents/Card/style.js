@@ -11,6 +11,7 @@ export const Title = styled.p`
 font-size:16px;
 letter-spacing:0.5px;
 padding:0 5px 0 5px;
+color:black;
 `;
 
 export const FormContent = styled.div`
@@ -35,4 +36,5 @@ color:crimson;
 font-size:16px;
 font-weight:bold;
 letter-spacing:0.2px;
+min-height:22px;
 `;

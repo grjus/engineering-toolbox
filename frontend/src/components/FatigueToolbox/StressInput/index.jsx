@@ -11,7 +11,10 @@ import { handleExcelOptions, tableHeaders } from './config';
 import { fatigueTheoryItems } from './constants';
 import { TableHeaders } from './TableHeaders';
 import { TableButtonContainer } from './style';
-import { addRow, deleteRow, saveSpreadsheet } from './jexcelHelpers';
+import {
+  addRow, deleteRow, saveSpreadsheet,
+} from './jexcelHelpers';
+import { dataTableValidation, yieldStrValRules } from '../validators';
 import DropDown from '../../ToolboxComponents/Dropdown';
 import { TextBox } from '../../ToolboxComponents/TextBox';
 
@@ -19,7 +22,9 @@ function StressInput() {
   const fatigueStateDispatch = useContext(FatigueContextDispatch);
   const fatigueState = useContext(FatigueContext);
   const [dataTable, setDataTable] = useState(null);
-  const { control, watch, register } = useForm({
+  const {
+    control, watch, register, handleSubmit, errors,
+  } = useForm({
     defaultValues: {
       fatigueTheory: fatigueState.fatigueTheory,
       yieldStrength: fatigueState.yieldStrength,
@@ -34,43 +39,59 @@ function StressInput() {
     });
   };
 
-  const submitData = () => {
-    console.log(dataTable);
+  const submitData = (data) => {
+    const excelValidError = dataTableValidation(dataTable, fatigueState.ultimateStrength);
+    if (excelValidError === false) {
+      const stressInputData = {
+        excelData: dataTable.getData(),
+        ...data,
+      };
+      fatigueStateDispatch((prev) => ({
+        ...prev, ...stressInputData,
+      }));
+    } else {
+      fatigueStateDispatch((prev) => ({
+        ...prev, excelError: excelValidError,
+      }));
+    }
   };
 
   return (
     <Card>
       <Title>Specify stress values</Title>
-      <FormContent flex>
-        <FormContent>
-          <TableButtonContainer>
-            <CustomButton handleClick={() => addRow(dataTable)} label="Add row" buttonType="outlined" color="primary" />
-            <CustomButton handleClick={() => deleteRow(dataTable)} label="Delete row" buttonType="outlined" color="primary" />
-            <CustomButton handleClick={() => saveSpreadsheet(dataTable)} label="Save data" buttonType="outlined" color="primary" />
-          </TableButtonContainer>
-          <TableHeaders headersList={tableHeaders} unit={fatigueState.unitSystem} />
-          <DataTable options={handleExcelOptions()} handleSheet={setDataTable} />
-        </FormContent>
-      </FormContent>
-      <ErrorMessage>{fatigueState.excelError}</ErrorMessage>
       <FormContent>
-        <Title>Select fatigue theory</Title>
+        <TableButtonContainer>
+          <CustomButton handleClick={() => addRow(dataTable)} label="Add row" buttonType="outlined" color="primary" />
+          <CustomButton handleClick={() => deleteRow(dataTable)} label="Delete row" buttonType="outlined" color="primary" />
+          <CustomButton handleClick={() => saveSpreadsheet(dataTable)} label="Save data" buttonType="outlined" color="primary" />
+        </TableButtonContainer>
+        <TableHeaders headersList={tableHeaders} unit={fatigueState.unitSystem} />
+        <DataTable options={handleExcelOptions()} handleSheet={setDataTable} />
+        <ErrorMessage>{fatigueState.excelError}</ErrorMessage>
+      </FormContent>
+
+      <Title>Select fatigue theory</Title>
+      <FormContent>
         <DropDown name="fatigueTheory" control={control} dropDownItems={fatigueTheoryItems} />
       </FormContent>
+
       <FormContent style={{ marginTop: '20px' }}>
-        {fatigueTheory === 'SODERBERG' ? <TextBox name="yieldStrength" inputRef={register} label={`Yield strength,${fatigueState.unitSystem}`} /> : null}
+        {fatigueTheory === 'SODERBERG' ? (
+          <TextBox
+            name="yieldStrength"
+            inputRef={register(yieldStrValRules)}
+            label={`Yield strength,${fatigueState.unitSystem}`}
+            error={errors.yieldStrength}
+          />
+        ) : null}
       </FormContent>
 
       <ButtonContainer>
-        <CustomButton handleClick={submitData} label="Next" buttonType="contained" color="primary" />
+        <CustomButton handleClick={handleSubmit(submitData)} label="Next" buttonType="contained" color="primary" />
         <CustomButton handleClick={handleBack} label="Back" buttonType="contained" color="secondary" />
       </ButtonContainer>
     </Card>
   );
 }
-
-StressInput.propTypes = {
-
-};
 
 export default StressInput;

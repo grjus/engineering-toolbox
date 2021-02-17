@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
 
 export const Container = styled.div`
 background-color:whitesmoke;
-width:50%;
+width:800px;
 position:relative;
 top:40px;
 bottom:0;

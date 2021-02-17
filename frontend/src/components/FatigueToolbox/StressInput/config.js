@@ -1,16 +1,17 @@
 import { useContext } from 'react';
-import { FatigueContextDispatch } from '../context';
+import { FatigueContextDispatch, FatigueContext } from '../context';
 
-const initialExcelData = [[-50, 50, 200000], [-40, 80, 100000], [0, 100, 400000], [-50, 80, 200000], [-20, 90, 400000]];
-const EXCEL_LIMIT = 10;
+const EXCEL_LIMIT = 50;
 export const EXCEL_COLUMN_WIDTH = 180;
 
 export const handleExcelOptions = () => {
   const fatigueContextDispatch = useContext(FatigueContextDispatch);
+  const fatigueState = useContext(FatigueContext);
+  const { excelData } = fatigueState;
 
   const jexcelConfig = {
-    data: initialExcelData,
-    minDimensions: [initialExcelData[0].length, initialExcelData.length],
+    data: excelData,
+    minDimensions: [excelData[0].length, excelData.length],
     csvFileName: 'StressInput',
     columns: [{
       title: ' ',
@@ -37,7 +38,7 @@ export const handleExcelOptions = () => {
     allowDeleteColumn: false,
     allowRenameColumn: false,
     tableOverflow: true,
-    tableHeight: '300px',
+    tableHeight: '250px',
     show: true,
 
     onload(instance) {

@@ -2,7 +2,9 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import Card from '../../ToolboxComponents/Card';
 import DropDown from '../../ToolboxComponents/Dropdown';
-import { ButtonContainer, FormContent, Title } from '../../ToolboxComponents/Card/style';
+import {
+  ButtonContainer, FormContent, Title,
+} from '../../ToolboxComponents/Card/style';
 import {
   unitSystem, modFac, surfaceFinish, loadFactor, relFactor,
 } from './constants';
@@ -11,13 +13,14 @@ import CustomCheckbox from '../../ToolboxComponents/Checkbox';
 import { DropdownContainer } from './styles';
 import CustomButton from '../../ToolboxComponents/Button/Button';
 import { FatigueContext, FatigueContextDispatch } from '../context';
+import { ultStrValRules, userFacValRules } from '../validators';
 
 function MaterialData() {
   const fatigueState = useContext(FatigueContext);
   const fatigueStateDispatch = useContext(FatigueContextDispatch);
 
   const {
-    control, watch, register, handleSubmit,
+    control, watch, register, handleSubmit, errors,
   } = useForm({
     defaultValues: {
       unitSystem: fatigueState.unitSystem,
@@ -53,7 +56,7 @@ function MaterialData() {
       </FormContent>
       <Title>Specify material ultimate strength</Title>
       <FormContent>
-        <TextBox name="ultimateStrength" inputRef={register} label={`Ultimate strength, ${unitSystemWatch}`} />
+        <TextBox name="ultimateStrength" inputRef={register(ultStrValRules)} label={`Ultimate strength, ${unitSystemWatch}`} error={errors.ultimateStrength} />
       </FormContent>
       <Title>Define material modification factors</Title>
       <FormContent flex>
@@ -69,7 +72,7 @@ function MaterialData() {
 
       </FormContent>
       <FormContent>
-        {ifCustomFactor ? <TextBox name="customFactor" inputRef={register} label="User defined factor" /> : null}
+        {ifCustomFactor ? <TextBox name="customFactor" inputRef={register(userFacValRules)} label="User defined factor" error={errors.customFactor} /> : null}
       </FormContent>
       <ButtonContainer>
         <CustomButton handleClick={handleSubmit(submitData)} label="Next" buttonType="contained" color="primary" />
