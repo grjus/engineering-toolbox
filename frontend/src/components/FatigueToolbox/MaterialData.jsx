@@ -2,20 +2,23 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import Card from '../ToolboxComponents/Card';
 import DropDown from '../ToolboxComponents/Dropdown';
-import { FormContent, Title } from '../ToolboxComponents/Card/style';
+import { ButtonContainer, FormContent, Title } from '../ToolboxComponents/Card/style';
 import {
   unitSystem, modFac, surfaceFinish, loadFactor, relFactor,
 } from './constants';
 import { TextBox } from '../ToolboxComponents/TextBox';
 import CustomCheckbox from '../ToolboxComponents/Checkbox';
 import { DropdownContainer } from './styles';
+import CustomButton from '../ToolboxComponents/Button/Button';
 // import { FatigueContext } from './context';
 
 function MaterialData() {
   // const fatigueState = useContext(FatigueContext);
   // const fatigueStateDispatch = useContext(FatigueContextDispatch);
 
-  const { control, watch, register } = useForm({
+  const {
+    control, watch, register, handleSubmit,
+  } = useForm({
     defaultValues: {
       unitSystem: 'MPa',
       ultimateStrength: 150,
@@ -32,6 +35,8 @@ function MaterialData() {
   const {
     isSrufaceFactor, isLoadFactor, isRelFactor, ifCustomFactor, unitSystem: unitSystemWatch,
   } = watch();
+
+  const submitData = (data) => console.log(data);
 
   return (
     <Card>
@@ -61,6 +66,9 @@ function MaterialData() {
       <FormContent>
         {ifCustomFactor ? <TextBox name="customFactor" inputRef={register} label="User defined factor" /> : null}
       </FormContent>
+      <ButtonContainer>
+        <CustomButton handleClick={handleSubmit(submitData)} label="Next" buttonType="contained" color="primary" />
+      </ButtonContainer>
     </Card>
   );
 }

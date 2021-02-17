@@ -21,3 +21,11 @@ display:flex;
 justify-content:flex-start;
 `}
 `;
+
+export const ButtonContainer = styled.div`
+position:relative;
+top:20px;
+display:grid;
+grid-template-columns:repeat(2,150px);
+grid-gap:20px;
+`;
