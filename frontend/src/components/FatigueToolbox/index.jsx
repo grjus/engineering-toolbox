@@ -15,10 +15,6 @@ import { FatigueContext } from './context';
 export default function FatigueToolbox() {
   const fatigueState = useContext(FatigueContext);
 
-  // const handleNextStep = () => {
-  //   setActiveStep((prev) => prev + 1);
-  // };
-
   return (
 
     <Container>

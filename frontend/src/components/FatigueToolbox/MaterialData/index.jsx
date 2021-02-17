@@ -1,34 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import Card from '../ToolboxComponents/Card';
-import DropDown from '../ToolboxComponents/Dropdown';
-import { ButtonContainer, FormContent, Title } from '../ToolboxComponents/Card/style';
+import Card from '../../ToolboxComponents/Card';
+import DropDown from '../../ToolboxComponents/Dropdown';
+import { ButtonContainer, FormContent, Title } from '../../ToolboxComponents/Card/style';
 import {
   unitSystem, modFac, surfaceFinish, loadFactor, relFactor,
 } from './constants';
-import { TextBox } from '../ToolboxComponents/TextBox';
-import CustomCheckbox from '../ToolboxComponents/Checkbox';
+import { TextBox } from '../../ToolboxComponents/TextBox';
+import CustomCheckbox from '../../ToolboxComponents/Checkbox';
 import { DropdownContainer } from './styles';
-import CustomButton from '../ToolboxComponents/Button/Button';
-// import { FatigueContext } from './context';
+import CustomButton from '../../ToolboxComponents/Button/Button';
+import { FatigueContext, FatigueContextDispatch } from '../context';
 
 function MaterialData() {
-  // const fatigueState = useContext(FatigueContext);
-  // const fatigueStateDispatch = useContext(FatigueContextDispatch);
+  const fatigueState = useContext(FatigueContext);
+  const fatigueStateDispatch = useContext(FatigueContextDispatch);
 
   const {
     control, watch, register, handleSubmit,
   } = useForm({
     defaultValues: {
-      unitSystem: 'MPa',
-      ultimateStrength: 150,
-      isSrufaceFactor: false,
-      isLoadFactor: false,
-      isRelFactor: false,
-      ifCustomFactor: false,
-      surtfaceFinishFactor: surfaceFinish[0].value,
-      loadFactor: loadFactor[0].value,
-      relFactor: relFactor[0].value,
+      unitSystem: fatigueState.unitSystem,
+      ultimateStrength: fatigueState.ultimateStrength,
+      isSrufaceFactor: fatigueState.isSrufaceFactor,
+      isLoadFactor: fatigueState.isLoadFactor,
+      isRelFactor: fatigueState.isRelFactor,
+      ifCustomFactor: fatigueState.ifCustomFactor,
+      surtfaceFinishFactor: fatigueState.surtfaceFinishFactor,
+      loadFactor: fatigueState.loadFactor,
+      relFactor: fatigueState.relFactor,
+      customFactor: fatigueState.customFactor,
     },
   });
 
@@ -36,7 +37,11 @@ function MaterialData() {
     isSrufaceFactor, isLoadFactor, isRelFactor, ifCustomFactor, unitSystem: unitSystemWatch,
   } = watch();
 
-  const submitData = (data) => console.log(data);
+  const submitData = (data) => {
+    fatigueStateDispatch({
+      ...fatigueState, activeStep: 1, ...data,
+    });
+  };
 
   return (
     <Card>

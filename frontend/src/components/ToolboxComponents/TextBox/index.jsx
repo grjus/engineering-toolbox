@@ -4,7 +4,7 @@ import StyledTextField from './styles';
 
 export const TextBox = ({ name, inputRef, label }) => (
   <>
-    <StyledTextField id="outlined-basic" label={label} variant="outlined" name={name} inputRef={inputRef} />
+    <StyledTextField label={label} variant="outlined" name={name} inputRef={inputRef} />
   </>
 );
 

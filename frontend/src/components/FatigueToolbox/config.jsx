@@ -1,6 +1,6 @@
 import React from 'react';
+import DataTable from './StressInput';
 import MaterialData from './MaterialData';
-import DataTable from './DataTable';
 import Summary from './Summary';
 import Results from './Results';
 

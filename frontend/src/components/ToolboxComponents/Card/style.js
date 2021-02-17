@@ -29,3 +29,10 @@ display:grid;
 grid-template-columns:repeat(2,150px);
 grid-gap:20px;
 `;
+
+export const ErrorMessage = styled.p`
+color:crimson;
+font-size:16px;
+font-weight:bold;
+letter-spacing:0.2px;
+`;

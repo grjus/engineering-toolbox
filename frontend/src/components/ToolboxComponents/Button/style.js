@@ -27,8 +27,12 @@ const StyledButton = withStyles({
     },
   },
   outlinedPrimary: {
-    borderColor: theme.logoColor,
+    borderColor: 'rgba(0,0,0,0.3)',
     color: theme.logoColor,
+    fontSize: '14px',
+    maxWidth: '200px',
+    height: '30px',
+    fontWeight: 'normal',
     '&:hover': {
       backgroundColor: theme.mainLayoutColor,
       borderColor: theme.logoColor,
