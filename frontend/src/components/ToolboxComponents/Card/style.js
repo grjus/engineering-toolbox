@@ -18,6 +18,6 @@ padding:5px 0px 0px 10px;
 display:block;
 ${({ flex }) => flex && `
 display:flex;
-justify-content:space-between;
+justify-content:flex-start;
 `}
 `;

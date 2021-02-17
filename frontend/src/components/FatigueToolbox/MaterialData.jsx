@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import Card from '../ToolboxComponents/Card';
 import DropDown from '../ToolboxComponents/Dropdown';
 import { FormContent, Title } from '../ToolboxComponents/Card/style';
-import { unitSystem, modFac } from './constants';
+import {
+  unitSystem, modFac, surfaceFinish, loadFactor, relFactor,
+} from './constants';
 import { TextBox } from '../ToolboxComponents/TextBox';
 import CustomCheckbox from '../ToolboxComponents/Checkbox';
+import { DropdownContainer } from './styles';
 // import { FatigueContext } from './context';
 
 function MaterialData() {
@@ -20,14 +23,15 @@ function MaterialData() {
       isLoadFactor: false,
       isRelFactor: false,
       ifCustomFactor: false,
+      surtfaceFinishFactor: surfaceFinish[0].value,
+      loadFactor: loadFactor[0].value,
+      relFactor: relFactor[0].value,
     },
   });
 
-  const unitSystemWatch = watch('unitSystem');
-
-  useEffect(() => {
-    console.log(unitSystemWatch);
-  }, [unitSystemWatch]);
+  const {
+    isSrufaceFactor, isLoadFactor, isRelFactor, ifCustomFactor, unitSystem: unitSystemWatch,
+  } = watch();
 
   return (
     <Card>
@@ -43,10 +47,19 @@ function MaterialData() {
       </FormContent>
       <Title>Define material modification factors</Title>
       <FormContent flex>
-        <FormContent flex>
-          {modFac.map((i) => <CustomCheckbox key={i.value} name={i.value} control={control} label={i.label} />)}
+        <FormContent>
+          {modFac.map((item) => <CustomCheckbox key={item.value} name={item.value} control={control} label={item.label} />)}
         </FormContent>
+        <DropdownContainer>
+          {isSrufaceFactor ? <DropDown control={control} name="surtfaceFinishFactor" dropDownItems={surfaceFinish} /> : null}
+          {isLoadFactor ? <DropDown control={control} name="loadFactor" dropDownItems={loadFactor} /> : null}
+          {isRelFactor ? <DropDown control={control} name="relFactor" dropDownItems={relFactor} /> : null}
 
+        </DropdownContainer>
+
+      </FormContent>
+      <FormContent>
+        {ifCustomFactor ? <TextBox name="customFactor" inputRef={register} label="User defined factor" /> : null}
       </FormContent>
     </Card>
   );

@@ -1,4 +1,5 @@
 import { Checkbox, withStyles, FormControlLabel } from '@material-ui/core';
+import styled from 'styled-components';
 import { theme } from '../../../style';
 
 const StyledCheckbox = withStyles({
@@ -20,4 +21,11 @@ const StyledLabel = withStyles({
   },
 })(FormControlLabel);
 
-export { StyledCheckbox, StyledLabel };
+const CheckboxWrapper = styled.div`
+display:block;
+margin-top:-8px;
+`;
+
+export {
+  StyledCheckbox, StyledLabel, CheckboxWrapper,
+};

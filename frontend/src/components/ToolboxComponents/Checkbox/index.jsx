@@ -1,27 +1,28 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import PropTypes from 'prop-types';
-import { StyledCheckbox, StyledLabel } from './style';
+import { StyledCheckbox, StyledLabel, CheckboxWrapper } from './style';
 
 function CustomCheckbox({ name, control, label }) {
   return (
-    <StyledLabel
-      control={(
-        <Controller
-          name={name}
-          control={control}
-          render={(props) => (
-            <StyledCheckbox
-              checked={props.value}
-              onChange={(e) => props.onChange(e.target.checked)}
-              color="primary"
-            />
-          )}
-
-        />
+    <CheckboxWrapper>
+      <StyledLabel
+        control={(
+          <Controller
+            name={name}
+            control={control}
+            render={(props) => (
+              <StyledCheckbox
+                checked={props.value}
+                onChange={(e) => props.onChange(e.target.checked)}
+                color="primary"
+              />
+            )}
+          />
     )}
-      label={label}
-    />
+        label={label}
+      />
+    </CheckboxWrapper>
   );
 }
 CustomCheckbox.propTypes = {

@@ -3,6 +3,7 @@
 // <<findDOMNode is deprecated in StrictMode. findDOMNode was
 // passed an instance of Transition which is inside StrictMode">>
 import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core/';
+import styled from 'styled-components';
 import { theme as globalTheme } from '../../style';
 
 const theme = {
@@ -46,3 +47,11 @@ export const StepperTheme = createMuiTheme({
     },
   },
 });
+
+export const DropdownContainer = styled.div`
+margin-left:30px;
+float:left;
+display:grid;
+grid-template-columns: repeat(3, minmax(100px, auto));
+grid-gap:20px;
+`;

@@ -3,6 +3,7 @@ import { theme } from '../../../style';
 
 const StyledTextField = withStyles({
   root: {
+    width: '180px',
     '& label.Mui-focused': {
       color: `${theme.logoColor}`,
     },
