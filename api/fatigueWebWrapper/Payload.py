@@ -39,7 +39,7 @@ class LoadFactor(ModificationFactor):
 class RelFactor(ModificationFactor):
     @validator("value")
     def check_rel_tag(cls, rel_factor, values):
-        match = re.compile(r"[+]?[5-9]{2}[.]?([0-9]+)?%")
+        match = re.compile(r"[+]?[5-9]{1}[0-9]{1}[.]?([0-9]+)?%")
         matched_factor = re.search(match, rel_factor)
         if values["isrequired"]:
             if not matched_factor:
@@ -58,7 +58,7 @@ class UserFactor(UserModificationFactor):
 
 class StressData(BaseModel):
     ultimateStrength: float
-    yieldStrength: float
+    yieldStrength: Union[float,None]=10
     minStress: List[float] = []
     maxStress: List[float] = []
     requiredCycles: List[int] = None
@@ -105,8 +105,11 @@ class StressData(BaseModel):
     @validator("yieldStrength")
     def validate_yield_strength(cls, yield_strength, values):
         if "ultimateStrength" in values:
-            if yield_strength > values["ultimateStrength"]:
+            if isinstance(yield_strength,float) and yield_strength > values["ultimateStrength"]:
                 raise ValueError("Yield strength greater than ultimate strength")
+            if isinstance(yield_strength,float) and yield_strength <=0:
+                print(yield_strength)
+                raise ValueError("Yield strenght should be greater than zero")
         return yield_strength
 
     @validator("fatigueTheory")

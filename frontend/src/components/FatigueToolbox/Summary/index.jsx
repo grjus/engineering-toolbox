@@ -19,13 +19,14 @@ function Summary() {
 
   const handleSubmit = () => {
     const data = prepareDataToApi(fatigueState);
-    fastApi.post('api/calculations/fatigue/', JSON.stringify(data)).catch((error) => {
+    console.log(data);
+    fastApi.post('api/calculations/fatigue/', JSON.stringify(data)).then((response) => console.log(response.data)).catch((error) => {
       if (error.response.status === 422) {
         error.response.data.detail.forEach((element) => {
           console.log(element.msg);
         });
       }
-    }).then((response) => console.log(response.data));
+    });
     // console.log(response.data);
   };
 

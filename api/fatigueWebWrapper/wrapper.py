@@ -42,7 +42,6 @@ class FatigueWebWrapper:
 
     def fatigue(self):
         modification_factor = self.get_mod_factor()
-        print("Hasdasdasdasd", self.stress_data["fatigueTheory"])
         fatigue = FatigueStress(
             self.stress_data["minStress"],
             self.stress_data["maxStress"],

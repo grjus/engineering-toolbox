@@ -23,7 +23,8 @@ class FatigueStress(object):
         self.mat_constant = mat_constant
         self.fatigue_model = fatigue_model
         self.alternating_stress, self.mean_stress = self.get_stress_components()
-        self.yield_strength = args[0]
+        self.yield_strength = args[0]==None if 1 else args[0]
+        print(f'Yeidl strenght {args[0]}')
 
     def get_stress_components(self):
         alt_stress = []

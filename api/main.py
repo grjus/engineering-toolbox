@@ -29,9 +29,9 @@ async def root():
 
 @app.post("/api/calculations/fatigue/")
 async def calculate_fatigue(payload: FatiguePayload, excel: bool = True):
-    print(payload)
-    return {"Status" :'OK'}
-    # return FatigueWebWrapper(payload, excel).fatigue()
+    # print(payload)
+    # return {"Status" :'OK'}
+    return FatigueWebWrapper(payload, excel).fatigue()
 
 
 if __name__ == "__main__":

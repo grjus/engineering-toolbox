@@ -32,7 +32,7 @@ const FatigueStateProvider = ({ children }) => {
     ultimateStrength: 150,
     excelError: '',
     fatigueTheory: fatigueTheoryItems[0].value,
-    yieldStrength: 110,
+    yieldStrength: 10,
     excelData: [[-50, 50, 200000], [-40, 80, 100000], [0, 100, 400000], [-50, 80, 200000], [-20, 90, 400000]],
     excelDataApi: null,
   });
