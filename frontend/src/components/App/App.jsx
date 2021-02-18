@@ -15,7 +15,6 @@ import useApiHealth from '../customHooks';
 
 function App() {
   const error = useApiHealth(8000);
-
   if (error) {
     return <Redirect to="" />;
   }
