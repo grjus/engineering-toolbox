@@ -1,6 +1,6 @@
 const STRESS_UNIT = {
   ksi: 1,
-  MPa: 6.89475908677537,
+  MPa: 0.1450377,
 };
 
 class UnitConversion {
@@ -15,8 +15,8 @@ class UnitConversion {
   }
 
   to(to) {
-    this.unitValue /= this.unitValue[to];
-    return this;
+    this.unitValue /= this.unit[to];
+    return this.unitValue;
   }
 }
 

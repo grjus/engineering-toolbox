@@ -1,7 +1,7 @@
 import React, { useState, createContext } from 'react';
 import PropTypes from 'prop-types';
 import {
-  unitSystem, surfaceFinish, relFactor, loadFactor,
+  unitSystemItems, surfaceFinishItems, relFactorItems, loadFactorItems,
 } from './MaterialData/constants';
 
 import { fatigueTheoryItems } from './StressInput/constants';
@@ -12,20 +12,29 @@ const FatigueContextDispatch = createContext();
 const FatigueStateProvider = ({ children }) => {
   const [fatigueState, setFatigueState] = useState({
     activeStep: 0,
-    unitSystem: unitSystem[0].value,
+    unitSystem: unitSystemItems[0].value,
+    surfaceFactor: {
+      isrequired: false,
+      value: surfaceFinishItems[0].value,
+    },
+    loadFactor: {
+      isrequired: false,
+      value: loadFactorItems[0].value,
+    },
+    reliabilityFactor: {
+      isrequired: false,
+      value: relFactorItems[0].value,
+    },
+    userDefinedFactor: {
+      isrequired: false,
+      value: null,
+    },
     ultimateStrength: 150,
-    isSrufaceFactor: false,
-    isLoadFactor: false,
-    isRelFactor: false,
-    ifCustomFactor: false,
-    surtfaceFinishFactor: surfaceFinish[0].value,
-    loadFactor: loadFactor[0].value,
-    relFactor: relFactor[0].value,
-    customFactor: '',
     excelError: '',
     fatigueTheory: fatigueTheoryItems[0].value,
     yieldStrength: 110,
     excelData: [[-50, 50, 200000], [-40, 80, 100000], [0, 100, 400000], [-50, 80, 200000], [-20, 90, 400000]],
+    excelDataApi: null,
   });
 
   return (

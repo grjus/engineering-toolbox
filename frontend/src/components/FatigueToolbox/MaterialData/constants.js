@@ -1,4 +1,4 @@
-export const unitSystem = [
+export const unitSystemItems = [
   {
     value: 'ksi',
     name: 'ksi',
@@ -10,7 +10,7 @@ export const unitSystem = [
 
 ];
 
-export const modFac = [
+export const modFacItems = [
   {
     value: 'isSrufaceFactor',
     label: 'Surface factor',
@@ -29,7 +29,7 @@ export const modFac = [
   },
 ];
 
-export const surfaceFinish = [
+export const surfaceFinishItems = [
   {
     value: 'RHR1',
     name: 'RHR1',
@@ -76,7 +76,7 @@ export const surfaceFinish = [
   },
 ];
 
-export const loadFactor = [
+export const loadFactorItems = [
   {
     name: 'BENDING',
     value: 'BENDING',
@@ -92,7 +92,7 @@ export const loadFactor = [
 
 ];
 
-export const relFactor = [
+export const relFactorItems = [
   {
     name: '50%',
     value: '50%',

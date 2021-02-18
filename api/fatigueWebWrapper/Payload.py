@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 from pydantic import BaseModel, validator
 from pydantic.networks import validate_email
 from fatigue.modFactors import ModificationFactors
@@ -12,7 +12,7 @@ class ModificationFactor(BaseModel):
 
 
 class UserModificationFactor(ModificationFactor):
-    value: float
+    value: Union[float,None]
 
 
 class SurfaceFactor(ModificationFactor):

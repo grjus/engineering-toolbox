@@ -44,6 +44,7 @@ function StressInput() {
     if (excelValidError === false) {
       const stressInputData = {
         excelData: dataTable.getData(),
+        excelDataApi: [dataTable.getColumnData([0]), dataTable.getColumnData([1]), dataTable.getColumnData([2])],
         ...data,
       };
       fatigueStateDispatch((prev) => ({

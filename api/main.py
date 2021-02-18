@@ -13,7 +13,7 @@ origins = [
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_methods=["POST","GET"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
@@ -29,7 +29,9 @@ async def root():
 
 @app.post("/api/calculations/fatigue/")
 async def calculate_fatigue(payload: FatiguePayload, excel: bool = True):
-    return FatigueWebWrapper(payload, excel).fatigue()
+    print(payload)
+    return {"Status" :'OK'}
+    # return FatigueWebWrapper(payload, excel).fatigue()
 
 
 if __name__ == "__main__":

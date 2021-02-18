@@ -75,7 +75,7 @@ const SummaryTable = () => {
 
     <List>
       {data.map((each) => (
-        <ListItem key={each.value}>
+        <ListItem key={each.label}>
           <Label>{each.label}</Label>
           <Content>{each.status ? each.value : 'n/a'}</Content>
         </ListItem>

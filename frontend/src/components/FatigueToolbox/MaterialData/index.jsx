@@ -6,7 +6,7 @@ import {
   ButtonContainer, FormContent, Title,
 } from '../../ToolboxComponents/Card/style';
 import {
-  unitSystem, modFac, surfaceFinish, loadFactor, relFactor,
+  unitSystemItems, modFacItems, surfaceFinishItems, loadFactorItems, relFactorItems,
 } from './constants';
 import { TextBox } from '../../ToolboxComponents/TextBox';
 import CustomCheckbox from '../../ToolboxComponents/Checkbox';
@@ -18,6 +18,9 @@ import { ultStrValRules, userFacValRules } from '../validators';
 function MaterialData() {
   const fatigueState = useContext(FatigueContext);
   const fatigueStateDispatch = useContext(FatigueContextDispatch);
+  const {
+    surfaceFactor, loadFactor, reliabilityFactor, userDefinedFactor,
+  } = fatigueState;
 
   const {
     control, watch, register, handleSubmit, errors,
@@ -25,14 +28,14 @@ function MaterialData() {
     defaultValues: {
       unitSystem: fatigueState.unitSystem,
       ultimateStrength: fatigueState.ultimateStrength,
-      isSrufaceFactor: fatigueState.isSrufaceFactor,
-      isLoadFactor: fatigueState.isLoadFactor,
-      isRelFactor: fatigueState.isRelFactor,
-      ifCustomFactor: fatigueState.ifCustomFactor,
-      surtfaceFinishFactor: fatigueState.surtfaceFinishFactor,
-      loadFactor: fatigueState.loadFactor,
-      relFactor: fatigueState.relFactor,
-      customFactor: fatigueState.customFactor,
+      isSrufaceFactor: surfaceFactor.isrequired,
+      isLoadFactor: loadFactor.isrequired,
+      isRelFactor: reliabilityFactor.isrequired,
+      ifCustomFactor: userDefinedFactor.isrequired,
+      surtfaceFinishFactor: surfaceFactor.value,
+      loadFactor: loadFactor.value,
+      relFactor: reliabilityFactor.value,
+      customFactor: userDefinedFactor.value,
     },
   });
 
@@ -42,7 +45,26 @@ function MaterialData() {
 
   const submitData = (data) => {
     fatigueStateDispatch({
-      ...fatigueState, activeStep: 1, ...data,
+      ...fatigueState,
+      activeStep: 1,
+      unitSystem: data.unitSystem,
+      ultimateStrength: data.ultimateStrength,
+      surfaceFactor: {
+        isrequired: data.isSrufaceFactor,
+        value: data.surtfaceFinishFactor || surfaceFactor.value,
+      },
+      loadFactor: {
+        isrequired: data.isLoadFactor,
+        value: data.loadFactor || loadFactor.value,
+      },
+      reliabilityFactor: {
+        isrequired: data.isRelFactor,
+        value: data.relFactor || reliabilityFactor.value,
+      },
+      userDefinedFactor: {
+        isrequired: data.ifCustomFactor,
+        value: data.customFactor || userDefinedFactor.value,
+      },
     });
   };
 
@@ -52,7 +74,7 @@ function MaterialData() {
         Select stress unit system
       </Title>
       <FormContent>
-        <DropDown control={control} name="unitSystem" dropDownItems={unitSystem} />
+        <DropDown control={control} name="unitSystem" dropDownItems={unitSystemItems} />
       </FormContent>
       <Title>Specify material ultimate strength</Title>
       <FormContent>
@@ -61,12 +83,12 @@ function MaterialData() {
       <Title>Define material modification factors</Title>
       <FormContent flex>
         <FormContent>
-          {modFac.map((item) => <CustomCheckbox key={item.value} name={item.value} control={control} label={item.label} />)}
+          {modFacItems.map((item) => <CustomCheckbox key={item.value} name={item.value} control={control} label={item.label} />)}
         </FormContent>
         <DropdownContainer>
-          {isSrufaceFactor ? <DropDown control={control} name="surtfaceFinishFactor" dropDownItems={surfaceFinish} /> : null}
-          {isLoadFactor ? <DropDown control={control} name="loadFactor" dropDownItems={loadFactor} /> : null}
-          {isRelFactor ? <DropDown control={control} name="relFactor" dropDownItems={relFactor} /> : null}
+          {isSrufaceFactor ? <DropDown control={control} name="surtfaceFinishFactor" dropDownItems={surfaceFinishItems} /> : null}
+          {isLoadFactor ? <DropDown control={control} name="loadFactor" dropDownItems={loadFactorItems} /> : null}
+          {isRelFactor ? <DropDown control={control} name="relFactor" dropDownItems={relFactorItems} /> : null}
 
         </DropdownContainer>
 
