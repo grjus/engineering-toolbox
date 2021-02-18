@@ -51,7 +51,7 @@ class FatigueWebWrapper:
         )
         alt_stress = fatigue.alternating_stress
         mean_stress = fatigue.mean_stress
-        fatigue_stress = fatigue.fatigue_stress()
+        fatigue_stress = fatigue.fatigue_stress()()
         baskin = BaskinModel(
             fatigue_stress, self.stress_data["ultimateStrength"], modification_factor
         )

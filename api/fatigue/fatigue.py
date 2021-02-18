@@ -1,6 +1,5 @@
 from enum import Enum
 from typing import List
-from fatigue.fatLog import error
 
 
 class FatigueTheory(Enum):
@@ -16,22 +15,21 @@ class FatigueStress(object):
         max_stress: List[float],
         mat_constant: float,
         fatigue_model: FatigueTheory,
-        *args: List[float]
+        yield_strength:float=1
     ):
         self.min_stress = min_stress
         self.max_stress = max_stress
         self.mat_constant = mat_constant
         self.fatigue_model = fatigue_model
         self.alternating_stress, self.mean_stress = self.get_stress_components()
-        self.yield_strength = args[0]==None if 1 else args[0]
-        print(f'Yeidl strenght {args[0]}')
+        self.yield_strength = yield_strength
 
     def get_stress_components(self):
         alt_stress = []
         mean_stress = []
         for s_min, s_max in zip(self.min_stress, self.max_stress):
             if s_min > s_max or s_max > self.mat_constant:
-                raise ValueError(error("Incorrect input data"))
+                raise ValueError("Incorrect input data")
             else:
                 alt_stress.append(0.5 * (s_max - s_min))
                 mean_stress.append(0.5 * (s_max + s_min))
@@ -56,6 +54,7 @@ class FatigueStress(object):
         )
 
     def __soderberg_stress(self):
+        print("Calling Sodeberg")
         return tuple(
             map(
                 lambda s_alt, s_mean: s_alt / (1 - s_mean / self.yield_strength),
@@ -66,8 +65,10 @@ class FatigueStress(object):
 
     def fatigue_stress(self):
         fatigue_models = {
-            FatigueTheory.GOODMAN: self.__goodman_stress(),
-            FatigueTheory.GERBER: self.__gerber_stress(),
-            FatigueTheory.SODERBERG: self.__soderberg_stress(),
+            FatigueTheory.GOODMAN: self.__goodman_stress,
+            FatigueTheory.GERBER: self.__gerber_stress,
+            FatigueTheory.SODERBERG: self.__soderberg_stress,
         }
         return fatigue_models[self.fatigue_model]
+
+

@@ -31,20 +31,24 @@ export const dataTableValidation = (spreadsheet, refValue) => {
 };
 
 const MIN_YIELD_STRENGTH = 10;
+const MAX_YIELD_STRENGTH = 2000;
 const MIN_ULT_STRENGTH = 10;
+const MAX_ULT_STRENGTH = 2000;
 const MIN_DERATING_FACTOR = 5E-2;
 const MAX_DERATING_FACTOR = 10;
 
 export const ultStrValRules = {
   required: { value: true, message: 'Value is required' },
-  min: { value: MIN_ULT_STRENGTH, message: `Error:Value less than ${MIN_ULT_STRENGTH}` },
+  min: { value: MIN_ULT_STRENGTH, message: `Value less than ${MIN_ULT_STRENGTH}` },
+  max: { value: MAX_ULT_STRENGTH, message: `Value greater than ${MAX_ULT_STRENGTH}` },
 };
 export const yieldStrValRules = {
   required: { value: true, message: 'Value is required' },
-  min: { value: MIN_YIELD_STRENGTH, message: `Error:Value less than ${MIN_YIELD_STRENGTH}` },
+  min: { value: MIN_YIELD_STRENGTH, message: `Value less than ${MIN_YIELD_STRENGTH}` },
+  max: { value: MAX_YIELD_STRENGTH, message: `Value greater than ${MAX_YIELD_STRENGTH}` },
 };
 export const userFacValRules = {
   required: { value: true, message: 'Value is required' },
-  min: { value: MIN_DERATING_FACTOR, message: `Error:Value less than ${MIN_DERATING_FACTOR}` },
-  max: { value: MAX_DERATING_FACTOR, message: `Error:Value greater than ${MAX_DERATING_FACTOR}` },
+  min: { value: MIN_DERATING_FACTOR, message: `Value less than ${MIN_DERATING_FACTOR}` },
+  max: { value: MAX_DERATING_FACTOR, message: `Value greater than ${MAX_DERATING_FACTOR}` },
 };

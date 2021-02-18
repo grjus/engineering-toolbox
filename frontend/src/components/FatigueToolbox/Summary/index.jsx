@@ -1,15 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useReducer } from 'react';
 import CustomButton from '../../ToolboxComponents/Button/Button';
 import Card from '../../ToolboxComponents/Card';
-import { ButtonContainer, Title } from '../../ToolboxComponents/Card/style';
+import {
+  ButtonContainer, ErrorMessage, FormContent, Title,
+} from '../../ToolboxComponents/Card/style';
 import SummaryTable from './SummaryTable';
 import { FatigueContextDispatch, FatigueContext } from '../context';
 import { prepareDataToApi } from './handlers';
 import fastApi from '../../Api';
+import { initialState, dataSubmitReducer, actionType } from './reducer';
+import CustomSpinner from './Spinner';
+import { SpinnerContainer } from './styles';
 
 function Summary() {
   const faitgueDispatch = useContext(FatigueContextDispatch);
   const fatigueState = useContext(FatigueContext);
+  const [state, dispatch] = useReducer(dataSubmitReducer, initialState);
 
   const handleBack = () => {
     faitgueDispatch((prev) => ({
@@ -19,15 +25,27 @@ function Summary() {
 
   const handleSubmit = () => {
     const data = prepareDataToApi(fatigueState);
-    console.log(data);
-    fastApi.post('api/calculations/fatigue/', JSON.stringify(data)).then((response) => console.log(response.data)).catch((error) => {
-      if (error.response.status === 422) {
+    dispatch({ type: actionType.SUBMIT });
+    fastApi.post('api/calculations/fatigue/', JSON.stringify(data)).then((response) => {
+      faitgueDispatch((prev) => {
+        dispatch({ type: actionType.SUCCESS });
+        return {
+          ...prev,
+          results: response.data,
+          activeStep: 3,
+        };
+      });
+    }).catch((error) => {
+      if (!error.response) {
+        dispatch({ type: actionType.FAIL, payload: 'Error in connection to Python API' });
+      } else if (error.response.status === 422) {
         error.response.data.detail.forEach((element) => {
-          console.log(element.msg);
+          dispatch({ type: actionType.FAIL, payload: element.msg });
         });
+      } else {
+        dispatch({ type: actionType.FAIL, payload: 'Analysis error. Review your input data' });
       }
     });
-    // console.log(response.data);
   };
 
   return (
@@ -36,10 +54,17 @@ function Summary() {
         Input data overview
       </Title>
       <SummaryTable />
-      <ButtonContainer>
-        <CustomButton handleClick={handleSubmit} label="Calculate" buttonType="contained" color="primary" />
-        <CustomButton handleClick={handleBack} label="Back" buttonType="contained" color="secondary" />
-      </ButtonContainer>
+      <FormContent>
+        {state.errorMessage ? state.errorMessage.map((item) => <ErrorMessage key={`error-${item}`}>{`Error:${item}`}</ErrorMessage>) : null}
+      </FormContent>
+      <SpinnerContainer>
+        <ButtonContainer>
+          <CustomButton handleClick={handleSubmit} label="Calculate" buttonType="contained" color="primary" disabled={state.isRunning} />
+          <CustomButton handleClick={handleBack} label="Back" buttonType="contained" color="secondary" disabled={state.isRunning} />
+        </ButtonContainer>
+        {state.isRunning ? <CustomSpinner /> : null}
+      </SpinnerContainer>
+
     </Card>
   );
 }
