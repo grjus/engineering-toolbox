@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import GlobalStyle from '../../style';
 import TopBar from '../TopBar';
 import FatigueToolbox from '../FatigueToolbox';
@@ -11,9 +11,16 @@ import PageNotFound from '../PageNotFound';
 import About from '../About';
 import TheoryManual from '../ThoeryManual';
 import { FatigueStateProvider } from '../FatigueToolbox/context';
+import useApiHealth from '../customHooks';
 
 function App() {
+  const error = useApiHealth(8000);
+
+  if (error) {
+    return <Redirect to="" />;
+  }
   return (
+
     <>
       <GlobalStyle />
       <TopBar />
