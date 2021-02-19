@@ -26,6 +26,9 @@ export const dataTableValidation = (spreadsheet, refValue) => {
     if (requiredCycles[i] < 1000) {
       return 'Error: Minimum cycle count should be greater than 1000';
     }
+    if (requiredCycles[i] >= 10_000_000) {
+      return 'Error: Maximum cycle count should be less than than 10 000 000';
+    }
   }
   return false;
 };
