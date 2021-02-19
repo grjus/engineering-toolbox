@@ -30,8 +30,8 @@ async def root():
 @app.post("/api/calculations/fatigue/")
 async def calculate_fatigue(payload: FatiguePayload, excel: bool = True):
     # Dummy sleep. Only for spinner test
-    import time
-    time.sleep(2)
+    # import time
+    # time.sleep(1)
     return FatigueWebWrapper(payload, excel).fatigue()
 
 

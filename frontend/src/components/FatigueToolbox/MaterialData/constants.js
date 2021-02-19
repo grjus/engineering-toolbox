@@ -83,7 +83,7 @@ export const loadFactorItems = [
   },
   {
     name: 'SHEAR',
-    value: 'SHAER',
+    value: 'SHEAR',
   },
   {
     name: 'AXIAL',
