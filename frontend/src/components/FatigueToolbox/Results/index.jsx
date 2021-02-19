@@ -15,8 +15,7 @@ import ChartFatigue from './ChartFatigue';
 
 function Results() {
   const fatigueState = useContext(FatigueContext);
-  const { chartData, excelData } = fatigueState.results;
-  const { derated, raw } = chartData;
+
   const fatigueStateDispatch = useContext(FatigueContextDispatch);
   const [dataTable, setDataTable] = useState(null);
   const { control } = useForm({
@@ -37,53 +36,6 @@ function Results() {
     }));
   };
 
-  const chartDataInfo = {
-    datasets: [{
-      label: 'Underated curve',
-      type: 'line',
-      backgroundColor: 'blue',
-      pointRadius: 1,
-      borderWidth: 1.5,
-      borderColor: 'black',
-      fill: false,
-      data: raw.cycles.map((cycle, idx) => ({
-        x: cycle,
-        y: raw.stress[idx],
-      })),
-    },
-    {
-      label: 'Derated curve',
-      backgroundColor: 'red',
-      pointRadius: 1,
-      borderColor: 'green',
-      fill: false,
-      data: derated.cycles.map((cycle, idx) => ({
-        x: cycle,
-        y: derated.stress[idx],
-      })),
-
-    },
-    {
-      label: 'Analysis data',
-      backgroundColor: 'brown',
-      pointRadius: 3,
-      borderColor: 'orange',
-      fill: false,
-      data: (() => {
-        const data = [];
-        for (let item = 0; item.length; item++) {
-          data.push({
-            x: excelData[item][7],
-            y: excelData[item][6],
-          });
-        }
-        return data;
-      })(),
-
-    },
-    ],
-  };
-
   return (
     <Card>
       <Title>
@@ -98,7 +50,7 @@ function Results() {
         <DataTable options={jexcelConfig} handleSheet={setDataTable} />
       </FormContent>
       <Title>Stress data</Title>
-      <ChartFatigue chartData={chartDataInfo} />
+      <ChartFatigue />
       <ButtonContainer>
         <CustomButton handleClick={handleBack} label="Back" color="secondary" buttonType="contained" />
       </ButtonContainer>

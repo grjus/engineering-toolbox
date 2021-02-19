@@ -55,7 +55,7 @@ class FatigueWebWrapper:
         baskin = BaskinModel(
             fatigue_stress, self.stress_data["ultimateStrength"], modification_factor
         )
-        allowable_cycles = baskin.get_allowable_cycles()
+        # allowable_cycles = baskin.get_allowable_cycles()
         damage = baskin.get_damage(self.stress_data["requiredCycles"])
         c_der, s_der = baskin.get_chart_data(True)
         c_raw, s_raw = baskin.get_chart_data(False)
@@ -76,7 +76,7 @@ class FatigueWebWrapper:
                 alt_stress,
                 mean_stress,
                 fatigue_stress,
-                allowable_cycles,
+                self.stress_data["requiredCycles"],
                 damage,
             ):
                 data = list(
@@ -109,7 +109,7 @@ class FatigueWebWrapper:
             "alternatingStress": alt_stress,
             "meanStress": mean_stress,
             "fatigueStress": fatigue_stress,
-            "allowableCycles": allowable_cycles,
+            "allowableCycles": self.stress_data["requiredCycles"],
             "damage": damage,
             "chartData": {
                 "derated": {"cycles": list(c_der), "stress": list(s_der)},

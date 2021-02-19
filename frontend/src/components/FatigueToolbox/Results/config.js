@@ -60,13 +60,14 @@ export const tableHeaders = [
 ];
 
 export const chartOptions = {
+  type: 'scatter',
   options: {
     responsive: true,
     title: {
       display: true,
       text: 'Fatigue curve - Baskin relation',
       fontColor: 'green',
-      fontSize: 12,
+      fontSize: 16,
 
     },
     scales: {
@@ -77,12 +78,12 @@ export const chartOptions = {
         scaleLabel: {
           display: true,
           labelString: 'Cycle count',
-          fontSize: 12,
+          fontSize: 16,
           fontColor: 'black',
         },
         ticks: {
-          max: 10000000,
-          fontSize: 12,
+          max: 1000000,
+          fontSize: 16,
           fontColor: 'black',
         },
 
@@ -92,13 +93,13 @@ export const chartOptions = {
         scaleLabel: {
           display: true,
           labelString: 'Stress',
-          fontSize: 12,
+          fontSize: 15,
           fontColor: 'black',
         },
         ticks: {
           min: 0,
           // stepSize: 10,
-          fontSize: 12,
+          fontSize: 14,
           fontColor: 'black',
         },
       }],
@@ -112,4 +113,5 @@ export const chartOptions = {
 
     },
   },
+
 };

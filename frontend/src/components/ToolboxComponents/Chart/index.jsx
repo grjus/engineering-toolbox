@@ -3,13 +3,13 @@ import Chartjs from 'chart.js';
 import PropTypes from 'prop-types';
 
 const ChartTemplate = ({
-  chartData, chartOptions, handleChart, chartStyle,
+  chartOptions, handleChart, chartStyle,
 }) => {
   const chartContainer = useRef(null);
 
   useEffect(() => {
     if (chartContainer && chartContainer.current) {
-      const newChartInstance = new Chartjs(chartContainer.current, { ...chartData, ...chartOptions });
+      const newChartInstance = new Chartjs(chartContainer.current, chartOptions);
       handleChart(newChartInstance);
     }
   }, [chartContainer]);
@@ -22,7 +22,6 @@ const ChartTemplate = ({
 };
 
 ChartTemplate.propTypes = {
-  chartData: PropTypes.instanceOf(Object).isRequired,
   chartOptions: PropTypes.instanceOf(Object).isRequired,
   handleChart: PropTypes.func.isRequired,
   chartStyle: PropTypes.shape({
@@ -36,8 +35,8 @@ ChartTemplate.defaultProps = {
   chartStyle: {
     marginLeft: '50px',
     marginTop: '-20px',
-    heigth: '350px',
-    width: '850px',
+    heigth: '450px',
+    width: '1250px',
   },
 
 };
