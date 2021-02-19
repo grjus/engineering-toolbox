@@ -58,3 +58,58 @@ export const tableHeaders = [
     key: 'res-fatigue-damage',
   },
 ];
+
+export const chartOptions = {
+  options: {
+    responsive: true,
+    title: {
+      display: true,
+      text: 'Fatigue curve - Baskin relation',
+      fontColor: 'green',
+      fontSize: 12,
+
+    },
+    scales: {
+      xAxes: [{
+        display: true,
+        type: 'logarithmic',
+        position: 'left',
+        scaleLabel: {
+          display: true,
+          labelString: 'Cycle count',
+          fontSize: 12,
+          fontColor: 'black',
+        },
+        ticks: {
+          max: 10000000,
+          fontSize: 12,
+          fontColor: 'black',
+        },
+
+      }],
+      yAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'Stress',
+          fontSize: 12,
+          fontColor: 'black',
+        },
+        ticks: {
+          min: 0,
+          // stepSize: 10,
+          fontSize: 12,
+          fontColor: 'black',
+        },
+      }],
+    },
+    legend: {
+      display: true,
+      position: 'bottom',
+      align: 'center',
+      fontSize: 12,
+      fontColor: 'black',
+
+    },
+  },
+};
