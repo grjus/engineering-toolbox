@@ -45,6 +45,7 @@ function Results() {
         <TableHeaders headersList={tableHeaders} unit={fatigueState.unitSystem} colWidth={EXCEL_COLUMN_WIDTH} />
         <DataTable options={jexcelConfig} handleSheet={setDataTable} />
       </FormContent>
+      <Title>Stress data</Title>
       <ButtonContainer>
         <CustomButton handleClick={handleBack} label="Back" color="secondary" buttonType="contained" />
       </ButtonContainer>
