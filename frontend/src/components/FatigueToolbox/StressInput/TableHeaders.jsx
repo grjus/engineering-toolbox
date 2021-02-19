@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TableHeader, TableHeaderContainer } from './style';
 
-export const TableHeaders = ({ headersList, unit }) => (
-  <TableHeaderContainer>
+export const TableHeaders = ({ headersList, unit, colWidth }) => (
+  <TableHeaderContainer width={headersList.length} colWidth={colWidth}>
     {headersList.map((item) => (
       <TableHeader key={item.key}>
         {item.label}
@@ -20,6 +20,11 @@ TableHeaders.propTypes = {
     key: PropTypes.string.isRequired,
   })).isRequired,
   unit: PropTypes.string.isRequired,
+  colWidth: PropTypes.number,
+};
+
+TableHeaders.defaultProps = {
+  colWidth: 100,
 };
 
 export default TableHeaders;
