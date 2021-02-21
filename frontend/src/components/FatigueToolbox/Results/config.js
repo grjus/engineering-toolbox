@@ -25,6 +25,9 @@ export const jexcelConfig = {
   onload(instance) {
     instance.jexcel.hideIndex();
   },
+  onchange() {
+    console.log('Hello');
+  },
 };
 
 export const tableHeaders = [

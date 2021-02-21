@@ -1,7 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Card from '../../ToolboxComponents/Card';
-import { Title, FormContent, ButtonContainer } from '../../ToolboxComponents/Card/style';
+import {
+  Title, FormContent, ButtonContainer, ErrorMessage,
+} from '../../ToolboxComponents/Card/style';
 import DropDown from '../../ToolboxComponents/Dropdown';
 import { unitSystemItems } from '../MaterialData/constants';
 import { TableHeaders } from '../StressInput/TableHeaders';
@@ -13,10 +15,13 @@ import { FatigueContext, FatigueContextDispatch } from '../context';
 import CustomButton from '../../ToolboxComponents/Button/Button';
 import ChartFatigue from './ChartFatigue';
 import { dataConversion } from './dataConversion';
+import { Content, Label, SummaryContainer } from './styles';
+import { formatJExcelTable } from './jexcelHelpers';
 // import { dataConversion } from './dataConversion';
 
 function Results() {
   const fatigueState = useContext(FatigueContext);
+  const { summary } = fatigueState.results;
 
   const fatigueStateDispatch = useContext(FatigueContextDispatch);
   const [dataTable, setDataTable] = useState(null);
@@ -30,13 +35,17 @@ function Results() {
   useEffect(() => {
     if (dataTable !== null) {
       dataTable.setData(fatigueState.results.excelData);
+      formatJExcelTable(dataTable, fatigueState.results.excelData);
     }
   });
 
   const handleChange = (e) => {
     const results = dataConversion(fatigueState.results, e.target.value);
     fatigueStateDispatch((prev) => ({
-      ...prev, results,
+      ...prev,
+      results: {
+        ...prev.results, ...results,
+      },
     }));
   };
 
@@ -61,6 +70,20 @@ function Results() {
       </FormContent>
       <Title>Stress data</Title>
       <ChartFatigue unit={unit} />
+      <Title style={{ fontWeight: 'bold' }}>Analysis summary</Title>
+      <FormContent>
+        <SummaryContainer>
+          <Label>Total damage</Label>
+          <Content danger={summary.totalDamage > 1}>{summary.totalDamage.toFixed(3)}</Content>
+        </SummaryContainer>
+        <SummaryContainer>
+          <Label>Effective mod factor</Label>
+          <Content>
+            {summary.modificationFactor.toFixed(3)}
+          </Content>
+        </SummaryContainer>
+        {summary.totalDamage > 1 ? <ErrorMessage>Damage above 1. Consider design modification</ErrorMessage> : null}
+      </FormContent>
       <ButtonContainer>
         <CustomButton handleClick={handleBack} label="Back" color="secondary" buttonType="contained" />
       </ButtonContainer>

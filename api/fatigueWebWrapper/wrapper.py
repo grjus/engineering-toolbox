@@ -103,6 +103,10 @@ class FatigueWebWrapper:
                     "derated": {"cycles": list(c_der), "stress": list(s_der)},
                     "raw": {"cycles": list(c_raw), "stress": list(s_raw)},
                 },
+                "summary":{
+                "totalDamage":sum(damage),
+                "modificationFactor":modification_factor
+            }
             }
 
         return {
@@ -115,4 +119,5 @@ class FatigueWebWrapper:
                 "derated": {"cycles": list(c_der), "stress": list(s_der)},
                 "raw": {"cycles": list(c_raw), "stress": list(s_raw)},
             },
+
         }
