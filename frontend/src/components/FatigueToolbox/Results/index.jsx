@@ -56,7 +56,7 @@ function Results() {
       </FormContent>
       <Title>Stress results</Title>
       <FormContent>
-        <TableHeaders headersList={tableHeaders} unit={fatigueState.unitSystem} colWidth={EXCEL_COLUMN_WIDTH} />
+        <TableHeaders headersList={tableHeaders} unit={unit} colWidth={EXCEL_COLUMN_WIDTH} />
         <DataTable options={jexcelConfig} handleSheet={setDataTable} />
       </FormContent>
       <Title>Stress data</Title>

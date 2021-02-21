@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import ChartTemplate from '../../ToolboxComponents/Chart';
 import { FatigueContext } from '../context';
 import { chartOptions } from './config';
-import { theme } from '../../../style';
 
 export const FatigueChart = ({ unit }) => {
   const [chart, setChart] = useState(null);
@@ -19,10 +18,10 @@ export const FatigueChart = ({ unit }) => {
         {
           label: 'Unmodified curve',
           type: 'line',
-          backgroundColor: 'rgba(0,0,0,0.6)',
-          pointRadius: 1,
-          borderWidth: 1.5,
-          borderColor: 'rgba(0,0,0,0.6)',
+          backgroundColor: '#12a112',
+          pointRadius: 0,
+          borderWidth: 3.5,
+          borderColor: '#12a112',
           fill: false,
           data: raw.stress.map((item, idx) => ({
             x: raw.cycles[idx],
@@ -34,10 +33,10 @@ export const FatigueChart = ({ unit }) => {
         {
           label: 'Modified curve',
           type: 'line',
-          backgroundColor: theme.logoColor,
+          backgroundColor: 'crimson',
           pointRadius: 1,
-          borderWidth: 1.5,
-          borderColor: theme.logoColor,
+          borderWidth: 3.5,
+          borderColor: 'crimson',
           fill: false,
           data: derated.stress.map((item, idx) => ({
             x: derated.cycles[idx],
@@ -48,10 +47,10 @@ export const FatigueChart = ({ unit }) => {
       chart.data.datasets.push(
         {
           label: 'Analysis data',
-          backgroundColor: theme.logoColorHover,
-          pointRadius: 3,
+          backgroundColor: 'black',
+          pointRadius: 5,
           borderWidth: 1.5,
-          borderColor: theme.logoColorHover,
+          borderColor: 'black',
           fill: false,
           data: (() => {
             const outData = [];

@@ -108,7 +108,7 @@ export const chartOptions = {
     legend: {
       display: true,
       position: 'bottom',
-      align: 'right',
+      align: 'center',
       fontSize: 18,
       fontColor: 'black',
 
