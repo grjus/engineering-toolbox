@@ -62,7 +62,8 @@ export const tableHeaders = [
 export const chartOptions = {
   type: 'scatter',
   options: {
-    responsive: true,
+    maintainAspectRatio: false,
+    responsive: false,
     title: {
       display: true,
       text: 'Fatigue curve - Baskin relation',
@@ -107,8 +108,8 @@ export const chartOptions = {
     legend: {
       display: true,
       position: 'bottom',
-      align: 'center',
-      fontSize: 12,
+      align: 'right',
+      fontSize: 18,
       fontColor: 'black',
 
     },

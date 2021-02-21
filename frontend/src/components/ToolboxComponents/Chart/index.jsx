@@ -1,9 +1,10 @@
 import React, { useRef, useEffect } from 'react';
 import Chartjs from 'chart.js';
 import PropTypes from 'prop-types';
+import { FormContent } from '../Card/style';
 
 const ChartTemplate = ({
-  chartOptions, handleChart, chartStyle,
+  chartOptions, handleChart,
 }) => {
   const chartContainer = useRef(null);
 
@@ -12,32 +13,21 @@ const ChartTemplate = ({
       const newChartInstance = new Chartjs(chartContainer.current, chartOptions);
       handleChart(newChartInstance);
     }
-  }, [chartContainer]);
+  }, [chartContainer, chartOptions, handleChart]);
 
   return (
-    <div style={{ marginLeft: chartStyle.marginLeft, marginTop: chartStyle.marginTop }}>
-      <canvas height={chartStyle.height} width={chartStyle.width} ref={chartContainer} />
-    </div>
+    <FormContent>
+      <canvas width="900px" height="550" ref={chartContainer} />
+    </FormContent>
   );
 };
 
 ChartTemplate.propTypes = {
   chartOptions: PropTypes.instanceOf(Object).isRequired,
   handleChart: PropTypes.func.isRequired,
-  chartStyle: PropTypes.shape({
-    marginLeft: PropTypes.string,
-    marginTop: PropTypes.string,
-    height: PropTypes.string,
-    width: PropTypes.string,
-  }),
+
 };
 ChartTemplate.defaultProps = {
-  chartStyle: {
-    marginLeft: '50px',
-    marginTop: '-20px',
-    heigth: '450px',
-    width: '1250px',
-  },
 
 };
 
