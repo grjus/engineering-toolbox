@@ -4,7 +4,7 @@ import { FatigueContextDispatch, FatigueContext } from '../context';
 const EXCEL_LIMIT = 50;
 export const EXCEL_COLUMN_WIDTH = 180;
 
-export const handleExcelOptions = () => {
+export const HandleExcelOptions = () => {
   const fatigueContextDispatch = useContext(FatigueContextDispatch);
   const fatigueState = useContext(FatigueContext);
   const { excelData } = fatigueState;

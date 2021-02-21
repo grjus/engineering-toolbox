@@ -7,7 +7,7 @@ import {
 import CustomButton from '../../ToolboxComponents/Button/Button';
 import DataTable from '../../ToolboxComponents/JExcel';
 import { FatigueContextDispatch, FatigueContext } from '../context';
-import { handleExcelOptions, tableHeaders, EXCEL_COLUMN_WIDTH } from './config';
+import { HandleExcelOptions, tableHeaders, EXCEL_COLUMN_WIDTH } from './config';
 import { fatigueTheoryItems } from './constants';
 import { TableHeaders } from './TableHeaders';
 import { TableButtonContainer } from './style';
@@ -67,7 +67,7 @@ function StressInput() {
           <CustomButton handleClick={() => saveSpreadsheet(dataTable)} label="Save data" buttonType="outlined" color="primary" />
         </TableButtonContainer>
         <TableHeaders headersList={tableHeaders} unit={fatigueState.unitSystem} colWidth={EXCEL_COLUMN_WIDTH} />
-        <DataTable options={handleExcelOptions()} handleSheet={setDataTable} />
+        <DataTable options={HandleExcelOptions()} handleSheet={setDataTable} />
         <ErrorMessage>{fatigueState.excelError}</ErrorMessage>
       </FormContent>
       <Title>Select fatigue theory</Title>

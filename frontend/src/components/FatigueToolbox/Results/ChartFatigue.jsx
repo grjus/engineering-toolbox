@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import ChartTemplate from '../../ToolboxComponents/Chart';
 import { FatigueContext } from '../context';
 import { chartOptions } from './config';
 import { theme } from '../../../style';
 
-export const FatigueChart = () => {
+export const FatigueChart = ({ unit }) => {
   const [chart, setChart] = useState(null);
 
   const fatigueState = useContext(FatigueContext);
@@ -64,11 +65,17 @@ export const FatigueChart = () => {
           })(),
         },
       );
+
+      chart.options.scales.yAxes[0].scaleLabel.labelString = `Stress, ${unit}`;
       chart.update();
     }
-  }, [chart, derated]);
+  }, [chart, derated, unit, excelData, raw]);
 
   return <ChartTemplate chartOptions={chartOptions} handleChart={setChart} />;
 };
 
 export default FatigueChart;
+
+FatigueChart.propTypes = {
+  unit: PropTypes.string.isRequired,
+};

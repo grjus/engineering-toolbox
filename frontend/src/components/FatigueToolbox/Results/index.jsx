@@ -12,23 +12,33 @@ import {
 import { FatigueContext, FatigueContextDispatch } from '../context';
 import CustomButton from '../../ToolboxComponents/Button/Button';
 import ChartFatigue from './ChartFatigue';
+import { dataConversion } from './dataConversion';
+// import { dataConversion } from './dataConversion';
 
 function Results() {
   const fatigueState = useContext(FatigueContext);
 
   const fatigueStateDispatch = useContext(FatigueContextDispatch);
   const [dataTable, setDataTable] = useState(null);
-  const { control } = useForm({
+  const { control, watch } = useForm({
     defaultValues: {
       unitSystem: unitSystemItems[0].name,
     },
   });
+  const unit = watch('unitSystem');
 
   useEffect(() => {
     if (dataTable !== null) {
       dataTable.setData(fatigueState.results.excelData);
     }
-  }, [dataTable, fatigueState]);
+  });
+
+  const handleChange = (e) => {
+    const results = dataConversion(fatigueState.results, e.target.value);
+    fatigueStateDispatch((prev) => ({
+      ...prev, results,
+    }));
+  };
 
   const handleBack = () => {
     fatigueStateDispatch((prev) => ({
@@ -42,7 +52,7 @@ function Results() {
         Select stress unit system
       </Title>
       <FormContent>
-        <DropDown control={control} name="unitSystem" dropDownItems={unitSystemItems} />
+        <DropDown control={control} name="unitSystem" dropDownItems={unitSystemItems} handleChange={handleChange} />
       </FormContent>
       <Title>Stress results</Title>
       <FormContent>
@@ -50,7 +60,7 @@ function Results() {
         <DataTable options={jexcelConfig} handleSheet={setDataTable} />
       </FormContent>
       <Title>Stress data</Title>
-      <ChartFatigue />
+      <ChartFatigue unit={unit} />
       <ButtonContainer>
         <CustomButton handleClick={handleBack} label="Back" color="secondary" buttonType="contained" />
       </ButtonContainer>
