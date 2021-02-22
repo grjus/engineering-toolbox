@@ -7,6 +7,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import Typography from '@material-ui/core/Typography';
 import { MuiThemeProvider } from '@material-ui/core';
+import { ToastContainer, Slide } from 'react-toastify';
 import FatigueStructure from './config';
 import { Container } from '../../style';
 import { StepperTheme } from './styles';
@@ -32,6 +33,7 @@ export default function FatigueToolbox() {
           ))}
         </Stepper>
       </MuiThemeProvider>
+      <ToastContainer transition={Slide} draggable autoClose={false} style={{ width: '500px', height: '400px' }} />
     </Container>
 
   );

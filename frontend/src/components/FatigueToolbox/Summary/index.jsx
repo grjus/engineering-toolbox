@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext, useReducer, useState } from 'react';
 import CustomButton from '../../ToolboxComponents/Button/Button';
 import Card from '../../ToolboxComponents/Card';
 import {
@@ -11,19 +11,24 @@ import fastApi from '../../Api';
 import { initialState, dataSubmitReducer, actionType } from './reducer';
 import CustomSpinner from './Spinner';
 import { SpinnerContainer } from './styles';
+import Helper from './toast/Helper';
+import ToastHelper from '../../ToolboxComponents/Toast';
 
 function Summary() {
   const faitgueDispatch = useContext(FatigueContextDispatch);
   const fatigueState = useContext(FatigueContext);
+  const [hideToast, setHideToast] = useState(false);
   const [state, dispatch] = useReducer(dataSubmitReducer, initialState);
 
   const handleBack = () => {
+    setHideToast(true);
     faitgueDispatch((prev) => ({
       ...prev, activeStep: 1,
     }));
   };
 
   const handleSubmit = () => {
+    setHideToast(true);
     const data = prepareDataToApi(fatigueState);
     dispatch({ type: actionType.SUBMIT });
     fastApi.post('api/calculations/fatigue/', JSON.stringify(data)).then((response) => {
@@ -50,6 +55,7 @@ function Summary() {
 
   return (
     <Card>
+      <ToastHelper toastStatus={hideToast} helperComponent={<Helper />} />
       <Title>
         Input data overview
       </Title>

@@ -17,11 +17,14 @@ import {
 import { dataTableValidation, yieldStrValRules } from '../validators';
 import DropDown from '../../ToolboxComponents/Dropdown';
 import { TextBox } from '../../ToolboxComponents/TextBox';
+import Helper from './toast/Helper';
+import ToastHelper from '../../ToolboxComponents/Toast';
 
 function StressInput() {
   const fatigueStateDispatch = useContext(FatigueContextDispatch);
   const fatigueState = useContext(FatigueContext);
   const [dataTable, setDataTable] = useState(null);
+  const [hideToast, setHideToast] = useState(false);
   const {
     control, watch, register, handleSubmit, errors,
   } = useForm({
@@ -34,12 +37,14 @@ function StressInput() {
   const { fatigueTheory } = watch();
 
   const handleBack = () => {
+    setHideToast(true);
     fatigueStateDispatch({
       ...fatigueState, activeStep: 0,
     });
   };
 
   const submitData = (data) => {
+    setHideToast(true);
     const excelValidError = dataTableValidation(dataTable, fatigueState.ultimateStrength);
     if (excelValidError === false) {
       const stressInputData = {
@@ -59,7 +64,9 @@ function StressInput() {
 
   return (
     <Card>
+      <ToastHelper toastStatus={hideToast} helperComponent={<Helper />} />
       <Title>Specify stress values</Title>
+
       <FormContent>
         <TableButtonContainer>
           <CustomButton handleClick={() => addRow(dataTable)} label="Add row" buttonType="outlined" color="primary" />

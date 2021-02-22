@@ -53,7 +53,7 @@ export const tableHeaders = [
     key: 'res-fat-stress',
   },
   {
-    label: 'Allowable cycles',
+    label: 'Required cycles',
     key: 'res-allow-cycles',
   },
   {

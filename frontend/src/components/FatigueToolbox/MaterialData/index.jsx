@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Card from '../../ToolboxComponents/Card';
 import DropDown from '../../ToolboxComponents/Dropdown';
@@ -14,8 +14,11 @@ import { DropdownContainer } from './styles';
 import CustomButton from '../../ToolboxComponents/Button/Button';
 import { FatigueContext, FatigueContextDispatch } from '../context';
 import { ultStrValRules, userFacValRules } from '../validators';
+import ToastHelper from '../../ToolboxComponents/Toast';
+import Helper from './toast/Helper';
 
 function MaterialData() {
+  const [hideToast, setHideToast] = useState(false);
   const fatigueState = useContext(FatigueContext);
   const fatigueStateDispatch = useContext(FatigueContextDispatch);
   const {
@@ -44,6 +47,7 @@ function MaterialData() {
   } = watch();
 
   const submitData = (data) => {
+    setHideToast(true);
     fatigueStateDispatch({
       ...fatigueState,
       activeStep: 1,
@@ -70,6 +74,7 @@ function MaterialData() {
 
   return (
     <Card>
+      <ToastHelper toastStatus={hideToast} helperComponent={<Helper />} />
       <Title>
         Select stress unit system
       </Title>

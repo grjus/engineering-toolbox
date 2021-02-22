@@ -17,7 +17,8 @@ import ChartFatigue from './ChartFatigue';
 import { dataConversion } from './dataConversion';
 import { Content, Label, SummaryContainer } from './styles';
 import { formatJExcelTable } from './jexcelHelpers';
-// import { dataConversion } from './dataConversion';
+import ToastHelper from '../../ToolboxComponents/Toast';
+import Helper from './toast/Helper';
 
 function Results() {
   const fatigueState = useContext(FatigueContext);
@@ -25,6 +26,7 @@ function Results() {
 
   const fatigueStateDispatch = useContext(FatigueContextDispatch);
   const [dataTable, setDataTable] = useState(null);
+  const [hideToast, setHideToast] = useState(false);
   const { control, watch } = useForm({
     defaultValues: {
       unitSystem: unitSystemItems[0].name,
@@ -50,6 +52,7 @@ function Results() {
   };
 
   const handleBack = () => {
+    setHideToast(true);
     fatigueStateDispatch((prev) => ({
       ...prev, activeStep: 2,
     }));
@@ -57,6 +60,7 @@ function Results() {
 
   return (
     <Card>
+      <ToastHelper helperComponent={<Helper />} toastStatus={hideToast} />
       <Title>
         Select stress unit system
       </Title>
