@@ -19,6 +19,7 @@ import { Content, Label, SummaryContainer } from './styles';
 import { formatJExcelTable } from './jexcelHelpers';
 import ToastHelper from '../../ToolboxComponents/Toast';
 import Helper from './toast/Helper';
+import { fatReport } from '../Report/Report';
 
 function Results() {
   const fatigueState = useContext(FatigueContext);
@@ -58,6 +59,13 @@ function Results() {
     }));
   };
 
+  const handleReport = () => {
+    const report = fatReport('Ala', 'Maj', 'none', 'some');
+    report.addDocumentLayout();
+    report.fatigueTable(fatigueState.results.excelData, unit);
+    report.saveDoc();
+  };
+
   return (
     <Card>
       <ToastHelper helperComponent={<Helper />} toastStatus={hideToast} />
@@ -89,6 +97,7 @@ function Results() {
         {summary.totalDamage > 1 ? <ErrorMessage>Damage above 1. Consider design modification</ErrorMessage> : null}
       </FormContent>
       <ButtonContainer>
+        <CustomButton handleClick={handleReport} label="Report" color="primary" buttonType="contained" />
         <CustomButton handleClick={handleBack} label="Back" color="secondary" buttonType="contained" />
       </ButtonContainer>
 

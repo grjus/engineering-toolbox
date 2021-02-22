@@ -3,7 +3,8 @@ import styled, { createGlobalStyle } from 'styled-components';
 export const theme = {
   mainLayoutColor: '#E3E2DF',
   color: 'rgba(0, 0, 0, 0.8)',
-  topBarColor: '#BAB2B5',
+  // topBarColor: '#BAB2B5',
+  topBarColor: 'white',
   logoColor: '#123C69',
   logoColorHover: '#AC3B61',
 
