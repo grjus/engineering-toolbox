@@ -3,6 +3,7 @@ import DataTable from './StressInput';
 import MaterialData from './MaterialData';
 import Summary from './Summary';
 import Results from './Results';
+import Report from './Report';
 
 const FatigueStructure = [
   {
@@ -24,6 +25,11 @@ const FatigueStructure = [
     component: <Results />,
     name: 'Results',
     key: 'fatigue-app-4',
+  },
+  {
+    component: <Report />,
+    name: 'Report',
+    key: 'fatigue-app-5',
   },
 ];
 

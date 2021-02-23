@@ -4,7 +4,7 @@ import React, {
 import { useForm } from 'react-hook-form';
 import Card from '../../ToolboxComponents/Card';
 import {
-  Title, FormContent, ButtonContainer, ErrorMessage,
+  Title, FormContent, ButtonContainer,
 } from '../../ToolboxComponents/Card/style';
 import DropDown from '../../ToolboxComponents/Dropdown';
 import { unitSystemItems } from '../MaterialData/constants';
@@ -17,15 +17,12 @@ import { FatigueContext, FatigueContextDispatch } from '../context';
 import CustomButton from '../../ToolboxComponents/Button/Button';
 import ChartFatigue from './ChartFatigue';
 import { dataConversion } from './dataConversion';
-import { Content, Label, SummaryContainer } from './styles';
 import { formatJExcelTable } from './jexcelHelpers';
 import ToastHelper from '../../ToolboxComponents/Toast';
 import Helper from './toast/Helper';
-import { fatReport } from '../Report/Report';
 
 function Results() {
   const fatigueState = useContext(FatigueContext);
-  const { summary } = fatigueState.results;
   const chartRef = useRef(null);
 
   const fatigueStateDispatch = useContext(FatigueContextDispatch);
@@ -62,15 +59,15 @@ function Results() {
     }));
   };
 
-  const handleReport = () => {
-    const report = fatReport('Ala', 'Maj', 'none', 'some', fatigueState);
-
-    report.addSummarySection();
-    report.addChart(chartRef.current, 'Fatigue curve');
-    report.addfatigueTable(unit);
-    report.addDocumentLayout();
-    // report.fatigueTable(fatigueState.results.excelData, unit);
-    report.saveDoc();
+  const handleNext = () => {
+    fatigueStateDispatch((prev) => ({
+      ...prev,
+      activeStep: 4,
+      report: {
+        chart: chartRef.current,
+        unit,
+      },
+    }));
   };
 
   return (
@@ -89,22 +86,9 @@ function Results() {
       </FormContent>
       <Title>Stress data</Title>
       <ChartFatigue unit={unit} chartRef={chartRef} />
-      <Title style={{ fontWeight: 'bold' }}>Analysis summary</Title>
-      <FormContent>
-        <SummaryContainer>
-          <Label>Total damage</Label>
-          <Content danger={summary.totalDamage > 1}>{summary.totalDamage.toFixed(3)}</Content>
-        </SummaryContainer>
-        <SummaryContainer>
-          <Label>Effective mod factor</Label>
-          <Content>
-            {summary.modificationFactor.toFixed(3)}
-          </Content>
-        </SummaryContainer>
-        {summary.totalDamage > 1 ? <ErrorMessage>Damage above 1. Consider design modification</ErrorMessage> : null}
-      </FormContent>
+
       <ButtonContainer>
-        <CustomButton handleClick={handleReport} label="Report" color="primary" buttonType="contained" />
+        <CustomButton handleClick={handleNext} label="Next" color="primary" buttonType="contained" />
         <CustomButton handleClick={handleBack} label="Back" color="secondary" buttonType="contained" />
       </ButtonContainer>
 

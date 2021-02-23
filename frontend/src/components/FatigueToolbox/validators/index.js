@@ -17,16 +17,16 @@ export const dataTableValidation = (spreadsheet, refValue) => {
     if (parsedValue(minStress[i]) || parsedValue(maxStress[i]) || parsedValue(requiredCycles[i])) {
       return 'Error: Please remove empty cells';
     }
-    if (minStress[i] >= maxStress[i]) {
+    if (parseFloat(minStress[i]) >= parseFloat(maxStress[i])) {
       return 'Error:Minimum stresses is greater than maximum stress';
     }
-    if (maxStress[i] > parseFloat(refValue)) {
+    if (parseFloat(maxStress[i]) > parseFloat(refValue)) {
       return 'Error:Maximum stresses is greater than material ultimate strength';
     }
-    if (requiredCycles[i] < 1000) {
+    if (parseFloat(requiredCycles[i]) < 1000) {
       return 'Error: Minimum cycle count should be greater than 1000';
     }
-    if (requiredCycles[i] >= 10_000_000) {
+    if (parseFloat(requiredCycles[i]) >= 10_000_000) {
       return 'Error: Maximum cycle count should be less than than 10 000 000';
     }
   }
@@ -54,4 +54,17 @@ export const userFacValRules = {
   required: { value: true, message: 'Value is required' },
   min: { value: MIN_DERATING_FACTOR, message: `Value less than ${MIN_DERATING_FACTOR}` },
   max: { value: MAX_DERATING_FACTOR, message: `Value greater than ${MAX_DERATING_FACTOR}` },
+};
+
+// Report validators
+
+export const nameValRules = {
+  required: { value: true, message: 'Value is required' },
+  minLength: { value: 3, message: 'Value less than 3' },
+  maxLength: { value: 20, message: 'Value greater than 20' },
+};
+export const descValRules = {
+  required: { value: true, message: 'Value is required' },
+  minLength: { value: 3, message: 'Value less than 3' },
+  maxLength: { value: 150, message: 'Value greater than 150' },
 };

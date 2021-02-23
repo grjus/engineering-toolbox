@@ -7,6 +7,7 @@ const StyledTextField = withStyles({
     '& label.Mui-focused': {
       color: `${theme.logoColor}`,
     },
+    maxHeight: '500px',
 
     '& .MuiOutlinedInput-root': {
       '& fieldset': {

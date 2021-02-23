@@ -8,13 +8,11 @@ class FatigueReport {
     this.name = name;
     this.surname = surname;
     this.projectName = projectName;
-    this.additionalComments = additionalComments || '';
+    this.additionalComments = additionalComments.trim() || '';
     this.doc = new JSPDF('p', 'px', 'a4');
     this.yPos = 0;
     this.xPos = 25;
     this.state = fatigueState;
-    // this.doc.addFont('Arial');
-    // this.doc.setFont('Arial');
   }
 
   static getCurrentDate() {
@@ -37,6 +35,7 @@ class FatigueReport {
     this.doc.autoTable({
       columnStyles: { 0: { textColor: theme.logoColor, cellWidth: 80 } },
       body: [
+        ['Porject name', this.projectName],
         ['Unit', unitSystem],
         ['Surface finish', surfaceFactor.isrequired ? this.state.surfaceFactor.value : 'n/a'],
         ['Load type', loadFactor.isrequired ? this.state.loadFactor.value : 'n/a'],
@@ -47,6 +46,7 @@ class FatigueReport {
         ['Fatigue theory', fatigueTheory],
         ['Cumulative damage', this.state.results.summary.totalDamage.toFixed(3)],
         ['Modification factor', this.state.results.summary.modificationFactor.toFixed(3)],
+        ['Additional comments', this.additionalComments ? this.additionalComments : 'n/a'],
 
       ],
       startY: 110,
@@ -115,7 +115,7 @@ class FatigueReport {
   }
 
   addChart(figureRef, title) {
-    this.yPos += 220;
+    this.yPos += 250;
     this.doc.text(this.xPos, this.yPos, title);
     this.yPos += 20;
     const imgData = figureRef.toDataURL('image/png');
