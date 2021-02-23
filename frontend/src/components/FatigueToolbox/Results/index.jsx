@@ -1,4 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, {
+  useState, useContext, useEffect, useRef,
+} from 'react';
 import { useForm } from 'react-hook-form';
 import Card from '../../ToolboxComponents/Card';
 import {
@@ -24,6 +26,7 @@ import { fatReport } from '../Report/Report';
 function Results() {
   const fatigueState = useContext(FatigueContext);
   const { summary } = fatigueState.results;
+  const chartRef = useRef(null);
 
   const fatigueStateDispatch = useContext(FatigueContextDispatch);
   const [dataTable, setDataTable] = useState(null);
@@ -60,9 +63,13 @@ function Results() {
   };
 
   const handleReport = () => {
-    const report = fatReport('Ala', 'Maj', 'none', 'some');
+    const report = fatReport('Ala', 'Maj', 'none', 'some', fatigueState);
+
+    report.addSummarySection();
+    report.addChart(chartRef.current, 'Fatigue curve');
+    report.addfatigueTable(unit);
     report.addDocumentLayout();
-    report.fatigueTable(fatigueState.results.excelData, unit);
+    // report.fatigueTable(fatigueState.results.excelData, unit);
     report.saveDoc();
   };
 
@@ -81,7 +88,7 @@ function Results() {
         <DataTable options={jexcelConfig} handleSheet={setDataTable} />
       </FormContent>
       <Title>Stress data</Title>
-      <ChartFatigue unit={unit} />
+      <ChartFatigue unit={unit} chartRef={chartRef} />
       <Title style={{ fontWeight: 'bold' }}>Analysis summary</Title>
       <FormContent>
         <SummaryContainer>

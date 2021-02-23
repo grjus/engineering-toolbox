@@ -4,7 +4,7 @@ import engineeringToolboxLogo from './LOGO.png';
 import { theme } from '../../../style';
 
 class FatigueReport {
-  constructor(name, surname, projectName, additionalComments) {
+  constructor(name, surname, projectName, additionalComments, fatigueState) {
     this.name = name;
     this.surname = surname;
     this.projectName = projectName;
@@ -12,6 +12,9 @@ class FatigueReport {
     this.doc = new JSPDF('p', 'px', 'a4');
     this.yPos = 0;
     this.xPos = 25;
+    this.state = fatigueState;
+    // this.doc.addFont('Arial');
+    // this.doc.setFont('Arial');
   }
 
   static getCurrentDate() {
@@ -20,6 +23,38 @@ class FatigueReport {
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const yyyy = today.getFullYear();
     return `${mm}/${dd}/${yyyy}`;
+  }
+
+  addSummarySection() {
+    const {
+      unitSystem, surfaceFactor, loadFactor, reliabilityFactor, userDefinedFactor,
+      ultimateStrength, fatigueTheory, yieldStrength,
+    } = this.state;
+    this.doc.setFontSize('16');
+    this.doc.setTextColor(theme.logoColor);
+    this.yPos += 90;
+    this.doc.text(this.xPos, this.yPos, 'Summary');
+    this.doc.autoTable({
+      columnStyles: { 0: { textColor: theme.logoColor, cellWidth: 80 } },
+      body: [
+        ['Unit', unitSystem],
+        ['Surface finish', surfaceFactor.isrequired ? this.state.surfaceFactor.value : 'n/a'],
+        ['Load type', loadFactor.isrequired ? this.state.loadFactor.value : 'n/a'],
+        ['Reliability Level', reliabilityFactor.isrequired ? this.state.reliabilityFactor.value : 'n/a'],
+        ['User Defined Factor', userDefinedFactor.isrequired ? this.state.userDefinedFactor.value.toFixed(3) : 'n/a'],
+        ['Ultimate strength', ultimateStrength],
+        ['Yield strength', fatigueTheory === 'SODERBERG' ? yieldStrength : 'n/a'],
+        ['Fatigue theory', fatigueTheory],
+        ['Cumulative damage', this.state.results.summary.totalDamage.toFixed(3)],
+        ['Modification factor', this.state.results.summary.modificationFactor.toFixed(3)],
+
+      ],
+      startY: 110,
+      theme: 'striped',
+      margin: {
+        top: 65,
+      },
+    });
   }
 
   addDocumentLayout() {
@@ -50,7 +85,11 @@ class FatigueReport {
     }
   }
 
-  fatigueTable(dataTable, unit) {
+  addfatigueTable(unit) {
+    this.doc.setFontSize('16');
+    this.doc.setTextColor(theme.logoColor);
+    this.yPos += 90;
+    this.doc.text(this.xPos, this.yPos, 'Analysis results');
     this.doc.autoTable({
       headStyles: {
         valign: 'middle', halign: 'center', fillColor: ['#E3E2DF'], textColor: [0, 0, 0], fontSize: 8,
@@ -65,7 +104,7 @@ class FatigueReport {
         6: { halign: 'center', fillColor: [255, 255, 255], textColor: [0, 0, 0] },
       },
       columns: [{ header: `Min.Stress,${unit}` }, { header: `Max.Stress,${unit}` }, { header: `Alt.Stress,${unit}` }, { header: `Mean Stress,${unit}` }, { header: `Fatigue Stress,${unit}` }, { header: 'Required cycles' }, { header: 'Damage' }],
-      body: dataTable.map((row) => row.map((item) => item.toFixed(2))),
+      body: this.state.results.excelData.map((row) => row.map((item) => item.toFixed(2))),
       startY: 110,
       showHead: 'everyPage',
       theme: 'grid',
@@ -75,119 +114,20 @@ class FatigueReport {
     });
   }
 
+  addChart(figureRef, title) {
+    this.yPos += 220;
+    this.doc.text(this.xPos, this.yPos, title);
+    this.yPos += 20;
+    const imgData = figureRef.toDataURL('image/png');
+    this.doc.addImage(imgData, 'PNG', this.xPos, this.yPos, 385, 236);
+    this.yPos += 200 - 40;
+    this.doc.addPage();
+    this.yPos = 0;
+  }
+
   saveDoc() {
     this.doc.save('Fatigue_Analysis_Report.pdf');
   }
 }
 
-export const fatReport = (name, surname, projectName, additionalComments) => new FatigueReport(name, surname, projectName, additionalComments);
-
-// export function CreateFIVreport(
-//   projectName,
-//   description,
-//   ifAddComments,
-//   addComments,
-//   author,
-// ) {
-//   this.projectName = projectName;
-//   this.description = description;
-//   this.ifAddComments = ifAddComments;
-//   this.addComments = '' || addComments;
-//   this.doc = new jsPDF('p', 'px', 'a4');
-//   this.yPos = 0;
-//   this.xPos = 30;
-//   this.author = author;
-// }
-
-// CreateFIVreport.prototype.getReportDetails = function () {
-//   console.log(`Project name: ${this.projectName}
-//     Description: ${this.description}
-//     Additional comments?: ${this.ifAddComments}
-//     Additional comments: ${this.addComments}
-//     If GVF plot: ${this.ifGFVplot}
-//     If Velocity plot: ${this.ifVelocityPlot}
-//     If Mixture plot: ${this.ifMixturePlot}
-//     `);
-// };
-
-// CreateFIVreport.prototype.addDocInfo = function (appTitle, appVersion) {
-//   const noOfPages = this.doc.internal.getNumberOfPages();
-//   const logo = new Image();
-//   logo.src = companyLogo;
-//   for (let i = 0; i < noOfPages; i++) {
-//     // Apply header information
-//     this.doc.setPage(i + 1);
-//     const pageWidth = this.doc.internal.pageSize.getWidth();
-//     this.doc.addImage(logo, 'PNG', 1, 1, 150, 50);
-//     this.doc.setFontSize(fontSize.fontStandardPlus);
-//     this.doc.setTextColor(color.loggedUser);
-//     this.doc.text(35, 50, appTitle);
-//     this.doc.setTextColor(color.black);
-//     this.doc.setFontSize(fontSize.fontStandard);
-//     this.doc.text(pageWidth - 150, 26, `Author: ${this.author}`);
-//     this.doc.text(pageWidth - 150, 43, `Date: ${getCurrentDate()}`);
-//     this.doc.line(10, 60, pageWidth - 10, 60); // horizontal lines
-//     // Apply footer information
-
-//     const str = `Page ${i + 1} of ${noOfPages} ${appTitle}-${appVersion}`;
-//     this.doc.setFontSize(10); // optional
-//     this.doc.text(str, 50, this.doc.internal.pageSize.height - 10);
-//   }
-// };
-
-// CreateFIVreport.prototype.addDocumentSummary = function () {
-//   this.doc.setFontSize(fontSize.fontH6);
-//   this.doc.setTextColor(color.loggedUser);
-//   this.doc.setFontType('bold');
-//   this.yPos += 90;
-//   this.doc.text(this.xPos, this.yPos, 'Summary');
-//   this.doc.autoTable({
-//     columnStyles: { 0: { textColor: color.loggedUser, cellWidth: 80 } },
-//     body: [
-//       ['Project Name', this.projectName],
-//       ['Description', this.description],
-//       ['Additional comments', this.ifAddComments ? this.addComments : 'n/a'],
-//     ],
-//     startY: 110,
-//     theme: 'striped',
-//     margin: {
-//       top: 65,
-//     },
-//   });
-
-//   this.yPos = this.doc.lastAutoTable.finalY - 50;
-// };
-
-// CreateFIVreport.prototype.setHeaderFont = function () {
-//   this.doc
-//     .setTextColor(color.loggedUser)
-//     .setFontType('bold')
-//     .setFontSize(fontSize.fontH6);
-// };
-
-// CreateFIVreport.prototype.addPdfPage = function () {
-//   if (this.yPos > 250) {
-//     this.doc.addPage();
-//     this.yPos = 0;
-//   }
-// };
-
-// CreateFIVreport.prototype.addChart = function (figureRef, title) {
-//   this.addPdfPage();
-//   this.yPos += 100;
-//   this.setHeaderFont();
-//   this.doc.text(this.xPos, this.yPos, title);
-//   this.yPos += 20;
-//   const imgData = figureRef.toDataURL('image/png');
-//   this.doc.addImage(imgData, 'PNG', this.xPos, this.yPos, 380, 156);
-//   this.yPos += 160 - 40;
-// };
-
-// CreateFIVreport.prototype.addInfo = function () {
-//   this.addDocInfo('FIV Screening Application', '1.0');
-// };
-
-// CreateFIVreport.prototype.saveReport = function () {
-//   this.addDocInfo('FIV Screening Application', '1.0');
-//   this.doc.save('FIV_LOF_Screening_Report.pdf');
-// };
+export const fatReport = (name, surname, projectName, additionalComments, fatigueState) => new FatigueReport(name, surname, projectName, additionalComments, fatigueState);

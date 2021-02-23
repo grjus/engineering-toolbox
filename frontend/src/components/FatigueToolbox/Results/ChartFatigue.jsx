@@ -4,7 +4,7 @@ import ChartTemplate from '../../ToolboxComponents/Chart';
 import { FatigueContext } from '../context';
 import { chartOptions } from './config';
 
-export const FatigueChart = ({ unit }) => {
+export const FatigueChart = ({ unit, chartRef }) => {
   const [chart, setChart] = useState(null);
 
   const fatigueState = useContext(FatigueContext);
@@ -70,11 +70,12 @@ export const FatigueChart = ({ unit }) => {
     }
   }, [chart, derated, unit, excelData, raw]);
 
-  return <ChartTemplate chartOptions={chartOptions} handleChart={setChart} />;
+  return <ChartTemplate chartOptions={chartOptions} handleChart={setChart} chartRef={chartRef} />;
 };
 
 export default FatigueChart;
 
 FatigueChart.propTypes = {
   unit: PropTypes.string.isRequired,
+  chartRef: PropTypes.instanceOf(Object).isRequired,
 };
