@@ -23,7 +23,7 @@ const useApiHealth = (interval) => {
       apiInterval = setInterval(getApiStatus, interval);
     }
     return () => clearInterval(apiInterval);
-  }, [error]);
+  }, [error, interval]);
   return error;
 };
 export default useApiHealth;
