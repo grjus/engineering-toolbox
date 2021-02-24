@@ -40,7 +40,7 @@ class FatigueReport {
         ['Surface finish', surfaceFactor.isrequired ? this.state.surfaceFactor.value : 'n/a'],
         ['Load type', loadFactor.isrequired ? this.state.loadFactor.value : 'n/a'],
         ['Reliability Level', reliabilityFactor.isrequired ? this.state.reliabilityFactor.value : 'n/a'],
-        ['User Defined Factor', userDefinedFactor.isrequired ? this.state.userDefinedFactor.value.toFixed(3) : 'n/a'],
+        ['User Defined Factor', userDefinedFactor.isrequired ? parseFloat(this.state.userDefinedFactor.value).toFixed(3) : 'n/a'],
         ['Ultimate strength', ultimateStrength],
         ['Yield strength', fatigueTheory === 'SODERBERG' ? yieldStrength : 'n/a'],
         ['Fatigue theory', fatigueTheory],

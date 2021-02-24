@@ -1,8 +1,11 @@
 import React from 'react';
 import { Container } from '../../style';
+import MainCard from './MainCard';
 
 const HomePage = () => (
-  <Container>HomePage</Container>
+  <Container noBackColor>
+    <MainCard />
+  </Container>
 );
 
 export default HomePage;

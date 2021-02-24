@@ -13,7 +13,7 @@ export const theme = {
 const GlobalStyle = createGlobalStyle`
   body {
     font-family:'Roboto','Arial',sans-serif;
-    background-color:${(props) => props.theme.mainLayoutColor};
+    background-color:${theme.mainLayoutColor};
     color:${(props) => props.theme.color};
     margin:0;
     padding:0;
@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export const Container = styled.div`
-background-color:whitesmoke;
+background-color:${(props) => (props.noBackColor ? theme.mainLayoutColor : 'whitesmoke')};
 width:1050px;
 position:relative;
 top:40px;
