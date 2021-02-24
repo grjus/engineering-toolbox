@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import StyledTextField from './styles';
 
 export const TextBox = ({
-  name, inputRef, label, error, multiline, fieldType,
+  name, inputRef, label, error, multiline, fieldType, width,
 }) => (
   <>
     <StyledTextField
@@ -15,7 +15,8 @@ export const TextBox = ({
       error={!!error}
       helperText={error ? error.message : ' '}
       multiline={multiline}
-      rows={10}
+      rows={5}
+      width={width}
     />
   </>
 );
@@ -27,10 +28,12 @@ TextBox.propTypes = {
   error: PropTypes.instanceOf(Object),
   multiline: PropTypes.bool,
   fieldType: PropTypes.string,
+  width: PropTypes.string,
 };
 
 TextBox.defaultProps = {
   error: undefined,
   multiline: false,
   fieldType: 'number',
+  width: '180px',
 };

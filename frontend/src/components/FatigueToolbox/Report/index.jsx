@@ -54,7 +54,7 @@ function Summary() {
         <TextBox name="projectName" inputRef={register(nameValRules)} label="Project name" error={errors.projectName} fieldType="text" />
       </FormContent>
       <FormContent>
-        <TextBox name="description" inputRef={register(descValRules)} label="Additional comments" error={errors.description} multiline fieldType="text" />
+        <TextBox name="description" inputRef={register(descValRules)} label="Additional comments" error={errors.description} multiline fieldType="text" width="380px" />
       </FormContent>
       <ButtonContainer>
         <CustomButton handleClick={handleSubmit(generateReport)} label="Report" buttonType="contained" color="primary" />

@@ -4,7 +4,9 @@ export const Container = styled.div`
 position:relative;
 display:block;
 width:80%;
-color:rgba(0,0,0,0.8)
+color:rgba(0,0,0,0.8);
+padding:20px;
+
 `;
 
 export const Title = styled.p`
