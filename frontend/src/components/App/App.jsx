@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import GlobalStyle from '../../style';
 import TopBar from '../TopBar';
+import SideBar from '../SideBar';
 import FatigueToolbox from '../FatigueToolbox';
 import Contact from '../Contact';
 import NeuberToolbox from '../NeuberToolbox';
@@ -23,6 +24,7 @@ function App() {
     <>
       <GlobalStyle />
       <TopBar />
+      <SideBar />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/fatigue" render={() => <FatigueStateProvider><FatigueToolbox /></FatigueStateProvider>} />

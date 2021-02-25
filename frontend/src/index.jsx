@@ -4,12 +4,15 @@ import { HashRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './style';
 import App from './components/App/App';
+import { AppStateProvider } from './components/App/context';
 
 ReactDOM.render(
   <HashRouter>
     <React.StrictMode>
       <ThemeProvider theme={theme}>
-        <App />
+        <AppStateProvider>
+          <App />
+        </AppStateProvider>
       </ThemeProvider>
     </React.StrictMode>
   </HashRouter>,
