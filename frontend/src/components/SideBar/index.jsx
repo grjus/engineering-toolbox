@@ -11,11 +11,11 @@ function SideBar() {
   const appContext = useContext(AppContext);
   const appContextDispatch = useContext(AppContextDispatch);
   const sideMenuRef = useRef(null);
+  const closeIco = useRef(null);
   useOutsideClick(sideMenuRef);
 
   const hideBar = (e) => {
-    e.stopPropagation();
-    if (e.target.localName === 'svg') {
+    if (closeIco.current.contains(e.target)) {
       appContextDispatch((prev) => ({
         ...prev, showSidebar: '0px',
       }));
@@ -24,7 +24,7 @@ function SideBar() {
 
   return (
     <Container width={appContext.showSidebar} ref={sideMenuRef} onClick={hideBar}>
-      <CloseIco onClick={hideBar} />
+      <CloseIco onClick={hideBar} innerRef={closeIco} />
       <SideMenuiItemsContainer>
         <ExpandItems />
         <ItemNavLink activeClassName={ItemNavLink.active} exact to="/contact">Contact</ItemNavLink>

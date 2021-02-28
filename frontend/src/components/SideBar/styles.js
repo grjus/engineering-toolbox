@@ -27,7 +27,7 @@ font-size: 14px;
     0 3px 6px rgba(0, 0, 0, 0.23);
 box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 z-index: 100;
-transition: width 0.5s ease-in-out;
+transition: width 0.4s ease-in-out;
 white-space: nowrap;
 `;
 
@@ -54,11 +54,11 @@ left:30px;
 `;
 
 export const TitleExpSubItems = styled.div`
-max-height:80px;
+max-height:85px;
 overflow:hidden;
 padding:0;
 margin:0;
-transition: max-height 0.5s ease-in-out;
+transition: max-height 0.4s ease-in-out;
 ${({ hideMenu }) => hideMenu && `
 max-height:0px;
 `}
@@ -92,9 +92,9 @@ export const SubitemNavlink = styled(NavLink)`
 display:block;
 color:rgba(0,0,0,0.6);
 text-decoration:none;
-font-size:16px;
+font-size:18px;
 margin:0;
-padding:0px 0 10px 10px;
+padding:0px 0 10px 20px;
 transition: all 0.3s ease-in-out;
 &:hover{
     color:${theme.logoColorHover};
