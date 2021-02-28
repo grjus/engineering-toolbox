@@ -14,7 +14,7 @@ const TopBar = () => {
 
   const showMenu = () => {
     appStateDispatch((prev) => ({
-      ...prev, showSidebar: '300px',
+      ...prev, showSidebar: '280px',
     }));
   };
   return (
