@@ -20,7 +20,7 @@ position: fixed;
 background-color: ${theme.topBarColor};
 overflow: hidden;
 color: yellow;
-width: ${(props) => (props.width)};
+width: ${(props) => (props.width ? '0px' : '280px')};
 height: 100%;
 font-size: 14px;
 -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),

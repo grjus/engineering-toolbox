@@ -5,19 +5,17 @@ import {
 import { AppContext, AppContextDispatch } from '../App/context';
 // import { AppContext } from '../App/context';
 import ExpandItems from './ExpandItems';
-import useOutsideClick from './customHooks';
 
 function SideBar() {
   const appContext = useContext(AppContext);
   const appContextDispatch = useContext(AppContextDispatch);
   const sideMenuRef = useRef(null);
   const closeIco = useRef(null);
-  useOutsideClick(sideMenuRef);
 
   const hideBar = (e) => {
     if (closeIco.current.contains(e.target)) {
       appContextDispatch((prev) => ({
-        ...prev, showSidebar: '0px',
+        ...prev, showSidebar: true,
       }));
     }
   };

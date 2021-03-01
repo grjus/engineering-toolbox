@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import Menu from '@material-ui/icons/Menu';
 import { ThemeProvider } from 'styled-components';
 import {
@@ -7,20 +7,24 @@ import {
 } from './style';
 
 import { TopBarItems } from './config';
-import { AppContextDispatch } from '../App/context';
+import { AppContextDispatch, AppContext } from '../App/context';
 
 const TopBar = () => {
   const appStateDispatch = useContext(AppContextDispatch);
+  const appState = useContext(AppContext);
+  const menuRef = useRef(null);
+  console.log(appState);
 
-  const showMenu = () => {
-    appStateDispatch((prev) => ({
-      ...prev, showSidebar: '280px',
-    }));
+  const showMenu = (e) => {
+    if (menuRef.current.contains(e.target)) {
+      console.log(e);
+      appStateDispatch((prev) => !prev);
+    }
   };
   return (
     <ThemeProvider theme={theme}>
       <Bar>
-        <Menu onClick={showMenu} style={{ cursor: 'pointer' }} />
+        <Menu onClick={showMenu} innerRef={menuRef} style={{ cursor: 'pointer' }} />
         <Logo href="">Engineering Toolbox</Logo>
         {TopBarItems.map((item) => (
           <Anchor
