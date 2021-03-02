@@ -23,6 +23,7 @@
         "react-hooks/exhaustive-deps": "warn",
         "import/prefer-default-export": "off",
         "max-len": "off",
-        "no-plusplus":"off"
+        "no-plusplus":"off",
+        "linebreak-style": 0
     }
 }
