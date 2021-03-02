@@ -1,6 +1,6 @@
-import { Card } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import Card from '../ToolboxComponents/Card';
 import { Container } from '../../style';
 import { FormContent, Title } from '../ToolboxComponents/Card/style';
 import DropDown from '../ToolboxComponents/Dropdown';
@@ -26,19 +26,18 @@ const NeuberToolbox = () => {
   });
 
   const {
-    unitSystem, osgoodExponent, yieldStrength, linearStress,
+    unitSystem, osgoodExponent, yieldStrength, linearStress, youngsModulus,
   } = watch();
 
   useEffect(() => {
     handleSubmit((data) => {
-      console.log(osgoodExponent);
       console.log(data);
     })();
-  }, [unitSystem, osgoodExponent, handleSubmit, linearStress]);
+  }, [unitSystem, osgoodExponent, handleSubmit, linearStress, youngsModulus]);
 
   return (
     <Container>
-      <Card>
+      <Card style={{ padding: '30px' }}>
         <Title>Select unit system</Title>
         <FormContent>
           <DropDown name="unitSystem" control={control} dropDownItems={unitSystemItems} />
@@ -47,7 +46,16 @@ const NeuberToolbox = () => {
           Define Input data
         </Title>
         <FormContent>
-          <TextBox name="youngsModulus" inputRef={register} label={`Young's modulus,${unitSystem}`} error={errors.unitSystem} />
+          <TextBox
+            name="youngsModulus"
+            inputRef={register({
+              required: { value: true, message: 'Value is required' },
+              min: { value: unitSystem === 'ksi' ? 16000 : 110316, message: 'Value out or range' },
+              max: { value: unitSystem === 'ksi' ? 50000 : 344737, message: 'Value out or range' },
+            })}
+            label={`Young's modulus,${unitSystem}`}
+            error={errors.youngsModulus}
+          />
         </FormContent>
         <FormContent>
           <TextBox name="yieldStrength" inputRef={register} label={`Yield strength,${unitSystem}`} error={errors.unitSystem} />
