@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {} from 'react';
 import PropTypes from 'prop-types';
 import { Select, MenuItem } from '@material-ui/core';
 import { Controller } from 'react-hook-form';
@@ -14,6 +14,7 @@ const DropDown = ({
         id="demo-customized-select"
         input={<CustomDropDown />}
         defaultValue={dropDownItems[0].value}
+        value={props.value}
         onChange={(e) => {
           props.onChange(e);
           handleChange(e);
@@ -27,15 +28,12 @@ const DropDown = ({
     )}
     name={name}
     control={control}
-
   />
-
 );
-
 DropDown.propTypes = {
   handleChange: PropTypes.func,
   onChange: PropTypes.func,
-  // value: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
   control: PropTypes.instanceOf(Object).isRequired,
   name: PropTypes.string.isRequired,
   dropDownItems: PropTypes.arrayOf(PropTypes.shape({

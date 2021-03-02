@@ -48,8 +48,8 @@ function MaterialData() {
 
   const submitData = (data) => {
     setHideToast(true);
-    fatigueStateDispatch({
-      ...fatigueState,
+    fatigueStateDispatch((prev) => ({
+      ...prev,
       activeStep: 1,
       unitSystem: data.unitSystem,
       ultimateStrength: data.ultimateStrength,
@@ -69,7 +69,7 @@ function MaterialData() {
         isrequired: data.ifCustomFactor,
         value: data.customFactor || userDefinedFactor.value,
       },
-    });
+    }));
   };
 
   return (
