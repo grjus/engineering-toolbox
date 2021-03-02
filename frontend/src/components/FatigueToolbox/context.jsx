@@ -8,8 +8,7 @@ import { fatigueTheoryItems } from './StressInput/constants';
 
 const FatigueContext = createContext();
 const FatigueContextDispatch = createContext();
-
-export const initFatigueState = {
+const initFatigueState = {
   activeStep: 0,
   unitSystem: unitSystemItems[0].value,
   surfaceFactor: {
@@ -36,7 +35,7 @@ export const initFatigueState = {
   excelDataApi: null,
 };
 const FatigueStateProvider = ({ children }) => {
-  const [fatigueState, setFatigueState] = useState({ ...initFatigueState });
+  const [fatigueState, setFatigueState] = useState(initFatigueState);
 
   return (
     <FatigueContext.Provider value={fatigueState}>

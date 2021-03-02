@@ -3,7 +3,6 @@ import {
   CloseIco, Container, ItemNavLink, SideMenuiItemsContainer,
 } from './styles';
 import { AppContext, AppContextDispatch } from '../App/context';
-// import { AppContext } from '../App/context';
 import ExpandItems from './ExpandItems';
 
 function SideBar() {
