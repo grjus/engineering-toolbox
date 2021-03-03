@@ -7,7 +7,7 @@ import DropDown from '../ToolboxComponents/Dropdown';
 import { TextBox } from '../ToolboxComponents/TextBox';
 import { unitSystemItems } from './config';
 
-import { roValRules, minLinearStress } from './validators';
+import { validationRules } from './validators';
 
 const NeuberToolbox = () => {
   const {
@@ -33,7 +33,7 @@ const NeuberToolbox = () => {
     handleSubmit((data) => {
       console.log(data);
     })();
-  }, [unitSystem, osgoodExponent, handleSubmit, linearStress, youngsModulus]);
+  }, [unitSystem, osgoodExponent, handleSubmit, linearStress, youngsModulus, yieldStrength]);
 
   return (
     <Container>
@@ -48,31 +48,23 @@ const NeuberToolbox = () => {
         <FormContent>
           <TextBox
             name="youngsModulus"
-            inputRef={register({
-              required: { value: true, message: 'Value is required' },
-              min: { value: unitSystem === 'ksi' ? 16000 : 110316, message: 'Value out or range' },
-              max: { value: unitSystem === 'ksi' ? 50000 : 344737, message: 'Value out or range' },
-            })}
+            inputRef={register(validationRules(unitSystem === 'ksi' ? 16000 : 110316, unitSystem === 'ksi' ? 40000 : 275790))}
             label={`Young's modulus,${unitSystem}`}
             error={errors.youngsModulus}
           />
         </FormContent>
         <FormContent>
-          <TextBox name="yieldStrength" inputRef={register} label={`Yield strength,${unitSystem}`} error={errors.unitSystem} />
+          <TextBox name="yieldStrength" inputRef={register(validationRules(unitSystem === 'ksi' ? 10 : 69, unitSystem === 'ksi' ? 220 : 1700))} label={`Yield strength,${unitSystem}`} error={errors.yieldStrength} />
         </FormContent>
         <FormContent>
-          <TextBox name="osgoodExponent" inputRef={register(roValRules)} label="Osgood exponent" error={errors.unitSystem} />
+          <TextBox name="osgoodExponent" inputRef={register(validationRules(15, 30))} label="Osgood exponent" error={errors.osgoodExponent} />
         </FormContent>
         <FormContent>
           <TextBox
             name="linearStress"
-            inputRef={register({
-              ...minLinearStress,
-              max: { value: 3 * parseFloat(yieldStrength), message: 'To high linear stress' },
-              min: { value: parseFloat(yieldStrength), message: 'Lienar elastic stress' },
-            })}
+            inputRef={register(validationRules(yieldStrength, 4 * yieldStrength))}
             label={`Linear stress,${unitSystem}`}
-            error={errors.minLinearStress}
+            error={errors.linearStress}
           />
         </FormContent>
       </Card>
