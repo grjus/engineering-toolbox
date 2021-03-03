@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Card from '../ToolboxComponents/Card';
 import { Container } from '../../style';
-import { FormContent, Title } from '../ToolboxComponents/Card/style';
+import { Title } from '../ToolboxComponents/Card/style';
+import { FormContent } from './style';
 import DropDown from '../ToolboxComponents/Dropdown';
 import { TextBox } from '../ToolboxComponents/TextBox';
 import { unitSystemItems } from './config';
@@ -11,7 +12,7 @@ import { validationRules } from './validators';
 
 const NeuberToolbox = () => {
   const {
-    control, register, watch, errors, handleSubmit,
+    control, register, watch, errors, handleSubmit, trigger,
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -40,7 +41,7 @@ const NeuberToolbox = () => {
       <Card style={{ padding: '30px' }}>
         <Title>Select unit system</Title>
         <FormContent>
-          <DropDown name="unitSystem" control={control} dropDownItems={unitSystemItems} />
+          <DropDown name="unitSystem" control={control} dropDownItems={unitSystemItems} handleChange={() => trigger(['youngsModulus', 'linearStress', 'yieldStrength'])} />
         </FormContent>
         <Title>
           Define Input data

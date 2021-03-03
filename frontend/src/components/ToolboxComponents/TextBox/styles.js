@@ -21,7 +21,13 @@ const StyledTextField = withStyles({
       },
 
     },
+    '& .MuiFormHelperText-root': {
+      '&.Mui-error': {
+        width: 'max-content',
+      },
+    },
   },
+
 })(TextField);
 
 export default StyledTextField;
