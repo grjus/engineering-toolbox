@@ -4,6 +4,8 @@ import uvicorn
 from fatigueWebWrapper.Payload import FatiguePayload
 from fatigueWebWrapper.wrapper import FatigueWebWrapper
 
+from neuberWebWrapper.Payload import NeuberPayload
+
 app = FastAPI()
 
 origins = [
@@ -29,10 +31,12 @@ async def root():
 
 @app.post("/api/calculations/fatigue/")
 async def calculate_fatigue(payload: FatiguePayload, excel: bool = True):
-    # Dummy sleep. Only for spinner test
-    # import time
-    # time.sleep(1)
     return FatigueWebWrapper(payload, excel).fatigue()
+
+@app.post("/api/calculations/neuber/")
+async def calculate_neuber(payload:NeuberPayload):
+    print(payload)
+    return {"results":"Neuber results"}
 
 
 if __name__ == "__main__":
