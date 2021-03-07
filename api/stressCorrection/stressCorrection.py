@@ -30,6 +30,7 @@ class RambergOsgood:
         condition=(self.yield_strength/self.youngs_modulus)
         if condition>=opt_strain:
             return (opt_strain)*self.youngs_modulus
+        
         return self.yield_strength*(((opt_strain+0.002)*self.youngs_modulus)/self.yield_strength)**(1/self.osgood_exp)
 
     def elastic_strain(self, opt_stress):

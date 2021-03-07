@@ -3,12 +3,14 @@ import fastApi from '../Api';
 import { initialState, actionType, dataSubmitReducer } from '../Reducers';
 import { resultsInit } from './config';
 
-export const useDataFetch = (handleSubmit, [...props]) => {
+export const useDataFetch = (handleSubmit, props) => {
   const [results, setResults] = useState(resultsInit);
   const [state, dispatch] = useReducer(dataSubmitReducer, initialState);
 
   useEffect(() => {
-    const timeout = setTimeout(handleSubmit((data) => {
+    const fetchData = (data) => {
+      console.log('FETCHING');
+      console.log(props);
       dispatch({ type: actionType.SUBMIT });
       fastApi.post('/api/calculations/stress-correction/', JSON.stringify(data)).then((response) => {
         setResults(() => {
@@ -28,11 +30,12 @@ export const useDataFetch = (handleSubmit, [...props]) => {
           dispatch({ type: actionType.FAIL, payload: 'Analysis error. Review your input data' });
         }
       });
-    }), 500);
+    };
+    const timeout = setTimeout(handleSubmit(fetchData), 500);
     return () => {
       clearTimeout(timeout);
     };
-  }, [...props, handleSubmit]);
+  }, [handleSubmit, props.linearStress]);
 
   return [results, state];
 };

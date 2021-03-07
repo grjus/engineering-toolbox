@@ -6,7 +6,7 @@ const AppContextDispatch = createContext();
 
 const AppStateProvider = ({ children }) => {
   const [appState, setAppState] = useState({
-    showSidebar: true,
+    showSidebar: '0px',
   });
 
   return (

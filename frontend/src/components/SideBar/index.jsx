@@ -14,7 +14,7 @@ function SideBar() {
   const hideBar = (e) => {
     if (closeIco.current.contains(e.target)) {
       appContextDispatch((prev) => ({
-        ...prev, showSidebar: true,
+        ...prev, showSidebar: '0px',
       }));
     }
   };
