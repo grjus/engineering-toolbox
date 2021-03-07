@@ -54,10 +54,12 @@ class Neuber(RambergOsgood):
         super().__init__(youngs_modulus, yield_strength, osgood_exp, linear_stress)
     
     def neuber_hyperbol_equation(self,opt_stress):
-        return (self.linear_stress**2)/(self.youngs_modulus*opt_stress)-self.ramberg_osgood_stress(opt_stress)
+        return (self.linear_stress**2)/(self.youngs_modulus*opt_stress)
 
     def neuber_stress(self):
-        return brent(self.neuber_hyperbol_equation,0.05*self.yield_strength,self.linear_stress)
+        def neuber_hyper(opt_stress):
+            return self.neuber_hyperbol_equation(opt_stress) - self.ramberg_osgood_stress(opt_stress)
+        return brent(neuber_hyper,0.05*self.yield_strength,self.linear_stress)
 
     def neuber_params(self):
         '''
@@ -121,8 +123,7 @@ class Massing(RambergOsgood):
 
     def residual_stress(self):
         def massing(opt_stress):
-            return (self.linear_stress**2)/(self.youngs_modulus*opt_stress)\
-        -(opt_stress/self.youngs_modulus+2*(opt_stress/(2*self.yield_strength))**self.osgood_exp)
+            return (self.linear_stress**2)/(self.youngs_modulus*opt_stress)-(opt_stress/self.youngs_modulus+2*0.002*(opt_stress/(2*self.yield_strength))**self.osgood_exp)
         return brent(massing,0.05*self.yield_strength,self.linear_stress)
 
     def get_residual_stress(self, stress_value):
@@ -133,4 +134,4 @@ class Massing(RambergOsgood):
         @return:float:
             Returns calculated residual stress
         '''
-        return self.residual_stress() - stress_value
+        return  stress_value-self.residual_stress()

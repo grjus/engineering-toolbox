@@ -4,7 +4,8 @@ import uvicorn
 from fatigueWebWrapper.Payload import FatiguePayload
 from fatigueWebWrapper.wrapper import FatigueWebWrapper
 
-from neuberWebWrapper.Payload import NeuberPayload
+from stressCorrectionWrapper.Payload import NeuberPayload
+from stressCorrectionWrapper.wrapper import StressCorrectionWebWrapper
 
 app = FastAPI()
 
@@ -35,8 +36,7 @@ async def calculate_fatigue(payload: FatiguePayload, excel: bool = True):
 
 @app.post("/api/calculations/neuber/")
 async def calculate_neuber(payload:NeuberPayload):
-    print(payload)
-    return {"results":"Neuber results"}
+    return StressCorrectionWebWrapper(payload).get_data()
 
 
 if __name__ == "__main__":

@@ -12,6 +12,7 @@ class NeuberPayload(BaseModel):
       yieldStrength:float
       osgoodExponent:float
       linearStress: float
+      totalElongation:float
 
 
       @validator("unitSystem")
@@ -45,4 +46,12 @@ class NeuberPayload(BaseModel):
             raise ValueError("Provided stress value is in linear elastic range")
           if value > 4*values["yieldStrength"]:
             raise ValueError(f"Provided stress value is greater than {4*values['yieldStrength']}")
+        return value
+
+      @validator("totalElongation")
+      def val_total_elongation(cls,value):
+        if value < 0:
+          raise ValueError("Total elongation should be greater than 0")
+        if value >1:
+          raise ValueError("Total elongation should be less than 1")
         return value
