@@ -43,6 +43,8 @@ class StressCorrectionWebWrapper:
         glinka = self.get_glinka_data()
         massing = Massing(self.youngsModulus, self.yieldStrength, self.osgoodExponent, self.linearStress)
         neuber["ResidualStress"] = round(massing.get_residual_stress(neuber["Stress"]),2)
+        glinka["ResidualStress"] = "n/a"
+        
         return {
             "Neuber":neuber,
             "Glinka":glinka,

@@ -63,7 +63,7 @@ const NeuberToolbox = () => {
         <FormContent>
           <TextBox
             name="linearStress"
-            inputRef={register(validationRules(yieldStrength, 4 * yieldStrength))}
+            inputRef={register(validationRules(yieldStrength, 5 * yieldStrength))}
             label={`Linear stress,${unitSystem}`}
             error={errors.linearStress}
           />
