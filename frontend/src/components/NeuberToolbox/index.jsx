@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useReducer } from 'react';
+
 import { useForm } from 'react-hook-form';
 import Card from '../ToolboxComponents/Card';
 import { Container } from '../../style';
@@ -7,6 +8,7 @@ import { FormContent } from './style';
 import DropDown from '../ToolboxComponents/Dropdown';
 import { TextBox } from '../ToolboxComponents/TextBox';
 import { unitSystemItems } from './config';
+import { initialState, actionType, dataSubmitReducer } from '../Reducers';
 
 import { validationRules } from './validators';
 
@@ -22,19 +24,42 @@ const NeuberToolbox = () => {
       yieldStrength: 120,
       osgoodExponent: 22,
       linearStress: 150,
+      totalElongation: 0.1,
     },
 
   });
 
+  const [state, dispatch] = useReducer(dataSubmitReducer, initialState);
+
   const {
-    unitSystem, osgoodExponent, yieldStrength, linearStress, youngsModulus,
+    unitSystem, osgoodExponent, yieldStrength, linearStress, youngsModulus, totalElongation,
   } = watch();
 
   useEffect(() => {
     handleSubmit((data) => {
-      console.log(data);
+      dispatch({ type: actionType.SUBMIT });
+      fastApi.post('api/calculations/fatigue/', JSON.stringify(data)).then((response) => {
+        faitgueDispatch((prev) => {
+          dispatch({ type: actionType.SUCCESS });
+          return {
+            ...prev,
+            results: response.data,
+            activeStep: 3,
+          };
+        });
+      }).catch((error) => {
+        if (!error.response) {
+          dispatch({ type: actionType.FAIL, payload: 'Error in connection to Python API' });
+        } else if (error.response.status === 422) {
+          error.response.data.detail.forEach((element) => {
+            dispatch({ type: actionType.FAIL, payload: element.msg });
+          });
+        } else {
+          dispatch({ type: actionType.FAIL, payload: 'Analysis error. Review your input data' });
+        }
+      });
     })();
-  }, [unitSystem, osgoodExponent, handleSubmit, linearStress, youngsModulus, yieldStrength]);
+  }, [unitSystem, osgoodExponent, handleSubmit, linearStress, youngsModulus, yieldStrength, totalElongation]);
 
   return (
     <Container>
@@ -66,6 +91,14 @@ const NeuberToolbox = () => {
             inputRef={register(validationRules(yieldStrength, 5 * yieldStrength))}
             label={`Linear stress,${unitSystem}`}
             error={errors.linearStress}
+          />
+        </FormContent>
+        <FormContent>
+          <TextBox
+            name="totalElongation"
+            inputRef={register(validationRules(0.002, 1))}
+            label="Total elongation"
+            error={errors.totalElongation}
           />
         </FormContent>
       </Card>

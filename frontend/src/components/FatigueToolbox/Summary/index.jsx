@@ -8,7 +8,7 @@ import SummaryTable from './SummaryTable';
 import { FatigueContextDispatch, FatigueContext } from '../context';
 import { prepareDataToApi } from './handlers';
 import fastApi from '../../Api';
-import { initialState, dataSubmitReducer, actionType } from './reducer';
+import { initialState, dataSubmitReducer, actionType } from '../../Reducers';
 import CustomSpinner from './Spinner';
 import { SpinnerContainer } from './styles';
 import Helper from './toast/Helper';
