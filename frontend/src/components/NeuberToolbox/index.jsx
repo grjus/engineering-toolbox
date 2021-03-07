@@ -15,7 +15,7 @@ import Results from './Results';
 
 const NeuberToolbox = () => {
   const {
-    control, register, watch, errors, handleSubmit, trigger,
+    control, register, errors, handleSubmit, trigger,
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -24,33 +24,26 @@ const NeuberToolbox = () => {
       youngsModulus: 21000,
       yieldStrength: 120,
       osgoodExponent: 22,
-      linearStress: 150,
       totalElongation: 0.1,
+      linearStress: '',
     },
 
   });
 
-  const linearStress = useWatch({
-    control,
-    name: 'linearStress', // without supply name will watch the entire form, or ['firstName', 'lastName'] to watch both
-    defaultValue: 150, // default value before the render
-  });
-
   const {
-    unitSystem, osgoodExponent, yieldStrength, youngsModulus, totalElongation,
-  } = watch(['unitSystem', 'osgoodExponent', 'yieldStrength', 'youngsModulus', 'totalElongation']);
+    unitSystem, osgoodExponent, yieldStrength, youngsModulus, totalElongation, linearStress,
+  } = useWatch({
+    control,
+  });
 
   const [results] = useDataFetch(handleSubmit, {
     unitSystem, osgoodExponent, yieldStrength, linearStress, youngsModulus, totalElongation,
   });
 
-  // console.log(results);
-  // console.log(state);
-
   return (
     <Container>
       <FormContent flex>
-        <span>
+        <span style={{ marginTop: '60px' }}>
           <Card style={{ padding: '30px' }}>
             <Title>Select unit system</Title>
             <FormContent>
@@ -93,6 +86,7 @@ const NeuberToolbox = () => {
           </Card>
         </span>
         <Results results={results} />
+
       </FormContent>
 
     </Container>

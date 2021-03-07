@@ -9,8 +9,6 @@ export const useDataFetch = (handleSubmit, props) => {
 
   useEffect(() => {
     const fetchData = (data) => {
-      console.log('FETCHING');
-      console.log(props);
       dispatch({ type: actionType.SUBMIT });
       fastApi.post('/api/calculations/stress-correction/', JSON.stringify(data)).then((response) => {
         setResults(() => {
@@ -35,7 +33,7 @@ export const useDataFetch = (handleSubmit, props) => {
     return () => {
       clearTimeout(timeout);
     };
-  }, [handleSubmit, props.linearStress]);
+  }, [handleSubmit, props.linearStress, props.unitSystem, props.yieldStrength, props.totalElongation, props.youngsModulus, props.osgoodExponent]);
 
   return [results, state];
 };
