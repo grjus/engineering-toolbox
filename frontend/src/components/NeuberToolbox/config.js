@@ -10,7 +10,7 @@ export const unitSystemItems = [
 
 ];
 
-export const results = {
+export const resultsInit = {
   Neuber: {
     Stress: 'n/a',
     TotalStrain: 'n/a',

@@ -52,7 +52,7 @@ async def calculate_fatigue(payload: FatiguePayload, excel: bool = True):
         return JSONResponse(content=response, status_code=422)
 
 
-@app.post("/api/calculations/neuber/")
+@app.post("/api/calculations/stress-correction/")
 async def calculate_neuber(payload:NeuberPayload):
     try:
         return StressCorrectionWebWrapper(payload).get_data()
