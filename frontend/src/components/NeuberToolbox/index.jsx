@@ -58,12 +58,12 @@ const NeuberToolbox = () => {
           <TextBox name="yieldStrength" inputRef={register(validationRules(unitSystem === 'ksi' ? 10 : 69, unitSystem === 'ksi' ? 220 : 1700))} label={`Yield strength,${unitSystem}`} error={errors.yieldStrength} />
         </FormContent>
         <FormContent>
-          <TextBox name="osgoodExponent" inputRef={register(validationRules(15, 30))} label="Osgood exponent" error={errors.osgoodExponent} />
+          <TextBox name="osgoodExponent" inputRef={register(validationRules(10, 30))} label="Osgood exponent" error={errors.osgoodExponent} />
         </FormContent>
         <FormContent>
           <TextBox
             name="linearStress"
-            inputRef={register(validationRules(yieldStrength, 4 * yieldStrength))}
+            inputRef={register(validationRules(yieldStrength, 5 * yieldStrength))}
             label={`Linear stress,${unitSystem}`}
             error={errors.linearStress}
           />
