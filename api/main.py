@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from fastapi import responses
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from fatigueWebWrapper.Payload import FatiguePayload
@@ -32,11 +34,42 @@ async def root():
 
 @app.post("/api/calculations/fatigue/")
 async def calculate_fatigue(payload: FatiguePayload, excel: bool = True):
-    return FatigueWebWrapper(payload, excel).fatigue()
+    try:
+        return FatigueWebWrapper(payload, excel).fatigue()
+    except Exception as e:
+        response = {
+                    "detail": [
+                        {
+                        "loc": [
+                            "body",
+                            "resultsData"
+                        ],
+                        "msg": "Unable to find convergent solution. Check your input data",
+                        "type": "value_error"
+                        }
+                    ]
+                    }
+        return JSONResponse(content=response, status_code=422)
+
 
 @app.post("/api/calculations/neuber/")
 async def calculate_neuber(payload:NeuberPayload):
-    return StressCorrectionWebWrapper(payload).get_data()
+    try:
+        return StressCorrectionWebWrapper(payload).get_data()
+    except Exception as e:
+        response = {
+                    "detail": [
+                        {
+                        "loc": [
+                            "body",
+                            "resultsData"
+                        ],
+                        "msg": "Unable to find convergent solution. Check your input data",
+                        "type": "value_error"
+                        }
+                    ]
+                    }
+        return JSONResponse(content=response, status_code=422)
 
 
 if __name__ == "__main__":
