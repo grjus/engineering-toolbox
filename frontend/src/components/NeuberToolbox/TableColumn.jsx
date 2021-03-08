@@ -9,9 +9,9 @@ function TableColumn({ data, label }) {
     <TRContainer>
       <TRHeader>{label}</TRHeader>
       {Object.keys(data).map((item) => (
-        <THRow>
+        <THRow key={`${label}_${item}`}>
           <THRowLabel>
-            {item}
+            {item.replace(/([A-Z])/g, ' $1')}
             :
           </THRowLabel>
           <THRowContent>{data[item]}</THRowContent>
@@ -26,10 +26,22 @@ export default TableColumn;
 
 TableColumn.propTypes = {
   data: PropTypes.shape({
-    Stress: PropTypes.number.isRequired,
-    TotalStrain: PropTypes.number.isRequired,
-    ElasticStrain: PropTypes.number.isRequired,
-    PlasticStrain: PropTypes.number.isRequired,
+    Stress: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
+    TotalStrain: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
+    ElasticStrain: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
+    PlasticStrain: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
     ResidualStress: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
