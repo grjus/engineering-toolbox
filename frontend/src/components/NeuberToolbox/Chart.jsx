@@ -7,12 +7,14 @@ import { chartStyle } from './style';
 export const NeuberChart = ({ results }) => {
   const { XYData, UnitSystem } = results;
   const { NeuberHyperbola, RambergOsgood } = XYData;
+  const { Neuber, Glinka } = results;
   const [chart, setChart] = useState(null);
   const chartRef = useRef(null);
 
   useEffect(() => {
-    if (chart !== null && results) {
+    if (chart !== null && Neuber.Stress !== 'n/a') {
       chart.data.datasets = [];
+
       chart.data.datasets.push(
         {
           label: 'Ramberg Osgood',
@@ -43,26 +45,35 @@ export const NeuberChart = ({ results }) => {
           })),
         },
       );
-      // chart.data.datasets.push(
-      //   {
-      //     label: 'Analysis data',
-      //     backgroundColor: 'black',
-      //     pointRadius: 5,
-      //     borderWidth: 1.5,
-      //     borderColor: 'black',
-      //     fill: false,
-      //     data: (() => {
-      //       const outData = [];
-      //       for (let row = 0; row < excelData.length; row++) {
-      //         outData.push({
-      //           x: excelData[row][5],
-      //           y: excelData[row][4],
-      //         });
-      //       }
-      //       return outData;
-      //     })(),
-      //   },
-      // );
+      chart.data.datasets.push(
+        {
+          label: 'Neuber point',
+          backgroundColor: 'black',
+          pointRadius: 6,
+          borderWidth: 2.5,
+          borderColor: 'black',
+          fill: true,
+          data: [{
+            x: Neuber.TotalStrain,
+            y: Neuber.Stress,
+          }],
+        },
+      );
+      chart.data.datasets.push(
+        {
+          label: 'Glinka point',
+          backgroundColor: 'blue',
+          pointRadius: 6,
+          borderWidth: 2.5,
+          borderColor: 'blue',
+          fill: true,
+          data: [{
+            x: Glinka.TotalStrain,
+            y: Glinka.Stress,
+          }],
+        },
+      );
+
       const maxStress = Math.max(...RambergOsgood.Stress);
       chart.options.scales.yAxes[0].scaleLabel.labelString = `Stress, ${UnitSystem}`;
       chart.options.scales.yAxes[0].ticks.max = 1.2 * maxStress;
@@ -70,7 +81,7 @@ export const NeuberChart = ({ results }) => {
       chart.options.scales.xAxes[0].ticks.max = RambergOsgood.TotalElongation;
       chart.update();
     }
-  }, [chart, UnitSystem, results, NeuberHyperbola, RambergOsgood, chartRef]);
+  }, [chart, UnitSystem, results, NeuberHyperbola, RambergOsgood, chartRef, Glinka, Neuber]);
 
   return <ChartTemplate chartOptions={chartOptions} handleChart={setChart} chartRef={chartRef} chartStyle={chartStyle} />;
 };
