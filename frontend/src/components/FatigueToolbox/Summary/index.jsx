@@ -9,7 +9,7 @@ import { FatigueContextDispatch, FatigueContext } from '../context';
 import { prepareDataToApi } from './handlers';
 import fastApi from '../../Api';
 import { initialState, dataSubmitReducer, actionType } from '../../Reducers';
-import CustomSpinner from './Spinner';
+import CustomSpinner from '../../ToolboxComponents/Spinner';
 import { SpinnerContainer } from './styles';
 import Helper from './toast/Helper';
 import ToastHelper from '../../ToolboxComponents/Toast';

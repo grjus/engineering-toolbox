@@ -12,6 +12,7 @@ import { validationRules } from './validators';
 
 import { useDataFetch } from './dataFetch';
 import Results from './Results';
+import Spinner from './Spinner/Spinner';
 
 const NeuberToolbox = () => {
   const {
@@ -45,8 +46,9 @@ const NeuberToolbox = () => {
   return (
     <Container>
       <FormContent flex>
-        <InputBlock disabled={state.isRunning}>
-          <Card style={{ padding: '30px' }}>
+        <Card style={{ padding: '30px' }}>
+          <InputBlock disabled={state.isRunning}>
+
             <Title>Select unit system</Title>
             <FormContent>
               <DropDown name="unitSystem" control={control} dropDownItems={unitSystemItems} handleChange={() => trigger(['youngsModulus', 'linearStress', 'yieldStrength'])} />
@@ -60,13 +62,14 @@ const NeuberToolbox = () => {
                 inputRef={register(validationRules(unitSystem === 'ksi' ? 16000 : 110316, unitSystem === 'ksi' ? 40000 : 275790))}
                 label={`Young's modulus,${unitSystem}`}
                 error={errors.youngsModulus}
+                disabled={state.isRunning}
               />
             </FormContent>
             <FormContent>
-              <TextBox name="yieldStrength" inputRef={register(validationRules(unitSystem === 'ksi' ? 10 : 69, unitSystem === 'ksi' ? 220 : 1700))} label={`Yield strength,${unitSystem}`} error={errors.yieldStrength} />
+              <TextBox name="yieldStrength" inputRef={register(validationRules(unitSystem === 'ksi' ? 10 : 69, unitSystem === 'ksi' ? 220 : 1700))} disabled={state.isRunning} label={`Yield strength,${unitSystem}`} error={errors.yieldStrength} />
             </FormContent>
             <FormContent>
-              <TextBox name="osgoodExponent" inputRef={register(validationRules(10, 30))} label="Osgood exponent" error={errors.osgoodExponent} />
+              <TextBox name="osgoodExponent" inputRef={register(validationRules(10, 30))} disabled={state.isRunning} label="Osgood exponent" error={errors.osgoodExponent} />
             </FormContent>
             <FormContent>
               <TextBox
@@ -74,6 +77,7 @@ const NeuberToolbox = () => {
                 inputRef={register(validationRules(yieldStrength, 5 * yieldStrength))}
                 label={`Linear stress,${unitSystem}`}
                 error={errors.linearStress}
+                disabled={state.isRunning}
               />
 
             </FormContent>
@@ -83,10 +87,14 @@ const NeuberToolbox = () => {
                 inputRef={register(validationRules(0.002, 1))}
                 label="Total elongation"
                 error={errors.totalElongation}
+                disabled={state.isRunning}
               />
             </FormContent>
-          </Card>
-        </InputBlock>
+            <FormContent />
+
+          </InputBlock>
+          <Spinner isRunning={state.isRunning} />
+        </Card>
         <Results results={results} />
 
       </FormContent>

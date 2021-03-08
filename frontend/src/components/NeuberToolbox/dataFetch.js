@@ -29,7 +29,7 @@ export const useDataFetch = (handleSubmit, props) => {
         }
       });
     };
-    const timeout = setTimeout(handleSubmit(fetchData), 500);
+    const timeout = setTimeout(handleSubmit(fetchData), 300);
     return () => {
       clearTimeout(timeout);
     };
