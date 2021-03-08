@@ -67,13 +67,21 @@ export const chartOptions = {
   bezierCurve: true,
   options: {
     maintainAspectRatio: false,
-    responsive: false,
+    responsive: true,
     title: {
       display: true,
       text: 'Stress correction results',
       fontColor: 'black',
       fontSize: 20,
-
+    },
+    animation: {
+      duration: 500,
+      easing: 'easeInQuart',
+      onComplete() {
+        if (this.options.scales.yAxes[0].ticks.max !== 1) {
+          this.options.animation.duration = 0;
+        }
+      },
     },
     scales: {
       xAxes: [{
@@ -87,7 +95,7 @@ export const chartOptions = {
           fontColor: 'black',
         },
         ticks: {
-          max: 0.1,
+          max: 0.2,
           fontSize: 18,
           fontColor: 'black',
         },
@@ -103,6 +111,7 @@ export const chartOptions = {
         },
         ticks: {
           min: 0,
+          max: 1,
           // stepSize: 10,
           fontSize: 18,
           fontColor: 'black',
@@ -115,6 +124,9 @@ export const chartOptions = {
       align: 'center',
       fontSize: 18,
       fontColor: 'black',
+      labels: {
+        boxWidth: 10,
+      },
 
     },
   },
