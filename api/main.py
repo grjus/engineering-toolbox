@@ -54,6 +54,8 @@ async def calculate_fatigue(payload: FatiguePayload, excel: bool = True):
 
 @app.post("/api/calculations/stress-correction/")
 async def calculate_neuber(payload:NeuberPayload):
+    import time
+    time.sleep(0.5)
     try:
         return StressCorrectionWebWrapper(payload).get_data()
     except Exception as e:
