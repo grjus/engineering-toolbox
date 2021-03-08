@@ -14,13 +14,22 @@ margin-top:10px;
 display:flex;
 justify-content:space-around;
 position:relative;
-
 `;
 
 export const TRContainer = styled.div`
 display:flex;
 flex-direction:column;
 /* width:4000px; */
+`;
+
+export const InputBlock = styled.div`
+margin-top:30px;
+transition: opacity 0.2s ease-in;
+opacity:1;
+${({ disabled }) => disabled && `
+opacity:0.4;
+pointer-events:none;
+`}
 `;
 
 export const TRHeader = styled.div`
