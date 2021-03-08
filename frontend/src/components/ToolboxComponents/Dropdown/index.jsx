@@ -33,7 +33,7 @@ const DropDown = ({
 DropDown.propTypes = {
   handleChange: PropTypes.func,
   onChange: PropTypes.func,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   control: PropTypes.instanceOf(Object).isRequired,
   name: PropTypes.string.isRequired,
   dropDownItems: PropTypes.arrayOf(PropTypes.shape({
@@ -47,4 +47,5 @@ export default DropDown;
 DropDown.defaultProps = {
   handleChange: () => null,
   onChange: () => null,
+  value: null,
 };
