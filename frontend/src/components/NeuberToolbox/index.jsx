@@ -3,7 +3,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import Card from '../ToolboxComponents/Card';
 import { Container } from '../../style';
 import { Title } from '../ToolboxComponents/Card/style';
-import { FormContent } from './style';
+import { FormContent, InputBlock } from './style';
 import DropDown from '../ToolboxComponents/Dropdown';
 import { TextBox } from '../ToolboxComponents/TextBox';
 import { unitSystemItems } from './config';
@@ -36,14 +36,16 @@ const NeuberToolbox = () => {
     control,
   });
 
-  const [results] = useDataFetch(handleSubmit, {
+  const [results, state] = useDataFetch(handleSubmit, {
     unitSystem, osgoodExponent, yieldStrength, linearStress, youngsModulus, totalElongation,
   });
+
+  console.log(state);
 
   return (
     <Container>
       <FormContent flex>
-        <span style={{ marginTop: '60px' }}>
+        <InputBlock disabled={state.isRunning}>
           <Card style={{ padding: '30px' }}>
             <Title>Select unit system</Title>
             <FormContent>
@@ -84,7 +86,7 @@ const NeuberToolbox = () => {
               />
             </FormContent>
           </Card>
-        </span>
+        </InputBlock>
         <Results results={results} />
 
       </FormContent>
