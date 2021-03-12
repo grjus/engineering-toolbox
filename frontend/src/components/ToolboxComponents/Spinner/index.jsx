@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyledSpinner } from './styles';
 
-const CustomSpinner = ({ marginTop, size }) => <StyledSpinner color="primary" size={size} marginTop={marginTop} />;
+const CustomSpinner = ({ marginTop, size }) => <StyledSpinner color="primary" size={size} margintop={marginTop} />;
 
 export default CustomSpinner;
 
