@@ -69,7 +69,7 @@ export const chartOptions = {
     maintainAspectRatio: false,
     responsive: true,
     title: {
-      display: true,
+      display: false,
       text: 'Stress correction results',
       fontColor: 'black',
       fontSize: 20,
