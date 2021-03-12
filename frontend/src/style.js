@@ -25,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export const Container = styled.div`
+display:block;
 background-color:${(props) => (props.noBackColor ? theme.mainLayoutColor : 'whitesmoke')};
 width:1050px;
 position:relative;
@@ -33,6 +34,11 @@ bottom:0;
 left:0;
 right:0;
 margin:auto;
+height: auto;
+transition:height 0.5s ease-in;
+${({ hidden }) => hidden && `
+height:300px;
+`}
 `;
 
 export default GlobalStyle;
