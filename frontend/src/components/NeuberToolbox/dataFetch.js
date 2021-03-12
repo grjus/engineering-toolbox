@@ -14,6 +14,7 @@ export const useDataFetch = (handleSubmit, props) => {
         setResults(() => {
           dispatch({ type: actionType.SUCCESS });
           return {
+            isInit: false,
             ...response.data,
           };
         });

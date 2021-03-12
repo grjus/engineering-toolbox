@@ -8,7 +8,7 @@ function Spinner({ isRunning }) {
   return (
     <Container isRunning={isRunning}>
       <CustomSpinner marginTop="10px" size="20px" />
-      <Message>Fetching data</Message>
+      <Message>Calculating...</Message>
     </Container>
   );
 }

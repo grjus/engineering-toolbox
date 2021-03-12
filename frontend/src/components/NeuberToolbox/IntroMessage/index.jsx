@@ -1,28 +1,21 @@
-import { Grow, Slide } from '@material-ui/core';
+import { Fade } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Intro } from './style';
-import { useRender } from './customHook';
+import { Container, Title, Message } from './style';
 
-function IntroMessage({ isValid }) {
-  const showNext = useRender({
-    isValid,
-  });
-
+function IntroMessage({ visible }) {
   return (
-    <Container>
-      <Grow in={!showNext}>
-        <Intro first>Define linear stress to start stress correction</Intro>
-      </Grow>
-      <Slide in={showNext} timeout={500}>
-        <Intro>Input data</Intro>
-      </Slide>
-    </Container>
+    <Fade in={visible} unmountOnExit timeout={200}>
+      <Container>
+        <Title>Welcome to Stress Correction App</Title>
+        <Message>To begin, please define linear stress value in input data section</Message>
+      </Container>
+    </Fade>
   );
 }
 
 export default IntroMessage;
 
 IntroMessage.propTypes = {
-  isValid: PropTypes.bool.isRequired,
+  visible: PropTypes.bool.isRequired,
 };
