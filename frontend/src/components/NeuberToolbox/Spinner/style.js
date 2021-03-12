@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const Container = styled.div`
 display:flex;
 justify-content:flex-start;
-position:relative;
-left:20px;
+position:absolute;
+left:200px;
 opacity:0;
 transition:opacity 0.2s ease-in;
 ${({ isRunning }) => isRunning && `
