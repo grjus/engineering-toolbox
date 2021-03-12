@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { Fade } from '@material-ui/core';
 import ChartTemplate from '../ToolboxComponents/Chart';
 import { chartOptions } from './config';
 import { chartStyle } from './style';
+import { FormContent } from '../ToolboxComponents/Card/style';
 
 export const NeuberChart = ({ results }) => {
   const { XYData, UnitSystem } = results;
@@ -83,7 +85,13 @@ export const NeuberChart = ({ results }) => {
     }
   }, [chart, UnitSystem, results, NeuberHyperbola, RambergOsgood, chartRef, Glinka, Neuber]);
 
-  return <ChartTemplate chartOptions={chartOptions} handleChart={setChart} chartRef={chartRef} chartStyle={chartStyle} />;
+  return (
+    <Fade in={results.Glinka.Stress !== 'n/a'} timeout={1000}>
+      <FormContent style={{ width: '90%' }}>
+        <ChartTemplate chartOptions={chartOptions} handleChart={setChart} chartRef={chartRef} chartStyle={chartStyle} />
+      </FormContent>
+    </Fade>
+  );
 };
 
 export default NeuberChart;
