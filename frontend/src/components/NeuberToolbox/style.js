@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const FormContent = styled.div`
 padding:10px 0px 10px 10px;
+width:100%;
 display:block;
 ${({ flex }) => flex && `
 display:flex;
@@ -61,7 +62,7 @@ font-weight:bold;
 `;
 
 export const chartStyle = {
-  width: '690px',
+  width: '400',
   height: '600',
 };
 
