@@ -45,10 +45,12 @@ TextBox.defaultProps = {
   disabled: false,
 };
 
-export const FadeTextBox = ({ visible, timeout, ...props }) => (
+export const FadeTextBox = ({
+  visible, timeout, unmountOnExit, style, ...props
+}) => (
 
-  <Fade in={visible} timeout={timeout}>
-    <div>
+  <Fade in={visible} timeout={timeout} unmountOnExit={unmountOnExit}>
+    <div style={style}>
       <TextBox {...props} />
     </div>
   </Fade>
@@ -57,9 +59,13 @@ export const FadeTextBox = ({ visible, timeout, ...props }) => (
 FadeTextBox.propTypes = {
   timeout: PropTypes.number,
   visible: PropTypes.bool,
+  unmountOnExit: PropTypes.bool,
+  style: PropTypes.instanceOf(Object),
 };
 
 FadeTextBox.defaultProps = {
   timeout: 1000,
   visible: true,
+  unmountOnExit: false,
+  style: {},
 };
