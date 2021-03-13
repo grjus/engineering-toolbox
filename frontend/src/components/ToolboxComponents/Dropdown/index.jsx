@@ -1,6 +1,7 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, {} from 'react';
 import PropTypes from 'prop-types';
-import { Select, MenuItem } from '@material-ui/core';
+import { Select, MenuItem, Fade } from '@material-ui/core';
 import { Controller } from 'react-hook-form';
 import { CustomDropDown } from './style';
 
@@ -48,4 +49,23 @@ DropDown.defaultProps = {
   handleChange: () => null,
   onChange: () => null,
   value: null,
+};
+
+export const FadeDropDown = ({ visible, timeout, ...props }) => (
+
+  <Fade in={visible} timeout={timeout}>
+    <div>
+      <DropDown {...props} />
+    </div>
+  </Fade>
+);
+
+FadeDropDown.propTypes = {
+  timeout: PropTypes.number,
+  visible: PropTypes.bool,
+};
+
+FadeDropDown.defaultProps = {
+  timeout: 1000,
+  visible: true,
 };
