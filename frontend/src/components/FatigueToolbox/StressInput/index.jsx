@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Fade } from '@material-ui/core';
 import Card from '../../ToolboxComponents/Card';
 import {
   ButtonContainer, ErrorMessage, FormContent, Title,
@@ -15,10 +16,11 @@ import {
   addRow, deleteRow, saveSpreadsheet,
 } from './jexcelHelpers';
 import { dataTableValidation, yieldStrValRules } from '../validators';
-import DropDown from '../../ToolboxComponents/Dropdown';
-import { TextBox } from '../../ToolboxComponents/TextBox';
+import { FadeDropDown } from '../../ToolboxComponents/Dropdown';
+import { FadeTextBox } from '../../ToolboxComponents/TextBox';
 import Helper from './toast/Helper';
 import ToastHelper from '../../ToolboxComponents/Toast';
+import { DropdownContainer } from '../MaterialData/styles';
 
 function StressInput() {
   const fatigueStateDispatch = useContext(FatigueContextDispatch);
@@ -39,7 +41,9 @@ function StressInput() {
   const handleBack = () => {
     setHideToast(true);
     fatigueStateDispatch({
-      ...fatigueState, activeStep: 0,
+      ...fatigueState,
+      activeStep: 0,
+      excelError: '',
     });
   };
 
@@ -75,25 +79,34 @@ function StressInput() {
         </TableButtonContainer>
         <TableHeaders headersList={tableHeaders} unit={fatigueState.unitSystem} colWidth={EXCEL_COLUMN_WIDTH} />
         <DataTable options={HandleExcelOptions()} handleSheet={setDataTable} />
-        <ErrorMessage>{fatigueState.excelError}</ErrorMessage>
-      </FormContent>
-      <Title>Select fatigue theory</Title>
-      <FormContent style={{ paddingTop: '0px' }}>
-        <DropDown name="fatigueTheory" control={control} dropDownItems={fatigueTheoryItems} />
-      </FormContent>
 
-      <FormContent style={{ marginTop: '10px' }}>
-        {fatigueTheory === 'SODERBERG' ? (
-          <TextBox
+      </FormContent>
+      <Fade timeout={250} in={fatigueState.excelError !== ''}>
+        <ErrorMessage style={{ paddingLeft: '10px' }}>{fatigueState.excelError}</ErrorMessage>
+      </Fade>
+      <Title>Select fatigue theory</Title>
+      <FormContent>
+        <DropdownContainer style={{ height: '40px' }}>
+          <FadeDropDown name="fatigueTheory" control={control} dropDownItems={fatigueTheoryItems} />
+          <FadeTextBox
+            timeout={250}
+            unmountOnExit
+            visible={fatigueTheory === 'SODERBERG'}
             name="yieldStrength"
             inputRef={register(yieldStrValRules)}
             label={`Yield strength,${fatigueState.unitSystem}`}
             error={errors.yieldStrength}
+            variant="standard"
+            style={{
+              position: 'relative',
+              left: '80px',
+              top: '-8px',
+            }}
           />
-        ) : null}
+        </DropdownContainer>
       </FormContent>
 
-      <ButtonContainer>
+      <ButtonContainer style={{ position: 'relative', top: '40px' }}>
         <CustomButton handleClick={handleSubmit(submitData)} label="Next" buttonType="contained" color="primary" />
         <CustomButton handleClick={handleBack} label="Back" buttonType="contained" color="secondary" />
       </ButtonContainer>

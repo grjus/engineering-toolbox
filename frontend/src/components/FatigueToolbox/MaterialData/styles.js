@@ -5,7 +5,8 @@ margin-left:10px;
 flex-flow:column wrap; 
 flex-direction:row;
 display:flex;
-justify-content:flex-start
+justify-content:flex-start;
+
 /* float:left;
 display:grid;
 grid-template-columns: repeat(3, minmax(110px, auto));

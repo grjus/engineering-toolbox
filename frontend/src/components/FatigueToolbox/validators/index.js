@@ -15,19 +15,19 @@ export const dataTableValidation = (spreadsheet, refValue) => {
 
   for (let i = 0; i < minStress.length; i++) {
     if (parsedValue(minStress[i]) || parsedValue(maxStress[i]) || parsedValue(requiredCycles[i])) {
-      return 'Error: Please remove empty cells';
+      return 'Please remove empty cells';
     }
     if (parseFloat(minStress[i]) >= parseFloat(maxStress[i])) {
-      return 'Error:Minimum stresses is greater than maximum stress';
+      return 'Minimum stresses is greater than maximum stress';
     }
     if (parseFloat(maxStress[i]) > parseFloat(refValue)) {
-      return 'Error:Maximum stresses is greater than material ultimate strength';
+      return 'Maximum stresses is greater than material ultimate strength';
     }
     if (parseFloat(requiredCycles[i]) < 1000) {
-      return 'Error: Minimum cycle count should be greater than 1000';
+      return 'Minimum cycle count should be greater than 1000';
     }
     if (parseFloat(requiredCycles[i]) >= 10_000_000) {
-      return 'Error: Maximum cycle count should be less than than 10 000 000';
+      return 'Maximum cycle count should be less than than 10 000 000';
     }
   }
   return false;
