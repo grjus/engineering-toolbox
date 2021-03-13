@@ -51,10 +51,12 @@ DropDown.defaultProps = {
   value: null,
 };
 
-export const FadeDropDown = ({ visible, timeout, ...props }) => (
+export const FadeDropDown = ({
+  visible, timeout, unmountOnExit, style, ...props
+}) => (
 
-  <Fade in={visible} timeout={timeout}>
-    <div>
+  <Fade in={visible} timeout={timeout} unmountOnExit={unmountOnExit}>
+    <div style={style}>
       <DropDown {...props} />
     </div>
   </Fade>
@@ -63,9 +65,13 @@ export const FadeDropDown = ({ visible, timeout, ...props }) => (
 FadeDropDown.propTypes = {
   timeout: PropTypes.number,
   visible: PropTypes.bool,
+  unmountOnExit: PropTypes.bool,
+  style: PropTypes.instanceOf(Object),
 };
 
 FadeDropDown.defaultProps = {
   timeout: 1000,
   visible: true,
+  unmountOnExit: true,
+  style: {},
 };
