@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Card from '../../ToolboxComponents/Card';
-import DropDown from '../../ToolboxComponents/Dropdown';
+import DropDown, { FadeDropDown } from '../../ToolboxComponents/Dropdown';
 import {
   ButtonContainer, FormContent, Title,
 } from '../../ToolboxComponents/Card/style';
 import {
   unitSystemItems, modFacItems, surfaceFinishItems, loadFactorItems, relFactorItems,
 } from './constants';
-import { TextBox } from '../../ToolboxComponents/TextBox';
+import { FadeTextBox, TextBox } from '../../ToolboxComponents/TextBox';
 import CustomCheckbox from '../../ToolboxComponents/Checkbox';
 import { DropdownContainer } from './styles';
 import CustomButton from '../../ToolboxComponents/Button/Button';
@@ -91,15 +91,11 @@ function MaterialData() {
           {modFacItems.map((item) => <CustomCheckbox key={item.value} name={item.value} control={control} label={item.label} />)}
         </FormContent>
         <DropdownContainer>
-          {isSrufaceFactor ? <DropDown control={control} name="surtfaceFinishFactor" dropDownItems={surfaceFinishItems} /> : null}
-          {isLoadFactor ? <DropDown control={control} name="loadFactor" dropDownItems={loadFactorItems} /> : null}
-          {isRelFactor ? <DropDown control={control} name="relFactor" dropDownItems={relFactorItems} /> : null}
-
+          <FadeDropDown style={{ padding: '10px' }} timeout={300} visible={isSrufaceFactor} control={control} name="surtfaceFinishFactor" dropDownItems={surfaceFinishItems} />
+          <FadeDropDown style={{ padding: '10px' }} timeout={300} visible={isLoadFactor} control={control} name="loadFactor" dropDownItems={loadFactorItems} />
+          <FadeDropDown style={{ padding: '10px' }} timeout={300} visible={isRelFactor} control={control} name="relFactor" dropDownItems={relFactorItems} />
+          <FadeTextBox unmountOnExit style={{ flexBasis: '100%', paddingLeft: '10px' }} width="165px" timeout={300} visible={ifCustomFactor} name="customFactor" inputRef={register(userFacValRules)} label="User defined factor" error={errors.customFactor} />
         </DropdownContainer>
-
-      </FormContent>
-      <FormContent>
-        {ifCustomFactor ? <TextBox name="customFactor" inputRef={register(userFacValRules)} label="User defined factor" error={errors.customFactor} /> : null}
       </FormContent>
       <ButtonContainer>
         <CustomButton handleClick={handleSubmit(submitData)} label="Next" buttonType="contained" color="primary" />
