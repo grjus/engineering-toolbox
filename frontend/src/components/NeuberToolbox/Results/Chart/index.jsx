@@ -14,7 +14,6 @@ export const NeuberChart = ({ results }) => {
   const [chart, setChart] = useState(null);
   const chartRef = useRef(null);
   const [expand, setExpand] = useState(false);
-  const bottomRef = useRef(null);
 
   useEffect(() => {
     if (chart !== null && Neuber.Stress !== 'n/a') {
@@ -107,7 +106,7 @@ export const NeuberChart = ({ results }) => {
         </StyledContainer>
 
       </>
-      <span ref={bottomRef} />
+
     </FadeContainer>
   );
 };
