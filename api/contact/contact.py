@@ -3,13 +3,14 @@ import smtplib
 from email.mime.text import MIMEText
 
 
-def send_email(message, contact):
+def send_email(message, contact, subject):
 
     USER = os.environ.get("WEB_APP_MAIL")
-    PASSWORD = os.environ.get("WEB_APP_MAIL_PASS")
+    # PASSWORD = os.environ.get("WEB_APP_MAIL_PASS")
+    PASSWORD = "2333"
 
     msg = MIMEText(message)
-    msg["Subject"] = "EngineeringToolboxWebApp  - New Message"
+    msg["Subject"] = f"EngineeringToolbox-{subject}"
     msg["From"] = USER
     msg["To"] = contact
 
@@ -19,5 +20,6 @@ def send_email(message, contact):
         server.login(USER, PASSWORD)
         server.sendmail(contact, USER, msg.as_string())
         server.close()
+        return True
     except Exception as e:
-        print(e)
+        raise e

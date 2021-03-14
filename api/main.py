@@ -8,6 +8,8 @@ from fatigueWebWrapper.wrapper import FatigueWebWrapper
 
 from stressCorrectionWrapper.Payload import NeuberPayload
 from stressCorrectionWrapper.wrapper import StressCorrectionWebWrapper
+from contactWrapper.wrapper import Contact
+from contactWrapper.Payload import ContactFormPayload
 
 app = FastAPI()
 
@@ -21,6 +23,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.get("/")
 async def root():
@@ -38,40 +41,44 @@ async def calculate_fatigue(payload: FatiguePayload, excel: bool = True):
         return FatigueWebWrapper(payload, excel).fatigue()
     except Exception as e:
         response = {
-                    "detail": [
-                        {
-                        "loc": [
-                            "body",
-                            "resultsData"
-                        ],
-                        "msg": "Unable to find convergent solution. Check your input data",
-                        "type": "value_error"
-                        }
-                    ]
-                    }
+            "detail": [
+                {
+                    "loc": ["body", "resultsData"],
+                    "msg": "Unable to find convergent solution. Check your input data",
+                    "type": "value_error",
+                }
+            ]
+        }
         return JSONResponse(content=response, status_code=422)
 
 
 @app.post("/api/calculations/stress-correction/")
-async def calculate_neuber(payload:NeuberPayload):
+async def calculate_neuber(payload: NeuberPayload):
     import time
+
     time.sleep(0.5)
     try:
         return StressCorrectionWebWrapper(payload).get_data()
     except Exception as e:
         response = {
-                    "detail": [
-                        {
-                        "loc": [
-                            "body",
-                            "resultsData"
-                        ],
-                        "msg": "Unable to find convergent solution. Check your input data",
-                        "type": "value_error"
-                        }
-                    ]
-                    }
+            "detail": [
+                {
+                    "loc": ["body", "resultsData"],
+                    "msg": "Unable to find convergent solution. Check your input data",
+                    "type": "value_error",
+                }
+            ]
+        }
         return JSONResponse(content=response, status_code=422)
+
+
+@app.post("/api/contact")
+async def contact(payload: ContactFormPayload):
+    try:
+        Contact(payload).send()
+        return JSONResponse({"detail": "sucess"})
+    except Exception as e:
+        return JSONResponse({"detail": str(e)}, status_code=502)
 
 
 if __name__ == "__main__":
