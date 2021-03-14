@@ -76,7 +76,7 @@ async def calculate_neuber(payload: NeuberPayload):
 async def contact(payload: ContactFormPayload):
     try:
         Contact(payload).send()
-        return JSONResponse({"detail": "sucess"})
+        return JSONResponse({"detail": "Thank you for submitting your message"})
     except Exception as e:
         return JSONResponse({"detail": str(e)}, status_code=502)
 

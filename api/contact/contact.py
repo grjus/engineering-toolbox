@@ -6,8 +6,7 @@ from email.mime.text import MIMEText
 def send_email(message, contact, subject):
 
     USER = os.environ.get("WEB_APP_MAIL")
-    # PASSWORD = os.environ.get("WEB_APP_MAIL_PASS")
-    PASSWORD = "2333"
+    PASSWORD = os.environ.get("WEB_APP_MAIL_PASS")
 
     msg = MIMEText(message)
     msg["Subject"] = f"EngineeringToolbox-{subject}"
