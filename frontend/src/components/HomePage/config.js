@@ -12,10 +12,10 @@ export const smallCardItems = [
   },
   {
     image: fatigueLogo,
-    title: 'Neuber Toolbox',
-    description: 'Evaluate plastic stress value at notch using Ramberg-Osgood curve and Neuber rule',
+    title: 'Stress correction App',
+    description: 'Evaluate plastic stress value at notch using Ramberg-Osgood curve and Neuber/Glinka rule',
     disabled: false,
-    path: '/neuber',
+    path: '/stress-correction',
   },
   {
     image: fatigueLogo,
