@@ -2,14 +2,17 @@ import React, { useState, useReducer } from 'react';
 import { useForm } from 'react-hook-form';
 import { Fade } from '@material-ui/core';
 import Card from '../ToolboxComponents/Card';
-import { FormContent, ButtonContainer } from '../ToolboxComponents/Card/style';
+import { FormContent, ButtonContainer, ErrorMessage } from '../ToolboxComponents/Card/style';
 import CustomButton from '../ToolboxComponents/Button/Button';
 import { TextBox } from '../ToolboxComponents/TextBox';
 import { Container } from '../../style';
 import { initialState, actionType, dataSubmitReducer } from '../Reducers/index';
 import fastApi from '../Api/index';
-import { ConfirmMessage } from './style';
+import {
+  ConfirmMessage, Description, Error, Header,
+} from './style';
 import CustomSpinner from '../ToolboxComponents/Spinner';
+import { FadeContainer } from '../ToolboxComponents/FadeContainer/FadeContainer';
 
 function Contact() {
   const [state, dispatch] = useReducer(dataSubmitReducer, initialState);
@@ -28,9 +31,11 @@ function Contact() {
   const sendMessage = (data) => {
     dispatch({ type: actionType.SUBMIT });
     fastApi.post('/api/contact', JSON.stringify(data)).then((response) => {
-      setConfirm(response.data.detail);
-      dispatch({ type: actionType.SUCCESS });
-      reset();
+      if (response.status === 200) {
+        setConfirm(response.data.detail);
+        dispatch({ type: actionType.SUCCESS });
+        reset();
+      }
     }).catch((error) => {
       if (!error.response) {
         dispatch({ type: actionType.FAIL, payload: 'Error in connection to Python API' });
@@ -38,8 +43,10 @@ function Contact() {
         error.response.data.detail.forEach((element) => {
           dispatch({ type: actionType.FAIL, payload: element.msg });
         });
+      } else if (error.response.status === 502) {
+        dispatch({ type: actionType.FAIL, payload: error.response.data.detail });
       } else {
-        dispatch({ type: actionType.FAIL, payload: 'Analysis error. Review your input data' });
+        dispatch({ type: actionType.FAIL, payload: 'Failed to submit message. Please try again later' });
       }
     });
   };
@@ -47,77 +54,101 @@ function Contact() {
   return (
     <Container>
       <Card>
+        <FormContent>
+          <FadeContainer timeout={500} condition>
+            <Header>Contact us</Header>
+          </FadeContainer>
+          <FadeContainer timeout={1000} condition>
+            <Description>
+              {' '}
+              Found a bug? Need support? Or maybe you have an idea for online
+              {' '}
+              <span style={{ fontWeight: 'bold' }}>Enginnering Tool</span>
+              {' '}
+              ?
+              <br />
+              Please use this contact form to reach us.
+              <br />
+              <Error>Yes, I am aware that this form should have reCAPTCHA. I a working on it</Error>
+            </Description>
+          </FadeContainer>
+        </FormContent>
+        <FadeContainer timeout={2000} condition>
+          <FormContent>
+            <TextBox
+              name="email"
+              inputRef={register({
+                required: {
+                  value: true,
+                  message: 'Email adress is required',
+                },
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'invalid email address',
+                },
+              })}
+              label="Your email adress"
+              error={errors.email}
+              fieldType="text"
+              width="400px"
+              disabled={state.isRunning}
+            />
+          </FormContent>
+          <FormContent>
+            <TextBox
+              name="subject"
+              inputRef={register({
+                required: {
+                  value: true,
+                  message: 'Subject is required',
+                },
+                maxLength: {
+                  value: 100,
+                  message: 'Max numbers of chars is limited to 10',
+                },
+              })}
+              label="Subject"
+              error={errors.subject}
+              fieldType="text"
+              width="400px"
+              disabled={state.isRunning}
+            />
+          </FormContent>
+          <FormContent>
+            <TextBox
+              name="message"
+              inputRef={register({
+                required: {
+                  value: true,
+                  message: 'Message is required',
+                },
+                maxLength: {
+                  value: 1000,
+                  message: 'Max numbers of chars is limited to 10',
+                },
+              })}
+              label="Message"
+              error={errors.message}
+              multiline
+              fieldType="text"
+              width="800px"
+              disabled={state.isRunning}
+            />
+            <Fade timeout={1000} in={confirm !== ''}>
+              <div>
+                <ConfirmMessage>
+                  {confirm}
+                </ConfirmMessage>
+              </div>
+            </Fade>
+            {state.errorMessage ? state.errorMessage.map((item) => <ErrorMessage key={`error-${item}`}>{`${item}`}</ErrorMessage>) : null}
+          </FormContent>
+          <ButtonContainer style={{ padding: '20px 0px 20px 10px' }}>
+            <CustomButton handleClick={handleSubmit(sendMessage)} label={state.isRunning ? 'SUBMITTING' : 'SUBMIT'} buttonType="contained" color="primary" disabled={state.isRunning} />
+            {state.isRunning ? <CustomSpinner marginTop="6px" /> : null}
 
-        <FormContent>
-          <TextBox
-            name="email"
-            inputRef={register({
-              required: {
-                value: true,
-                message: 'Email adress is required',
-              },
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'invalid email address',
-              },
-            })}
-            label="Your email adress"
-            error={errors.email}
-            fieldType="text"
-            width="400px"
-            disabled={state.isRunning}
-          />
-        </FormContent>
-        <FormContent>
-          <TextBox
-            name="subject"
-            inputRef={register({
-              required: {
-                value: true,
-                message: 'Subject is required',
-              },
-              maxLength: {
-                value: 100,
-                message: 'Max numbers of chars is limited to 10',
-              },
-            })}
-            label="Subject"
-            error={errors.subject}
-            fieldType="text"
-            width="400px"
-            disabled={state.isRunning}
-          />
-        </FormContent>
-        <FormContent>
-          <TextBox
-            name="message"
-            inputRef={register({
-              required: {
-                value: true,
-                message: 'Message is required',
-              },
-              maxLength: {
-                value: 1000,
-                message: 'Max numbers of chars is limited to 10',
-              },
-            })}
-            label="Message"
-            error={errors.message}
-            multiline
-            fieldType="text"
-            width="800px"
-            disabled={state.isRunning}
-          />
-          <Fade timeout={500} in={confirm !== ''}>
-            <>
-              <ConfirmMessage>{confirm}</ConfirmMessage>
-            </>
-          </Fade>
-        </FormContent>
-        <ButtonContainer style={{ padding: '20px 0px 20px 10px' }}>
-          <CustomButton handleClick={handleSubmit(sendMessage)} label={state.isRunning ? 'SUBMITTING' : 'SUBMIT'} buttonType="contained" color="primary" disabled={state.isRunning} />
-          {state.isRunning ? <CustomSpinner marginTop="6px" /> : null}
-        </ButtonContainer>
+          </ButtonContainer>
+        </FadeContainer>
 
       </Card>
     </Container>
