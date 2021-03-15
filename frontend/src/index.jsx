@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './style';
 import App from './components/App/App';
 import { AppStateProvider } from './components/App/context';
 
 ReactDOM.render(
-  <HashRouter>
+  <BrowserRouter>
     <React.StrictMode>
       <ThemeProvider theme={theme}>
         <AppStateProvider>
@@ -15,7 +15,7 @@ ReactDOM.render(
         </AppStateProvider>
       </ThemeProvider>
     </React.StrictMode>
-  </HashRouter>,
+  </BrowserRouter>,
   document.getElementById('root'),
 );
 
