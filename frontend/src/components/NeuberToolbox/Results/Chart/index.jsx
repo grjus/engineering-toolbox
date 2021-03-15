@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ChartTemplate from '../../../ToolboxComponents/Chart';
 import { chartOptions } from './config';
 import { chartStyle } from './style';
-import { FadeContainer } from '../FadeContainer';
+import { FadeContainer } from '../../../ToolboxComponents/FadeContainer/FadeContainer';
 import DetailsHeader from '../OuputTable/DetailsHeader';
 import { StyledContainer } from '../style';
 

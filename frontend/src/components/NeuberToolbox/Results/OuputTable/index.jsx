@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { FadeContainer } from '../FadeContainer';
+import { FadeContainer } from '../../../ToolboxComponents/FadeContainer/FadeContainer';
 import TableColumn from './TableColumn';
 import { StyledContainer } from '../style';
 
