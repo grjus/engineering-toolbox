@@ -17,7 +17,7 @@ import { useDataFetch } from './dataFetch';
 import Results from './Results';
 import Spinner from './Spinner/Spinner';
 import IntroMessage from './IntroMessage';
-import { FadeContainer } from './Results/FadeContainer';
+import { FadeContainer } from '../ToolboxComponents/FadeContainer/FadeContainer';
 
 const NeuberToolbox = () => {
   const {
