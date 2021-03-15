@@ -24,7 +24,7 @@ const TopBar = () => {
     <ThemeProvider theme={theme}>
       <Bar>
         <Menu onClick={showMenu} innerRef={menuRef} style={{ cursor: 'pointer' }} />
-        <Logo href="">Engineering Toolbox</Logo>
+        <Logo to="/" exact replace>Engineering Toolbox</Logo>
         {TopBarItems.map((item) => (
           <Anchor
             key={item.key}
