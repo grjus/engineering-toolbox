@@ -65,6 +65,7 @@ max-height:0px;
 `;
 
 const mainLinkStyle = css`
+color:black;
 display:block;
 font-size:20px;
 letter-spacing:0.5px;

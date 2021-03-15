@@ -21,10 +21,10 @@ function SideBar() {
 
   return (
     <Container width={appContext.showSidebar} ref={sideMenuRef} onClick={hideBar}>
-      <CloseIco onClick={hideBar} innerRef={closeIco} />
+      <CloseIco innerRef={closeIco} />
       <SideMenuiItemsContainer>
         <ExpandItems />
-        <ItemNavLink activeClassName={ItemNavLink.active} exact to="/contact">Contact</ItemNavLink>
+        <ItemNavLink onClick={hideBar} activeClassName={ItemNavLink.active} exact to="/contact">Contact</ItemNavLink>
         <ItemNavLink activeClassName={ItemNavLink.active} exact to="/about">About</ItemNavLink>
         <ItemNavLink activeClassName={ItemNavLink.active} exact to="/theory-manual">Theory manual</ItemNavLink>
       </SideMenuiItemsContainer>
