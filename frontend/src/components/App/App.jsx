@@ -1,5 +1,8 @@
-import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React, { useEffect, useContext } from 'react';
+import {
+  Switch, Route, Redirect, useLocation,
+} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import GlobalStyle from '../../style';
 import TopBar from '../TopBar';
 import SideBar from '../SideBar';
@@ -13,12 +16,21 @@ import About from '../About';
 import TheoryManual from '../ThoeryManual';
 import { FatigueStateProvider } from '../FatigueToolbox/context';
 import useApiHealth from '../customHooks';
+import { AppContextDispatch } from './context';
 
 function App() {
   const error = useApiHealth(8000);
+  const appStateDispatch = useContext(AppContextDispatch);
+  const location = useLocation();
+  useEffect(() => {
+    appStateDispatch({
+      showSidebar: '0px',
+    });
+  }, [location, appStateDispatch]);
   if (error) {
     return <Redirect to="" />;
   }
+
   return (
 
     <>
@@ -26,11 +38,15 @@ function App() {
       <TopBar />
       <SideBar />
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/fatigue" render={() => <FatigueStateProvider><FatigueToolbox /></FatigueStateProvider>} />
-        <Route exact path="/neuber" component={NeuberToolbox} />
+        <Route exact path="/" render={(props) => <HomePage key={props.location.key} />} />
+        <Route exact path="/fatigue" render={(props) => <FatigueStateProvider key={props.location.key}><FatigueToolbox /></FatigueStateProvider>} />
+        <Route exact path="/stress-correction" component={NeuberToolbox} />
         <Route exact path="/composites" component={CompositeToolbox} />
-        <Route exact path="/contact" component={Contact} />
+        <Route
+          exact
+          path="/contact"
+          render={(props) => <Contact key={props.location.key} />}
+        />
         <Route exact path="/about" component={About} />
         <Route exact path="/theory-manual" component={TheoryManual} />
         <Route component={PageNotFound} />
@@ -40,3 +56,11 @@ function App() {
 }
 
 export default App;
+
+App.propTypes = {
+  location: PropTypes.instanceOf(Object),
+};
+
+App.defaultProps = {
+  location: {},
+};
