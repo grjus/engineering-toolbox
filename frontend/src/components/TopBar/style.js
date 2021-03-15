@@ -18,7 +18,7 @@ background-color:${(props) => props.theme.topBarColor};
 padding:${(props) => props.theme.topBarPadding};
 `;
 
-export const Logo = styled.a`
+export const Logo = styled(NavLink)`
 text-decoration:none;
 color:${(props) => props.theme.logoColor};
 letter-spacing:0.8px;
