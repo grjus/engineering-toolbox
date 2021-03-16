@@ -1,8 +1,9 @@
 import React, { useContext, useRef } from 'react';
 import Menu from '@material-ui/icons/Menu';
 import { ThemeProvider } from 'styled-components';
+import LogoAssm from './Logo';
 import {
-  Bar, Logo, Anchor,
+  Bar, Anchor,
   theme,
 } from './style';
 
@@ -24,7 +25,7 @@ const TopBar = () => {
     <ThemeProvider theme={theme}>
       <Bar>
         <Menu onClick={showMenu} innerRef={menuRef} style={{ cursor: 'pointer' }} />
-        <Logo to="/" exact replace>Engineering Toolbox</Logo>
+        <LogoAssm rotate />
         {TopBarItems.map((item) => (
           <Anchor
             key={item.key}

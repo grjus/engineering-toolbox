@@ -18,20 +18,6 @@ background-color:${(props) => props.theme.topBarColor};
 padding:${(props) => props.theme.topBarPadding};
 `;
 
-export const Logo = styled(NavLink)`
-text-decoration:none;
-color:${(props) => props.theme.logoColor};
-letter-spacing:0.8px;
-font-weight:bold;
-font-size:20px;
-transition:color 0.3s ease-in-out;
-&:hover{
-    color:${(props) => props.theme.logoColorHover};
-}
-
-
-`;
-
 export const Anchor = styled(NavLink)`
 text-decoration:none;
 color:${(props) => props.theme.linkColor};
