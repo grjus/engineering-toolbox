@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 export const theme = {
   // topBarColor: '#BAB2B5',
-  topBarColor: 'whitesmoke',
+  // topBarColor: 'whitesmoke',
+  topBarColor: 'white',
   topBarPadding: '20px',
   logoColor: '#123C69',
   logoColorHover: '#AC3B61',

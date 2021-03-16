@@ -68,7 +68,7 @@ class FatigueReport {
     for (let i = 0; i < noOfPages; i++) {
       this.doc.setPage(i + 1);
       const pageWidth = this.doc.internal.pageSize.getWidth();
-      this.doc.addImage(logo, 'PNG', 1, 1, 146, 43);
+      this.doc.addImage(logo, 'PNG', 8, 0, 146, 43);
       this.doc.setFontSize(14);
       this.doc.setTextColor(theme.logoColorHover);
       this.doc.text(10, 50, 'Fatigue Toolbox');
