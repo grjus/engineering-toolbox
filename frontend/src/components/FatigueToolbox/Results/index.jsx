@@ -20,6 +20,7 @@ import { dataConversion } from './dataConversion';
 import { formatJExcelTable } from './jexcelHelpers';
 import ToastHelper from '../../ToolboxComponents/Toast';
 import Helper from './toast/Helper';
+import { FadeContainer } from '../../ToolboxComponents/FadeContainer/FadeContainer';
 
 function Results() {
   const fatigueState = useContext(FatigueContext);
@@ -71,28 +72,30 @@ function Results() {
   };
 
   return (
-    <Card>
-      <ToastHelper helperComponent={<Helper />} toastStatus={hideToast} />
-      <Title>
-        Select stress unit system
-      </Title>
-      <FormContent>
-        <DropDown control={control} name="unitSystem" dropDownItems={unitSystemItems} handleChange={handleChange} />
-      </FormContent>
-      <Title>Stress results</Title>
-      <FormContent>
-        <TableHeaders headersList={tableHeaders} unit={unit} colWidth={EXCEL_COLUMN_WIDTH} />
-        <DataTable options={jexcelConfig} handleSheet={setDataTable} />
-      </FormContent>
-      <Title>Stress data</Title>
-      <ChartFatigue unit={unit} chartRef={chartRef} />
+    <FadeContainer condition timeout={500}>
+      <Card>
+        <ToastHelper helperComponent={<Helper />} toastStatus={hideToast} />
+        <Title>
+          Select stress unit system
+        </Title>
+        <FormContent>
+          <DropDown control={control} name="unitSystem" dropDownItems={unitSystemItems} handleChange={handleChange} />
+        </FormContent>
+        <Title>Stress results</Title>
+        <FormContent>
+          <TableHeaders headersList={tableHeaders} unit={unit} colWidth={EXCEL_COLUMN_WIDTH} />
+          <DataTable options={jexcelConfig} handleSheet={setDataTable} />
+        </FormContent>
+        <Title>Stress data</Title>
+        <ChartFatigue unit={unit} chartRef={chartRef} />
 
-      <ButtonContainer>
-        <CustomButton handleClick={handleNext} label="Next" color="primary" buttonType="contained" />
-        <CustomButton handleClick={handleBack} label="Back" color="secondary" buttonType="contained" />
-      </ButtonContainer>
+        <ButtonContainer>
+          <CustomButton handleClick={handleNext} label="Next" color="primary" buttonType="contained" />
+          <CustomButton handleClick={handleBack} label="Back" color="secondary" buttonType="contained" />
+        </ButtonContainer>
 
-    </Card>
+      </Card>
+    </FadeContainer>
   );
 }
 

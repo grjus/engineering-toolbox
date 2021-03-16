@@ -16,6 +16,7 @@ import { FatigueContext, FatigueContextDispatch } from '../context';
 import { ultStrValRules, userFacValRules } from '../validators';
 import ToastHelper from '../../ToolboxComponents/Toast';
 import Helper from './toast/Helper';
+import { FadeContainer } from '../../ToolboxComponents/FadeContainer/FadeContainer';
 
 function MaterialData() {
   const [hideToast, setHideToast] = useState(false);
@@ -73,34 +74,36 @@ function MaterialData() {
   };
 
   return (
-    <Card>
-      <ToastHelper toastStatus={hideToast} helperComponent={<Helper />} />
-      <Title>
-        Select stress unit system
-      </Title>
-      <FormContent>
-        <DropDown control={control} name="unitSystem" dropDownItems={unitSystemItems} />
-      </FormContent>
-      <Title>Specify material ultimate strength</Title>
-      <FormContent>
-        <TextBox name="ultimateStrength" inputRef={register(ultStrValRules)} label={`Ultimate strength, ${unitSystemWatch}`} error={errors.ultimateStrength} />
-      </FormContent>
-      <Title>Define material modification factors</Title>
-      <FormContent flex>
+    <FadeContainer condition timeout={500}>
+      <Card>
+        <ToastHelper toastStatus={hideToast} helperComponent={<Helper />} />
+        <Title>
+          Select stress unit system
+        </Title>
         <FormContent>
-          {modFacItems.map((item) => <CustomCheckbox key={item.value} name={item.value} control={control} label={item.label} />)}
+          <DropDown control={control} name="unitSystem" dropDownItems={unitSystemItems} />
         </FormContent>
-        <DropdownContainer>
-          <FadeDropDown style={{ padding: '10px' }} timeout={300} visible={isSrufaceFactor} control={control} name="surtfaceFinishFactor" dropDownItems={surfaceFinishItems} />
-          <FadeDropDown style={{ padding: '10px' }} timeout={300} visible={isLoadFactor} control={control} name="loadFactor" dropDownItems={loadFactorItems} />
-          <FadeDropDown style={{ padding: '10px' }} timeout={300} visible={isRelFactor} control={control} name="relFactor" dropDownItems={relFactorItems} />
-          <FadeTextBox unmountOnExit style={{ flexBasis: '100%', paddingLeft: '10px' }} width="165px" timeout={300} visible={ifCustomFactor} name="customFactor" inputRef={register(userFacValRules)} label="User defined factor" error={errors.customFactor} />
-        </DropdownContainer>
-      </FormContent>
-      <ButtonContainer>
-        <CustomButton handleClick={handleSubmit(submitData)} label="Next" buttonType="contained" color="primary" />
-      </ButtonContainer>
-    </Card>
+        <Title>Specify material ultimate strength</Title>
+        <FormContent>
+          <TextBox name="ultimateStrength" inputRef={register(ultStrValRules)} label={`Ultimate strength, ${unitSystemWatch}`} error={errors.ultimateStrength} />
+        </FormContent>
+        <Title>Define material modification factors</Title>
+        <FormContent flex>
+          <FormContent>
+            {modFacItems.map((item) => <CustomCheckbox key={item.value} name={item.value} control={control} label={item.label} />)}
+          </FormContent>
+          <DropdownContainer>
+            <FadeDropDown style={{ padding: '10px' }} timeout={300} visible={isSrufaceFactor} control={control} name="surtfaceFinishFactor" dropDownItems={surfaceFinishItems} />
+            <FadeDropDown style={{ padding: '10px' }} timeout={300} visible={isLoadFactor} control={control} name="loadFactor" dropDownItems={loadFactorItems} />
+            <FadeDropDown style={{ padding: '10px' }} timeout={300} visible={isRelFactor} control={control} name="relFactor" dropDownItems={relFactorItems} />
+            <FadeTextBox unmountOnExit style={{ flexBasis: '100%', paddingLeft: '10px' }} width="165px" timeout={300} visible={ifCustomFactor} name="customFactor" inputRef={register(userFacValRules)} label="User defined factor" error={errors.customFactor} />
+          </DropdownContainer>
+        </FormContent>
+        <ButtonContainer>
+          <CustomButton handleClick={handleSubmit(submitData)} label="Next" buttonType="contained" color="primary" />
+        </ButtonContainer>
+      </Card>
+    </FadeContainer>
   );
 }
 
