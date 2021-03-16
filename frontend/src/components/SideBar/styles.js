@@ -58,7 +58,7 @@ max-height:85px;
 overflow:hidden;
 padding:0;
 margin:0;
-transition: max-height 0.4s ease-in-out;
+transition: max-height 0.25s ease-in-out;
 ${({ hideMenu }) => hideMenu && `
 max-height:0px;
 `}
