@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Container, Logo, LogoIcon } from './style';
+import LogoComponent from '../../ToolboxComponents/LogoIcon';
+import { Container, Logo } from './style';
 
 const LogoAssm = () => {
   const [triggerRotate, setTriggerRotate] = useState(0);
@@ -18,7 +19,7 @@ const LogoAssm = () => {
   return (
     <Container to="/" exact replace>
       <Logo>Engineering Toolbox</Logo>
-      <LogoIcon fontSize="default" show={`rotate(${triggerRotate}deg)`} color="primary" />
+      <LogoComponent rotValue={triggerRotate} />
     </Container>
   );
 };

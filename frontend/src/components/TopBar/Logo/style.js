@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import SettingsIcon from '@material-ui/icons/Settings';
-import { withStyles } from '@material-ui/core';
 import { theme } from '../../../style';
 
 export const Container = styled(NavLink)`
@@ -26,20 +24,3 @@ transition:color 0.3s ease-in-out;
 }
 
 `;
-
-const logoIcoTheme = (icoTheme) => ({
-  root: {
-    transform: (props) => (props.show),
-    transition: icoTheme.transitions.create(['transform'], {
-      easing: icoTheme.transitions.easing.sharp,
-      duration: icoTheme.transitions.duration.standard,
-
-    }),
-    marginTop: '3px',
-  },
-  colorPrimary: {
-    color: theme.logoColor,
-  },
-
-});
-export const LogoIcon = withStyles(logoIcoTheme)(SettingsIcon);
