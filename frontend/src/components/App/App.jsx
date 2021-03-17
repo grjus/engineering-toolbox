@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import {
-  Switch, Route, Redirect, useLocation,
+  Switch, Route, useLocation,
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import GlobalStyle from '../../style';
@@ -17,9 +17,11 @@ import TheoryManual from '../ThoeryManual';
 import { FatigueStateProvider } from '../FatigueToolbox/context';
 import useApiHealth from '../customHooks';
 import { AppContextDispatch } from './context';
+import SplashScreen from '../ToolboxComponents/SplashScreen';
+import { FadeContainer } from '../ToolboxComponents/FadeContainer/FadeContainer';
 
 function App() {
-  const error = useApiHealth(8000);
+  const [error, loading] = useApiHealth(10000);
   const appStateDispatch = useContext(AppContextDispatch);
   const location = useLocation();
   useEffect(() => {
@@ -28,29 +30,33 @@ function App() {
     });
   }, [location, appStateDispatch]);
   if (error) {
-    return <Redirect to="" />;
+    console.log(error);
+    // return <Redirect to="" />;
   }
 
   return (
 
     <>
       <GlobalStyle />
-      <TopBar />
-      <SideBar />
-      <Switch>
-        <Route exact path="/" render={(props) => <HomePage key={props.location.key} />} />
-        <Route exact path="/fatigue" render={(props) => <FatigueStateProvider key={props.location.key}><FatigueToolbox /></FatigueStateProvider>} />
-        <Route exact path="/stress-correction" component={NeuberToolbox} />
-        <Route exact path="/composites" component={CompositeToolbox} />
-        <Route
-          exact
-          path="/contact"
-          render={(props) => <Contact key={props.location.key} />}
-        />
-        <Route exact path="/about" component={About} />
-        <Route exact path="/theory-manual" component={TheoryManual} />
-        <Route component={PageNotFound} />
-      </Switch>
+      <FadeContainer condition={!loading} timeout={1000}>
+        <TopBar />
+        <SideBar />
+        <Switch>
+          <Route exact path="/" render={(props) => <HomePage key={props.location.key} />} />
+          <Route exact path="/fatigue" render={(props) => <FatigueStateProvider key={props.location.key}><FatigueToolbox /></FatigueStateProvider>} />
+          <Route exact path="/stress-correction" component={NeuberToolbox} />
+          <Route exact path="/composites" component={CompositeToolbox} />
+          <Route
+            exact
+            path="/contact"
+            render={(props) => <Contact key={props.location.key} />}
+          />
+          <Route exact path="/about" component={About} />
+          <Route exact path="/theory-manual" component={TheoryManual} />
+          <Route component={PageNotFound} />
+        </Switch>
+      </FadeContainer>
+      <SplashScreen visible={loading} />
     </>
   );
 }
