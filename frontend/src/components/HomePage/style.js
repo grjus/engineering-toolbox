@@ -54,12 +54,12 @@ padding-bottom:10px;
 export const SmallCardContainer = styled.div`
 display:flex;
 justify-content:space-between;
-padding:20px;
+/* padding:20px; */
+width:100%;
 
 `;
 
 export const SmallCard = styled(NavLink)`
-border-radius:10px;
 text-decoration:none;
 background-color:whitesmoke;
 display:flex;
