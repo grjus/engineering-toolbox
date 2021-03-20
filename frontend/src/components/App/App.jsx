@@ -19,6 +19,7 @@ import useApiHealth from '../customHooks';
 import { AppContextDispatch } from './context';
 import SplashScreen from '../ToolboxComponents/SplashScreen';
 import { FadeContainer } from '../ToolboxComponents/FadeContainer/FadeContainer';
+import ApiErrorPage from '../ApiErrorPage';
 
 function App() {
   const [error, loading] = useApiHealth(10000);
@@ -29,33 +30,34 @@ function App() {
       showSidebar: '0px',
     });
   }, [location, appStateDispatch]);
-  if (error) {
-    console.log(error);
-    // return <Redirect to="" />;
-  }
 
   return (
-
     <>
       <GlobalStyle />
-      <FadeContainer condition={!loading} timeout={1000}>
-        <TopBar />
-        <SideBar />
-        <Switch>
-          <Route exact path="/" render={(props) => <HomePage key={props.location.key} />} />
-          <Route exact path="/fatigue" render={(props) => <FatigueStateProvider key={props.location.key}><FatigueToolbox /></FatigueStateProvider>} />
-          <Route exact path="/stress-correction" component={NeuberToolbox} />
-          <Route exact path="/composites" component={CompositeToolbox} />
-          <Route
-            exact
-            path="/contact"
-            render={(props) => <Contact key={props.location.key} />}
-          />
-          <Route exact path="/about" component={About} />
-          <Route exact path="/theory-manual" component={TheoryManual} />
-          <Route component={PageNotFound} />
-        </Switch>
-      </FadeContainer>
+      {!error ? (
+        <>
+          <FadeContainer condition={!loading} timeout={1000}>
+            <TopBar />
+            <SideBar />
+            <Switch>
+              <Route exact path="/" render={(props) => <HomePage key={props.location.key} />} />
+              <Route exact path="/fatigue" render={(props) => <FatigueStateProvider key={props.location.key}><FatigueToolbox /></FatigueStateProvider>} />
+              <Route exact path="/stress-correction" component={NeuberToolbox} />
+              <Route exact path="/composites" component={CompositeToolbox} />
+              <Route exact path="/api-error" component={CompositeToolbox} />
+              <Route
+                exact
+                path="/contact"
+                render={(props) => <Contact key={props.location.key} />}
+              />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/theory-manual" component={TheoryManual} />
+              <Route component={PageNotFound} />
+
+            </Switch>
+          </FadeContainer>
+        </>
+      ) : <ApiErrorPage />}
       <SplashScreen visible={loading} />
     </>
   );
