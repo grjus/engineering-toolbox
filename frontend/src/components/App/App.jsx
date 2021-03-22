@@ -9,16 +9,15 @@ import SideBar from '../SideBar';
 import FatigueToolbox from '../FatigueToolbox';
 import Contact from '../Contact';
 import NeuberToolbox from '../NeuberToolbox';
-import CompositeToolbox from '../CompositeToolbox';
 import HomePage from '../HomePage';
 import PageNotFound from '../PageNotFound';
 import About from '../About';
-import TheoryManual from '../ThoeryManual';
 import { FatigueStateProvider } from '../FatigueToolbox/context';
 import useApiHealth from '../customHooks';
 import { AppContextDispatch } from './context';
 import SplashScreen from '../ToolboxComponents/SplashScreen';
 import { FadeContainer } from '../ToolboxComponents/FadeContainer/FadeContainer';
+import UnderDev from '../Underconstruction';
 
 function App() {
   const [error, loading] = useApiHealth(10000);
@@ -45,14 +44,14 @@ function App() {
           <Route exact path="/" render={(props) => <HomePage key={props.location.key} />} />
           <Route exact path="/fatigue" render={(props) => <FatigueStateProvider key={props.location.key}><FatigueToolbox /></FatigueStateProvider>} />
           <Route exact path="/stress-correction" component={NeuberToolbox} />
-          <Route exact path="/composites" component={CompositeToolbox} />
+          <Route exact path="/composites" component={UnderDev} />
           <Route
             exact
             path="/contact"
             render={(props) => <Contact key={props.location.key} />}
           />
           <Route exact path="/about" component={About} />
-          <Route exact path="/theory-manual" component={TheoryManual} />
+          <Route exact path="/theory-manual" component={UnderDev} />
           <Route component={PageNotFound} />
         </Switch>
       </FadeContainer>

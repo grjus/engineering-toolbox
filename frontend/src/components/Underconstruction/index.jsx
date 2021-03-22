@@ -2,13 +2,13 @@ import React from 'react';
 import GeneralCard from '../ToolboxComponents/GeneralCardTemplate';
 import { Title, Description } from './styles';
 
-const PageNotFound = () => (
+const UnderDev = () => (
   <>
     <GeneralCard>
-      <Title>404 Page Not Found</Title>
-      <Description>We are sorry, this page is not avaiable</Description>
+      <Title>Comming soon...</Title>
+      <Description>This section is under development...</Description>
     </GeneralCard>
   </>
 );
 
-export default PageNotFound;
+export default UnderDev;

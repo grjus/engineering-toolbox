@@ -12,9 +12,11 @@ export const theme = {
 };
 
 export const Bar = styled.div`
+margin:0px;
+left:0px;
+right:0px;
 display:flex;
 justify-content:space-around;
-/* width:100%; */
 background-color:${(props) => props.theme.topBarColor};
 padding:${(props) => props.theme.topBarPadding};
 `;

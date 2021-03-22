@@ -20,6 +20,8 @@ const GlobalStyle = createGlobalStyle`
     align-items:center;
     min-width:800px;
     user-select: none;
+    letter-spacing:0.5px;
+    color:rgba(0,0,0,0.6);
 
   }
 `;
