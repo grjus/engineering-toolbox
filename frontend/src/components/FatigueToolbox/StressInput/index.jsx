@@ -72,8 +72,7 @@ function StressInput() {
       <Card>
         <ToastHelper toastStatus={hideToast} helperComponent={<Helper />} />
         <Title>Specify stress values</Title>
-
-        <FormContent>
+        <FormContent style={{ marginTop: '30px' }}>
           <TableButtonContainer>
             <CustomButton handleClick={() => addRow(dataTable)} label="Add row" buttonType="outlined" color="primary" />
             <CustomButton handleClick={() => deleteRow(dataTable)} label="Delete row" buttonType="outlined" color="primary" />

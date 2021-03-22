@@ -5,7 +5,7 @@ const StyledButton = withStyles({
   root: {
     height: '40px',
     maxWidth: '130px',
-    color: 'rgba(0,0,0,0.8)',
+    color: 'rgba(0,0,0,0.4)',
     fontSize: '14px',
     fontWeight: 'bold',
     letterSpacing: '2px',

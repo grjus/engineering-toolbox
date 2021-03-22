@@ -1,19 +1,20 @@
 import styled from 'styled-components';
+// import { theme } from '../../../style';
 
 export const Container = styled.div`
 position:relative;
 display:block;
 width:80%;
 color:rgba(0,0,0,0.8);
-padding:20px;
+padding:10px 20px 10px 20px;
 
 `;
 
 export const Title = styled.p`
 font-size:16px;
 letter-spacing:0.5px;
-padding:0 5px 0 5px;
-color:black;
+padding:0px 5px 0px 5px;
+color:rgba(0,0,0,0.6);
 `;
 
 export const FormContent = styled.div`

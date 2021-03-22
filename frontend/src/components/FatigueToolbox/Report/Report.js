@@ -35,7 +35,7 @@ class FatigueReport {
     this.doc.autoTable({
       columnStyles: { 0: { textColor: theme.logoColor, cellWidth: 80 } },
       body: [
-        ['Porject name', this.projectName],
+        ['Project name', this.projectName],
         ['Unit', unitSystem],
         ['Surface finish', surfaceFactor.isrequired ? this.state.surfaceFactor.value : 'n/a'],
         ['Load type', loadFactor.isrequired ? this.state.loadFactor.value : 'n/a'],
@@ -70,8 +70,8 @@ class FatigueReport {
       const pageWidth = this.doc.internal.pageSize.getWidth();
       this.doc.addImage(logo, 'PNG', 8, 0, 146, 43);
       this.doc.setFontSize(14);
-      this.doc.setTextColor(theme.logoColorHover);
-      this.doc.text(10, 50, 'Fatigue Toolbox');
+      this.doc.setTextColor(theme.logoColor);
+      this.doc.text(10, 50, 'Fatigue analysis report');
       this.doc.setTextColor('black');
       this.doc.setFontSize(12);
       this.doc.text(pageWidth - offsetDistance, 26, `Author: ${this.name} ${this.surname}`);
@@ -119,7 +119,7 @@ class FatigueReport {
     this.doc.text(this.xPos, this.yPos, title);
     this.yPos += 20;
     const imgData = figureRef.toDataURL('image/png');
-    this.doc.addImage(imgData, 'PNG', this.xPos, this.yPos, 385, 236);
+    this.doc.addImage(imgData, 'PNG', this.xPos, this.yPos, 385, 197);
     this.yPos += 200 - 40;
     this.doc.addPage();
     this.yPos = 0;

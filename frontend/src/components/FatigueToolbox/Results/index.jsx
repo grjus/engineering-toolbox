@@ -8,19 +8,16 @@ import {
 } from '../../ToolboxComponents/Card/style';
 import DropDown from '../../ToolboxComponents/Dropdown';
 import { unitSystemItems } from '../MaterialData/constants';
-import { TableHeaders } from '../StressInput/TableHeaders';
-import DataTable from '../../ToolboxComponents/JExcel';
-import {
-  tableHeaders, jexcelConfig, EXCEL_COLUMN_WIDTH,
-} from './config';
 import { FatigueContext, FatigueContextDispatch } from '../context';
 import CustomButton from '../../ToolboxComponents/Button/Button';
-import ChartFatigue from './ChartFatigue';
+
 import { dataConversion } from './dataConversion';
 import { formatJExcelTable } from './jexcelHelpers';
 import ToastHelper from '../../ToolboxComponents/Toast';
 import Helper from './toast/Helper';
 import { FadeContainer } from '../../ToolboxComponents/FadeContainer/FadeContainer';
+import OutputTable from './OutputTable';
+import ResultChart from './Chart';
 
 function Results() {
   const fatigueState = useContext(FatigueContext);
@@ -81,13 +78,8 @@ function Results() {
         <FormContent>
           <DropDown control={control} name="unitSystem" dropDownItems={unitSystemItems} handleChange={handleChange} />
         </FormContent>
-        <Title>Stress results</Title>
-        <FormContent>
-          <TableHeaders headersList={tableHeaders} unit={unit} colWidth={EXCEL_COLUMN_WIDTH} />
-          <DataTable options={jexcelConfig} handleSheet={setDataTable} />
-        </FormContent>
-        <Title>Stress data</Title>
-        <ChartFatigue unit={unit} chartRef={chartRef} />
+        <OutputTable handleSheet={setDataTable} unit={unit} />
+        <ResultChart unit={unit} chartRef={chartRef} />
 
         <ButtonContainer>
           <CustomButton handleClick={handleNext} label="Next" color="primary" buttonType="contained" />

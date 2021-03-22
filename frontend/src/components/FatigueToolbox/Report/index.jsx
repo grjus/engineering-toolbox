@@ -7,7 +7,6 @@ import CustomButton from '../../ToolboxComponents/Button/Button';
 import { TextBox } from '../../ToolboxComponents/TextBox';
 import { nameValRules, descValRules } from '../validators';
 import { fatReport } from './Report';
-import { FadeContainer } from '../../ToolboxComponents/FadeContainer/FadeContainer';
 
 function Summary() {
   const fatigueState = useContext(FatigueContext);
@@ -42,29 +41,29 @@ function Summary() {
   };
 
   return (
-    <FadeContainer timeout={5000} condition>
-      <Card>
-        <Title>
-          Report input data
-        </Title>
 
-        <FormContent flex style={{ width: '50%', justifyContent: 'space-between' }}>
-          <TextBox name="name" inputRef={register(nameValRules)} label="Name" error={errors.name} fieldType="text" />
-          <TextBox name="surname" inputRef={register(nameValRules)} label="Surname" error={errors.surname} fieldType="text" />
-        </FormContent>
-        <FormContent>
-          <TextBox name="projectName" inputRef={register(nameValRules)} label="Project name" error={errors.projectName} fieldType="text" />
-        </FormContent>
-        <FormContent>
-          <TextBox name="description" inputRef={register(descValRules)} label="Additional comments" error={errors.description} multiline fieldType="text" width="380px" />
-        </FormContent>
-        <ButtonContainer>
-          <CustomButton handleClick={handleSubmit(generateReport)} label="Report" buttonType="contained" color="primary" />
-          <CustomButton handleClick={handleBack} label="Back" buttonType="contained" color="secondary" />
-        </ButtonContainer>
+    <Card>
+      <Title>
+        Report input data
+      </Title>
 
-      </Card>
-    </FadeContainer>
+      <FormContent flex style={{ width: '50%', justifyContent: 'space-between' }}>
+        <TextBox name="name" inputRef={register(nameValRules)} label="Name" error={errors.name} fieldType="text" />
+        <TextBox name="surname" inputRef={register(nameValRules)} label="Surname" error={errors.surname} fieldType="text" />
+      </FormContent>
+      <FormContent>
+        <TextBox name="projectName" inputRef={register(nameValRules)} label="Project name" error={errors.projectName} fieldType="text" />
+      </FormContent>
+      <FormContent>
+        <TextBox name="description" inputRef={register(descValRules)} label="Additional comments" error={errors.description} multiline fieldType="text" width="380px" />
+      </FormContent>
+      <ButtonContainer>
+        <CustomButton handleClick={handleSubmit(generateReport)} label="Report" buttonType="contained" color="primary" />
+        <CustomButton handleClick={handleBack} label="Back" buttonType="contained" color="secondary" />
+      </ButtonContainer>
+
+    </Card>
+
   );
 }
 

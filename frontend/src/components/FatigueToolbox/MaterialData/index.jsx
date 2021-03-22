@@ -84,7 +84,7 @@ function MaterialData() {
           <DropDown control={control} name="unitSystem" dropDownItems={unitSystemItems} />
         </FormContent>
         <Title>Specify material ultimate strength</Title>
-        <FormContent>
+        <FormContent style={{ marginTop: '20px' }}>
           <TextBox name="ultimateStrength" inputRef={register(ultStrValRules)} label={`Ultimate strength, ${unitSystemWatch}`} error={errors.ultimateStrength} />
         </FormContent>
         <Title>Define material modification factors</Title>

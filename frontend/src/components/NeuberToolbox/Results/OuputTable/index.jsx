@@ -19,7 +19,7 @@ function OutputTable({ results, isRunning }) {
   return (
     <FadeContainer condition={!results.isInit} timeout={1000}>
       <>
-        <DetailsHeader onClick={() => setExpand((prev) => !prev)} expand={expand} label="Summary" />
+        <DetailsHeader noOffset onClick={() => setExpand((prev) => !prev)} expand={expand} label="Summary" />
         <StyledContainer hidden={!expand}>
           <TableColumn label="Neuber rule" data={Neuber} />
           <TableColumn label="Glinka rule" data={Glinka} />

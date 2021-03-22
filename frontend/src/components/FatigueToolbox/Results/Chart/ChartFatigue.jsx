@@ -1,8 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import ChartTemplate from '../../ToolboxComponents/Chart';
-import { FatigueContext } from '../context';
-import { chartOptions } from './config';
+import ChartTemplate from '../../../ToolboxComponents/Chart';
+import { FatigueContext } from '../../context';
+import { chartOptions } from '../config';
+import { theme } from '../../../../style';
 
 export const FatigueChart = ({ unit, chartRef }) => {
   const [chart, setChart] = useState(null);
@@ -21,7 +22,7 @@ export const FatigueChart = ({ unit, chartRef }) => {
           backgroundColor: '#12a112',
           pointRadius: 0,
           borderWidth: 3.5,
-          borderColor: '#12a112',
+          borderColor: theme.logoColor,
           fill: false,
           data: raw.stress.map((item, idx) => ({
             x: raw.cycles[idx],
@@ -70,7 +71,16 @@ export const FatigueChart = ({ unit, chartRef }) => {
     }
   }, [chart, derated, unit, excelData, raw]);
 
-  return <ChartTemplate chartOptions={chartOptions} handleChart={setChart} chartRef={chartRef} />;
+  return (
+    <ChartTemplate
+      chartOptions={chartOptions}
+      handleChart={setChart}
+      chartRef={chartRef}
+      chartStyle={{
+        width: '600px',
+      }}
+    />
+  );
 };
 
 export default FatigueChart;
