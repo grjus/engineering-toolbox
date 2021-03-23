@@ -2,7 +2,6 @@ import React, { useEffect, useContext } from 'react';
 import {
   Switch, Route, useLocation,
 } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import GlobalStyle from '../../style';
 import TopBar from '../TopBar';
 import SideBar from '../SideBar';
@@ -41,14 +40,14 @@ function App() {
         <TopBar />
         <SideBar />
         <Switch>
-          <Route exact path="/" render={(props) => <HomePage key={props.location.key} />} />
-          <Route exact path="/fatigue" render={(props) => <FatigueStateProvider key={props.location.key}><FatigueToolbox /></FatigueStateProvider>} />
-          <Route exact path="/stress-correction" component={NeuberToolbox} />
+          <Route exact path="/" render={() => <HomePage key={Date.now()} />} />
+          <Route exact path="/fatigue" render={() => <FatigueStateProvider key={Date.now()}><FatigueToolbox /></FatigueStateProvider>} />
+          <Route exact path="/stress-correction" render={() => <NeuberToolbox key={Date.now()} />} />
           <Route exact path="/composites" component={UnderDev} />
           <Route
             exact
             path="/contact"
-            render={(props) => <Contact key={props.location.key} />}
+            render={() => <Contact key={Date.now()} />}
           />
           <Route exact path="/about" component={About} />
           <Route exact path="/theory-manual" component={UnderDev} />
@@ -61,11 +60,3 @@ function App() {
 }
 
 export default App;
-
-App.propTypes = {
-  location: PropTypes.instanceOf(Object),
-};
-
-App.defaultProps = {
-  location: {},
-};

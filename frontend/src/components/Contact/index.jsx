@@ -1,6 +1,5 @@
 import React, { useState, useReducer } from 'react';
 import { useForm } from 'react-hook-form';
-import { Fade } from '@material-ui/core';
 import Card from '../ToolboxComponents/Card';
 import { FormContent, ButtonContainer, ErrorMessage } from '../ToolboxComponents/Card/style';
 import CustomButton from '../ToolboxComponents/Button/Button';
@@ -52,13 +51,12 @@ function Contact() {
   };
 
   return (
-    <Container>
-      <Card>
-        <FormContent>
-          <FadeContainer timeout={500} condition>
+    <FadeContainer timeout={500} condition>
+      <Container>
+        <Card>
+          <FormContent>
+
             <Header>Contact us</Header>
-          </FadeContainer>
-          <FadeContainer timeout={1000} condition>
             <Description>
               {' '}
               Found a bug? Need support? Or maybe you have an idea for online
@@ -69,11 +67,12 @@ function Contact() {
               <br />
               Please use this contact form to reach us.
               <br />
-              <Error>Yes, I am aware that this form should have reCAPTCHA. I a working on it</Error>
+              {/* <Error>Yes, I am aware that this form should have reCAPTCHA. I a working on it</Error> */}
+              <Error />
             </Description>
-          </FadeContainer>
-        </FormContent>
-        <FadeContainer timeout={2000} condition>
+
+          </FormContent>
+
           <FormContent>
             <TextBox
               name="email"
@@ -134,13 +133,13 @@ function Contact() {
               width="800px"
               disabled={state.isRunning}
             />
-            <Fade timeout={1000} in={confirm !== ''}>
-              <div>
-                <ConfirmMessage>
-                  {confirm}
-                </ConfirmMessage>
-              </div>
-            </Fade>
+
+            <div>
+              <ConfirmMessage>
+                {confirm}
+              </ConfirmMessage>
+            </div>
+
             {state.errorMessage ? state.errorMessage.map((item) => <ErrorMessage key={`error-${item}`}>{`${item}`}</ErrorMessage>) : null}
           </FormContent>
           <ButtonContainer style={{ padding: '20px 0px 20px 10px' }}>
@@ -148,10 +147,10 @@ function Contact() {
             {state.isRunning ? <CustomSpinner marginTop="6px" /> : null}
 
           </ButtonContainer>
-        </FadeContainer>
 
-      </Card>
-    </Container>
+        </Card>
+      </Container>
+    </FadeContainer>
   );
 }
 

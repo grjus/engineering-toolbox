@@ -23,7 +23,7 @@ export const smallCardItems = [
     image: compositeLogo,
     title: 'Composite Toolbox',
     description: 'Calculate stress and straing for laminated plates and cylinders. Comming soon...',
-    disabled: true,
+    disabled: false,
     path: '/composites',
   },
 ];
