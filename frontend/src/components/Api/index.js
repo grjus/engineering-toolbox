@@ -1,11 +1,12 @@
 import axios from 'axios';
 
 const fastApi = axios.create({
-  baseURL: 'http://localhost:8000/',
-  timeout: 5000,
+  baseURL: 'https://eng-tool.herokuapp.com/',
+  timeout: 10000,
   headers: {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': 'https://eng-tool.herokuapp.com/',
     'Access-Control-Allow-Methods': 'GET,POST',
+    "Access-Control-Allow-Headers": 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json'
   },
 });
 

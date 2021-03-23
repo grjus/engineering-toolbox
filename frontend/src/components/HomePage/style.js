@@ -18,6 +18,7 @@ flex-grow:0;
 flex-shrink:0;
 flex-basis:30%;
 width:300px;
+align-self:center;
 ${({ small }) => small && `
     width:280px;
     padding:10px;

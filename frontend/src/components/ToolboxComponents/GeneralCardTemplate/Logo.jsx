@@ -9,7 +9,7 @@ function AboutLogo() {
         <LogoTitle>EngineeringToolbox</LogoTitle>
         <LogoComponent rotValue icoSize="large" margintop="26px" />
       </Logo>
-      <LogoFooter>Design by engineer, for engineers</LogoFooter>
+      <LogoFooter>Applications for Engineers</LogoFooter>
     </>
   );
 }

@@ -1,5 +1,4 @@
-from fastapi import FastAPI
-from fastapi import responses
+from fastapi import FastAPI,Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
@@ -11,10 +10,16 @@ from stressCorrectionWrapper.wrapper import StressCorrectionWebWrapper
 from contactWrapper.wrapper import Contact
 from contactWrapper.Payload import ContactFormPayload
 
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
 origins = [
-    "http://localhost:3000",
+    "http://localhost:8000/","https://eng-tool.herokuapp.com","http://localhost:8000/",
 ]
 
 app.add_middleware(
@@ -25,9 +30,9 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-async def root():
-    return {"message": "Welcome to engineering toolbox"}
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 @app.get("/api/health")

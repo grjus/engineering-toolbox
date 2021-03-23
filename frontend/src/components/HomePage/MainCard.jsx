@@ -14,7 +14,7 @@ const MainCard = () => (
           {titleCardDescription}
         </Description>
       </Content>
-      <Image src={mainImage} />
+      <Image small src={mainImage} />
     </MainCardContainer>
     <SmallCardContainer style={{ marginTop: '30px' }}>
       {smallCardItems.map((item) => (

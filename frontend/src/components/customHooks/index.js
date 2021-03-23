@@ -17,6 +17,7 @@ const useApiHealth = (interval) => {
         }
       } catch (e) {
         setError(true);
+        console.log(e)
         console.error('Cound not connect to python API');
       }
       setLoading(false);

@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import {
-  Switch, Route, useLocation,
+  Switch, Route, useLocation,Redirect
 } from 'react-router-dom';
 import GlobalStyle from '../../style';
 import TopBar from '../TopBar';
@@ -29,7 +29,7 @@ function App() {
   }, [location, appStateDispatch]);
   if (error) {
     console.log(error);
-    // return <Redirect to="" />;
+    return <Redirect to={PageNotFound} />;
   }
 
   return (
