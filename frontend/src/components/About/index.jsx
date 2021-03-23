@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { Container } from '../../style';
-import AboutLogo from './Logo';
+import React from 'react';
 
-const About = () => {
-  const [state] = useState(null);
+import GeneralCard from '../ToolboxComponents/GeneralCardTemplate';
+import Mission from './Mission';
+import SSOT from './SSOT';
 
-  return (
-    <Container>
-      <AboutLogo />
-      {state}
-    </Container>
-  );
-};
+const About = () => (
+  <>
+    <GeneralCard>
+      <Mission />
+      <SSOT />
+    </GeneralCard>
+
+  </>
+);
 
 export default About;
