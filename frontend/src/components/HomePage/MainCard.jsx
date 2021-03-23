@@ -3,6 +3,7 @@ import { titleCardDescription, smallCardItems } from './config';
 import {
   MainCardContainer, Content, Description, Image, Title, SmallCardContainer, SmallCard,
 } from './style';
+import mainImage from './img/main.png';
 
 const MainCard = () => (
   <>
@@ -13,7 +14,7 @@ const MainCard = () => (
           {titleCardDescription}
         </Description>
       </Content>
-      <Image />
+      <Image src={mainImage} />
     </MainCardContainer>
     <SmallCardContainer style={{ marginTop: '30px' }}>
       {smallCardItems.map((item) => (

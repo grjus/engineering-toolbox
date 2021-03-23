@@ -17,6 +17,7 @@ export const Image = styled.img`
 flex-grow:0;
 flex-shrink:0;
 flex-basis:30%;
+width:300px;
 ${({ small }) => small && `
     width:280px;
     padding:10px;
