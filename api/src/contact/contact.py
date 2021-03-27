@@ -4,6 +4,9 @@ from email.mime.text import MIMEText
 
 
 def send_email(message, contact, subject):
+    '''
+    Sends email message to mail account
+    '''
 
     USER = os.environ.get("WEB_APP_MAIL")
     PASSWORD = os.environ.get("WEB_APP_MAIL_PASS")
