@@ -19,24 +19,23 @@ import { FadeContainer } from '../ToolboxComponents/FadeContainer/FadeContainer'
 import UnderDev from '../Underconstruction';
 
 function App() {
+  // Check API health at 10 s intervale
   const [error, loading] = useApiHealth(10000);
   const appStateDispatch = useContext(AppContextDispatch);
   const location = useLocation();
+
+  // Hide side bar if location changes
   useEffect(() => {
     appStateDispatch({
       showSidebar: '0px',
     });
   }, [location, appStateDispatch]);
-  if (error) {
-    console.log(error);
-    // return <Redirect to="" />;
-  }
 
   return (
 
     <>
       <GlobalStyle />
-      <FadeContainer condition={!loading} timeout={1000}>
+      <FadeContainer condition={!loading && !error} timeout={1000}>
         <TopBar />
         <SideBar />
         <Switch>
@@ -55,6 +54,11 @@ function App() {
         </Switch>
       </FadeContainer>
       <SplashScreen visible={loading} />
+      <FadeContainer condition={error}>
+        <span style={{ position: 'relative', top: '-500px' }}>
+          <PageNotFound />
+        </span>
+      </FadeContainer>
     </>
   );
 }
