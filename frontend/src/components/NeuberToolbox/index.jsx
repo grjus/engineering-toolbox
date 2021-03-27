@@ -92,9 +92,12 @@ const NeuberToolbox = () => {
                 error={errors.linearStress}
                 disabled={state.isRunning}
                 width="150px"
+                labelWidth="150px"
+
               />
               <FadeTextBox
                 visible={!results.isInit}
+                labelWidth="200px"
                 name="youngsModulus"
                 inputRef={register(
                   validationRules(
@@ -119,6 +122,7 @@ const NeuberToolbox = () => {
                 label={`Yield strength,${unitSystem}`}
                 error={errors.yieldStrength}
                 width="150px"
+                labelWidth="150px"
               />
 
               <FadeTextBox
@@ -129,6 +133,7 @@ const NeuberToolbox = () => {
                 label="Osgood exponent"
                 error={errors.osgoodExponent}
                 width="150px"
+                labelWidth="200px"
               />
 
               <FadeTextBox
@@ -139,6 +144,7 @@ const NeuberToolbox = () => {
                 error={errors.totalElongation}
                 disabled={state.isRunning}
                 width="150px"
+                labelWidth="150px"
               />
             </FormContent>
           </InputBlock>
