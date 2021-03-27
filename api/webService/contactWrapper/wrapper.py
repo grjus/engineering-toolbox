@@ -1,4 +1,4 @@
-from contact.contact import send_email
+from src.contact.contact import send_email
 
 
 class Contact:

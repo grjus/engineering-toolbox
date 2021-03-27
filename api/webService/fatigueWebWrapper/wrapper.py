@@ -1,6 +1,6 @@
-from fatigue.fatigue import FatigueTheory, FatigueStress
-from fatigue.fatiguelife import BaskinModel
-from fatigue.modFactors import ModificationFactors
+from src.fatigue.fatigue import FatigueTheory, FatigueStress
+from src.fatigue.fatiguelife import BaskinModel
+from src.fatigue.modFactors import ModificationFactors
 
 
 class FatigueWebWrapper:

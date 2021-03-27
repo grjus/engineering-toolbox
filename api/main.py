@@ -3,13 +3,12 @@ from fastapi import responses
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from fatigueWebWrapper.Payload import FatiguePayload
-from fatigueWebWrapper.wrapper import FatigueWebWrapper
-
-from stressCorrectionWrapper.Payload import NeuberPayload
-from stressCorrectionWrapper.wrapper import StressCorrectionWebWrapper
-from contactWrapper.wrapper import Contact
-from contactWrapper.Payload import ContactFormPayload
+from webService.fatigueWebWrapper.Payload import FatiguePayload
+from webService.fatigueWebWrapper.wrapper import FatigueWebWrapper
+from webService.stressCorrectionWrapper.Payload import NeuberPayload
+from webService.stressCorrectionWrapper.wrapper import StressCorrectionWebWrapper
+from webService.contactWrapper.wrapper import Contact
+from webService.contactWrapper.Payload import ContactFormPayload
 
 app = FastAPI()
 

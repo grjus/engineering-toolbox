@@ -1,5 +1,5 @@
 import numpy as np
-from stressCorrection.stressCorrection import Neuber, Glinka, Massing
+from src.stressCorrection.stressCorrection import Neuber, Glinka, Massing
 
 
 class StressCorrectionWebWrapper:
