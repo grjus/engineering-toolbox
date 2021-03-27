@@ -3,8 +3,15 @@ from scipy.stats import norm
 
 class ModificationFactors:
 
+    '''
+    Assumed standard deviation for relibility factor evaluation
+    '''
+
     STANDARD_DEVIATION = 0.08
 
+    '''
+    Surface factor utilized equation ax**5 + bx**4 + cx**3 + dx**2 + ex
+    '''
     SURFACE_FACTOR = {
         "RHR1": [-1.9781e-10, 9.3052e-08, -1.54162e-05, 0.000992486, 0.978754496],
         "RHR2": [-2.41664e-10, 1.13e-07, -1.8961e-05, 0.001197649, 0.974180822],
