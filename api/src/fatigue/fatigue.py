@@ -25,6 +25,10 @@ class FatigueStress(object):
         self.yield_strength = yield_strength
 
     def get_stress_components(self):
+        '''
+        Calculates alternating and mean stresses based on provided min and max values
+        @return: tuple[List]
+        '''
         alt_stress = []
         mean_stress = []
         for s_min, s_max in zip(self.min_stress, self.max_stress):
@@ -36,6 +40,10 @@ class FatigueStress(object):
         return alt_stress, mean_stress
 
     def __goodman_stress(self):
+        '''
+        Calculates Goodman stress
+        @return: tuple(float)
+        '''
         return tuple(
             map(
                 lambda s_alt, s_mean: s_alt / (1 - s_mean / self.mat_constant),
@@ -45,6 +53,10 @@ class FatigueStress(object):
         )
 
     def __gerber_stress(self):
+        '''
+        Calculates Gerber stress
+        @return: tuple(float)
+        '''
         return tuple(
             map(
                 lambda s_alt, s_mean: s_alt / (1 - (s_mean / self.mat_constant) ** 2),
@@ -54,7 +66,10 @@ class FatigueStress(object):
         )
 
     def __soderberg_stress(self):
-        print("Calling Sodeberg")
+        '''
+        Calculates Soderberg stress
+        @return: tuple(float)
+        '''
         return tuple(
             map(
                 lambda s_alt, s_mean: s_alt / (1 - s_mean / self.yield_strength),
@@ -64,6 +79,9 @@ class FatigueStress(object):
         )
 
     def fatigue_stress(self):
+        '''
+        Rough switch implementation for implemented fatigue models
+        '''
         fatigue_models = {
             FatigueTheory.GOODMAN: self.__goodman_stress,
             FatigueTheory.GERBER: self.__gerber_stress,

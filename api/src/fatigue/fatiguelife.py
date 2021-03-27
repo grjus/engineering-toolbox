@@ -3,7 +3,14 @@ import numpy as np
 
 
 class BaskinModel(object):
+    '''
+    Basking model implementation
+    Asumes 0.4 factor for endurance limit
+    Suitable for carbon steels
+    Not applicable for alloys
+    '''
 
+    # Fatigue chart resolution
     NO_OF_CHART_POINTS = 200
 
     def __init__(
@@ -17,11 +24,19 @@ class BaskinModel(object):
         self.modification_factor = modification_factor
 
     def get_baskin_params(self, derated=True):
+        '''
+        Calculates Baskin parameters for the fatigue curve
+        '''
+        # If data should be raw, not derated, applied modification factor = 1
         if derated == False:
             self.modification_factor = 1
         self.endurance_limit = 0.4 * self.ult_strength * self.modification_factor
 
         def s_1000_factor():
+            '''
+            Calculates starting point for fatigue curve
+            Based on Shigley data, depends on material ultimate strength
+            '''
             if self.ult_strength < 130:
                 return (
                     -1.4218548015713e-07 * self.ult_strength ** 3
@@ -52,6 +67,10 @@ class BaskinModel(object):
         )
 
     def get_allowable_cycles(self):
+        '''
+        Calculates allowable cycles based on modification factor and fatigue stress
+        @return: List[float]
+        '''
         self.get_baskin_params()
         allowable_cycles = []
         for stress in self.fatigue_stress:
@@ -65,6 +84,10 @@ class BaskinModel(object):
         return allowable_cycles
 
     def get_damage(self, required_cycles: List[float]):
+        '''
+        Calculates fatigue damage based on raquired and allwable cycle values
+        @return: List[float]
+        '''
         damage = []
         allowable_cycles = self.get_allowable_cycles()
         for req_cycles, allow_cycle in zip(required_cycles, allowable_cycles):
@@ -72,6 +95,11 @@ class BaskinModel(object):
         return damage
 
     def get_chart_data(self, derated):
+        '''
+        Evaluate fatigue chart using Baskin model
+        User can evaluated raw (derated=False) or derated curve
+        @return: tuple[List[float]]
+        '''
         self.get_baskin_params(derated)
         print(f"Modification factor {self.modification_factor}")
         cycle_range = np.linspace(
