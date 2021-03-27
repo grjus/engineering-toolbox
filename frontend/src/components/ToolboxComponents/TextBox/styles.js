@@ -23,7 +23,9 @@ const StyledTextField = withStyles({
     },
     '& .MuiFormHelperText-root': {
       '&.Mui-error': {
-        width: 'max-content',
+        width: (props) => (props.labelWidth ? props.labelWidth : 'max-content'),
+        marginLeft: '0px',
+        wordBreak: 'break-all',
       },
     },
   },

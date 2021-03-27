@@ -5,7 +5,7 @@ import { Fade } from '@material-ui/core';
 import StyledTextField from './styles';
 
 export const TextBox = ({
-  name, inputRef, label, error, multiline, fieldType, width, disabled, variant,
+  name, inputRef, label, error, multiline, fieldType, width, disabled, variant, labelWidth,
 }) => (
   <>
     <StyledTextField
@@ -20,6 +20,7 @@ export const TextBox = ({
       rows={5}
       width={width}
       disabled={disabled}
+      labelWidth={labelWidth}
     />
   </>
 );
@@ -34,6 +35,7 @@ const textBoxProps = {
   width: PropTypes.string,
   disabled: PropTypes.bool,
   variant: PropTypes.string,
+  labelWidth: PropTypes.string,
 };
 
 TextBox.propTypes = textBoxProps;
@@ -45,6 +47,7 @@ TextBox.defaultProps = {
   width: '180px',
   disabled: false,
   variant: 'outlined',
+  labelWidth: 'max-content',
 };
 
 export const FadeTextBox = ({
