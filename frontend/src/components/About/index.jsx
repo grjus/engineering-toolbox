@@ -5,6 +5,10 @@ import Mission from './Mission';
 import SSOT from './SSOT';
 
 const About = () => (
+  /**
+ * About section
+ *
+ */
   <>
     <GeneralCard>
       <Mission />

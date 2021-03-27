@@ -2,6 +2,9 @@ import React from 'react';
 import Section from './Section';
 
 const SSOT = () => (
+  /**
+   * SSOT about section
+   */
   <Section title="Single Source of Truth">
     You may ask, why do I need a webapp. My spreadsheets works just fine. You are right.
     There is nothing wrong in using a spreadsheet, however there are some downsides.

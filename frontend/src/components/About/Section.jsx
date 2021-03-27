@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import { Container, Title, Description } from './style';
 
 const Section = ({ title, children }) => (
+  /**
+ * Section component
+ *
+ * @param {string} title
+ * @param {React.element} children
+ */
   <Container>
     <Title>
       {title}
