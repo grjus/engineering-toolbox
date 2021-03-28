@@ -5,7 +5,7 @@ https://eng-tool.herokuapp.com/docs
 # Deployed version
 https://eng-tool.herokuapp.com
 
-#Local deploymnent
+#Local deploymnent. Will change. Working on docker env
 1. Go to api folder
 2. Create and activate python env
 3. Run 'pip install -r requirements.txt'
