@@ -1,6 +1,5 @@
 from typing import List, Union
 from pydantic import BaseModel, validator
-from pydantic.networks import validate_email
 from src.fatigue.modFactors import ModificationFactors
 from src.fatigue.fatigue import FatigueTheory
 import re

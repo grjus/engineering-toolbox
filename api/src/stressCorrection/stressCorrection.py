@@ -1,7 +1,5 @@
 from scipy.optimize import brenth as brent
-import random as rnd
 from scipy.integrate import quad as sci_int
-import numpy as np
 
 class RambergOsgood:
     def __init__(self,youngs_modulus,yield_strength,osgood_exp,linear_stress):
