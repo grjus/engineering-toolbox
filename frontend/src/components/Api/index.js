@@ -6,7 +6,7 @@ const fastApi = axios.create({
    * Need to update for production release
    * Issues with CORS during heroku deployment
    */
-  baseURL: 'http://localhost:8000/',
+  baseURL: 'http://localhost:8080/',
   timeout: 5000,
   headers: {
     'Access-Control-Allow-Origin': '*',
