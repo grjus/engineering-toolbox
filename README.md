@@ -1,16 +1,27 @@
-# engineering-toolbox
-Web platform for engineering calculations
-# API doc
-https://eng-tool.herokuapp.com/docs
-# Deployed version
-https://eng-tool.herokuapp.com
+# Engineering Toolbox
+Web platform for engineering calculations.
+The main motivation of EngineeringToolbox initiative is to provide easy to use
+engineering tools which can be utilized in various projects.
+All tools are equipped with user with intuitive, user friendly interface which
+guides the user along all analysis steps.  Basic mechanical engineering knowledge is required.
 
-#Local deploymnent. Will change. Working on docker env
-1. Go to api folder
-2. Create and activate python env
-3. Run 'pip install -r requirements.txt'
-4. Run python main.py
-5. Go to /frontend folder
-6. npm install
-7. npm start
+[Visit EngineeringToolbox](https://eng-tool.herokuapp.com)
+
+## API doc
+https://eng-tool.herokuapp.com/docs
+
+
+
+## Stack
+* UI: React JS
+* API: FastApi
+
+
+
+### Local deployment
+
+1. Install Docker
+2. Open terminal in project directory and type `docker-compose up -d`
+3. http://localhost:3000/#/
+
 
