@@ -11,23 +11,39 @@ export const theme = {
   linkColor: 'rgba(0,0,0,0.8)',
 };
 
-export const Bar = styled.div`
-margin:0px;
-left:0px;
-right:0px;
+export const LogoBox = styled.div`
+white-space:nowrap;
+margin:auto 0;
+height:100%;
+padding-inline-start:1em;
+`;
+
+export const Bar = styled.header`
+background-color:rgba(240,240,240,0.99);
 display:flex;
-justify-content:space-around;
-background-color:${(props) => props.theme.topBarColor};
-padding:${(props) => props.theme.topBarPadding};
+justify-content:flex-start;
+position:fixed;
+z-index:99;
+width:100%;
+padding:0.8rem;
 `;
 
 export const Anchor = styled(NavLink)`
 text-decoration:none;
 color:${(props) => props.theme.linkColor};
-letter-spacing:0.5px;
-font-size:18px;
-padding:0 10px 0 10px;
-&.active{
-    
+font-size:1.1rem;
+opacity:1;
+
+@media(max-width:800px){
+  /* display:none; */
+  /* line-height:1.1rem; */
+  opacity:0;
 }
+`;
+
+export const NavLinkUl = styled.ul`
+flex-basis:80%;
+display:flex;
+justify-content:space-around;
+width:100%;
 `;

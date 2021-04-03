@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import LogoAssm from './Logo';
 import {
   Bar, Anchor,
-  theme,
+  theme, NavLinkUl, LogoBox,
 } from './style';
 
 import { TopBarItems } from './config';
@@ -23,23 +23,28 @@ const TopBar = () => {
   };
   return (
     <ThemeProvider theme={theme}>
-      <Bar>
-        <Menu onClick={showMenu} innerRef={menuRef} style={{ cursor: 'pointer' }} />
-        <LogoAssm rotate />
-        {TopBarItems.map((item) => (
-          <Anchor
-            key={item.key}
-            activeClassName={Anchor.active}
-            replace
-            exact
-            to={item.link}
-          >
-            {item.name}
+      <nav>
+        <Bar>
+          <Menu onClick={showMenu} innerRef={menuRef} style={{ cursor: 'pointer', heigth: '100%', margin: 'auto 0' }} />
+          <LogoBox>
+            <LogoAssm rotate />
+          </LogoBox>
+          <NavLinkUl>
+            {TopBarItems.map((item) => (
+              <Anchor
+                key={item.key}
+                activeClassName={Anchor.active}
+                replace
+                exact
+                to={item.link}
+              >
+                {item.name}
 
-          </Anchor>
-        ))}
-
-      </Bar>
+              </Anchor>
+            ))}
+          </NavLinkUl>
+        </Bar>
+      </nav>
     </ThemeProvider>
   );
 };
