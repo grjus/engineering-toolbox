@@ -11,7 +11,7 @@ export const theme = {
 };
 
 const GlobalStyle = createGlobalStyle`
-*{
+*,*::before, *::after{
   box-sizing:border-box;
 }
   body {
@@ -29,14 +29,19 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export const Container = styled.div`
+box-sizing:border-box;
+width:70vw;
+@media(max-width:60em){
+  width:100vw;
+}
 display:block;
 background-color:${(props) => (props.noBackColor ? theme.mainLayoutColor : 'whitesmoke')};
-position:relative;
-top:40px;
+position:absolute;
+top:5rem;
 bottom:0;
 left:0;
 right:0;
-margin:auto;
+margin:0 auto;
 transition:height 0.5s ease-in;
 ${({ hidden }) => hidden && `
 height:300px;
