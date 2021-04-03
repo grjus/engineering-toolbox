@@ -1,7 +1,7 @@
 import React from 'react';
 import { titleCardDescription, smallCardItems } from './config';
 import {
-  MainCardContainer, Content, Description, Image, Title, SmallCardContainer, SmallCard,
+  MainCardContainer, Content, Description, Image, Title, SmallCardContainer, SmallCard, AppImage,
 } from './style';
 import mainImage from './img/main.png';
 
@@ -20,7 +20,7 @@ const MainCard = () => (
       {smallCardItems.map((item) => (
         <SmallCard key={item.title} disabled={item.disabled} exact to={item.path}>
           <Content>
-            <Image small src={item.image} />
+            <AppImage src={item.image} />
             <Description small>
               <Title small>{item.title}</Title>
               {item.description}
