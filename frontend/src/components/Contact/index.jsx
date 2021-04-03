@@ -4,11 +4,10 @@ import Card from '../ToolboxComponents/Card';
 import { FormContent, ButtonContainer, ErrorMessage } from '../ToolboxComponents/Card/style';
 import CustomButton from '../ToolboxComponents/Button/Button';
 import { TextBox } from '../ToolboxComponents/TextBox';
-import { Container } from '../../style';
 import { initialState, actionType, dataSubmitReducer } from '../Reducers/index';
 import fastApi from '../Api/index';
 import {
-  ConfirmMessage, Description, Error, Header,
+  ConfirmMessage, Description, Error, FormContainer, Header,
 } from './style';
 import CustomSpinner from '../ToolboxComponents/Spinner';
 import { FadeContainer } from '../ToolboxComponents/FadeContainer/FadeContainer';
@@ -52,7 +51,7 @@ function Contact() {
 
   return (
     <FadeContainer timeout={500} condition>
-      <Container>
+      <FormContainer>
         <Card>
           <FormContent>
 
@@ -64,9 +63,7 @@ function Contact() {
               <span style={{ fontWeight: 'bold' }}>Enginnering Tool</span>
               {' '}
               ?
-              <br />
               Please use this contact form to reach us.
-              <br />
               {/* <Error>Yes, I am aware that this form should have reCAPTCHA. I a working on it</Error> */}
               <Error />
             </Description>
@@ -89,7 +86,7 @@ function Contact() {
               label="Your email adress"
               error={errors.email}
               fieldType="text"
-              width="400px"
+              width="60%"
               disabled={state.isRunning}
             />
           </FormContent>
@@ -109,7 +106,7 @@ function Contact() {
               label="Subject"
               error={errors.subject}
               fieldType="text"
-              width="400px"
+              width="60%"
               disabled={state.isRunning}
             />
           </FormContent>
@@ -130,7 +127,7 @@ function Contact() {
               error={errors.message}
               multiline
               fieldType="text"
-              width="800px"
+              width="100%"
               disabled={state.isRunning}
             />
 
@@ -149,7 +146,7 @@ function Contact() {
           </ButtonContainer>
 
         </Card>
-      </Container>
+      </FormContainer>
     </FadeContainer>
   );
 }

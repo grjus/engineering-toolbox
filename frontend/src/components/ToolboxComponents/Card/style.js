@@ -18,7 +18,7 @@ color:rgba(0,0,0,0.6);
 `;
 
 export const FormContent = styled.div`
-padding:5px 0px 0px 10px;
+padding:0.5em 0 0 0.8em;
 display:block;
 ${({ flex }) => flex && `
 display:flex;
