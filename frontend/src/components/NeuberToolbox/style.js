@@ -6,10 +6,23 @@ export const FormContent = styled.div`
 padding:10px 0px 10px 10px;
 width:100%;
 display:block;
+@media(min-width:60em){
 ${({ flex }) => flex && `
 display:flex;
 justify-content:space-around;
 `}
+}
+
+`;
+
+export const FormRow = styled.div`
+display:flex;
+justify-content:flex-start;
+padding:0;
+width:100%;
+&>*{
+    margin:0 1.5em 0 0;
+}
 `;
 
 export const OpacityBlock = styled.div`
