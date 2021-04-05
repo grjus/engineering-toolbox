@@ -16,6 +16,7 @@ white-space:nowrap;
 margin:auto 0;
 height:100%;
 padding-inline-start:1em;
+
 `;
 
 export const Bar = styled.header`
@@ -26,6 +27,7 @@ position:fixed;
 z-index:99;
 width:100%;
 padding:0.8rem;
+min-height:6em;
 `;
 
 export const Anchor = styled(NavLink)`
@@ -34,10 +36,10 @@ color:${(props) => props.theme.linkColor};
 font-size:1.1rem;
 opacity:1;
 
-@media(max-width:800px){
-  /* display:none; */
-  /* line-height:1.1rem; */
+@media(max-width:80em){
   opacity:0;
+  line-height:1.1rem;
+  white-space:nowrap;
 }
 `;
 
@@ -46,4 +48,6 @@ flex-basis:80%;
 display:flex;
 justify-content:space-around;
 width:100%;
+height:100%;
+margin: auto 0;
 `;
