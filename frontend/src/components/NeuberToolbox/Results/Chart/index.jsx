@@ -101,7 +101,7 @@ export const NeuberChart = ({ results }) => {
     <FadeContainer condition={!results.isInit} timeout={1000}>
       <>
         <DetailsHeader onClick={() => setExpand((prev) => !prev)} expand={expand} label="Stress strain data " />
-        <StyledContainer hidden={!expand} height="35rem">
+        <StyledContainer hidden={!expand} height="55rem">
           <ChartTemplate chartOptions={chartOptions} handleChart={setChart} chartRef={chartRef} chartStyle={chartStyle} />
         </StyledContainer>
 
