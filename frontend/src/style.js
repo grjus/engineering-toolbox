@@ -29,16 +29,19 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export const Container = styled.div`
+display: block;
 box-sizing:border-box;
 width:70vw;
-@media(max-width:60em){
+overflow:auto;
+min-width:500px;
+@media(max-width:80em){
   width:100vw;
 }
 display:block;
 background-color:${(props) => (props.noBackColor ? theme.mainLayoutColor : 'whitesmoke')};
 position:absolute;
 top:5rem;
-bottom:0;
+bottom:1em;
 left:0;
 right:0;
 margin:0 auto;
